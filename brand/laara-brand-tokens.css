@@ -1,0 +1,350 @@
+/* ============================================================
+   Laara Digital — Brand Design Tokens
+   Version 3.0 — August 2026
+   Companion to LAARA_Digital_Brand_Guidelines_v3.md
+
+   ACCESSIBILITY WARNING — READ BEFORE CHANGING COLOURS
+   Brand green (--laara-green) FAILS WCAG contrast against
+   white and paper (2.62:1). It is safe ONLY as a background
+   behind ink text, or as text on ink.
+     - Green button  -> ink text     7.20:1  PASS AAA
+     - Green text    -> on ink only  7.20:1  PASS AAA
+     - Green text on white/paper     2.62:1  FAIL - use --laara-green-text
+   The accessible pairings are encoded in the semantic tokens
+   below. Prefer those over the raw palette values.
+   ============================================================ */
+
+:root {
+  /* ---------- Brand palette ---------- */
+  --laara-ink:              #101114;   /* primary: wordmark, headlines, body */
+  --laara-green:            #12B76A;   /* accent: dot, buttons, highlights */
+  --laara-paper:            #FAFAF9;   /* primary light background */
+  --laara-white:            #FFFFFF;
+
+  /* Green states + accessible text variants.
+     NOTE: green darkens TOWARD ink, so darker button states REDUCE
+     contrast with ink text. #0E8E52 is the floor — any darker and
+     ink text drops below 4.5:1. Do not darken these further. */
+  --laara-green-hover:      #0FA05D;   /* button hover  — ink 5.58:1 AA */
+  --laara-green-active:     #0E9455;   /* button pressed — ink 4.84:1 AA */
+  --laara-green-text:       #0D844D;   /* green TEXT on light bg — 4.75:1 AA  */
+  --laara-green-deep:       #0A633A;   /* green TEXT, AAA — 7.35:1            */
+
+  /* ---------- Functional neutrals ---------- */
+  --laara-text-grey:        #6E747D;   /* secondary text — 4.71:1 on white, AA */
+  --laara-muted-grey:       #8A8F98;   /* 3.25:1 — LARGE TEXT / non-text only  */
+  --laara-border:           #E4E4E1;
+  --laara-surface:          #F3F3F1;
+  --laara-on-dark-muted:    rgba(250, 250, 249, 0.70);
+  --laara-on-dark-subtle:   rgba(250, 250, 249, 0.55);
+
+  /* ---------- Semantic tokens (prefer these) ---------- */
+  --laara-bg:               var(--laara-paper);
+  --laara-bg-alt:           var(--laara-white);
+  --laara-bg-inverse:       var(--laara-ink);
+
+  --laara-text:             var(--laara-ink);        /* 18.08:1 on paper */
+  --laara-text-secondary:   var(--laara-text-grey);  /*  4.71:1 on white */
+  --laara-text-inverse:     var(--laara-paper);      /* 18.08:1 on ink   */
+  --laara-link:             var(--laara-green-text); /*  4.75:1 on white */
+  --laara-link-on-dark:     var(--laara-green);      /*  7.20:1 on ink   */
+
+  --laara-accent:           var(--laara-green);
+  --laara-on-accent:        var(--laara-ink);        /* 7.20:1 — NEVER white */
+
+  --laara-focus-ring:       var(--laara-ink);
+  --laara-focus-ring-dark:  var(--laara-green);
+
+  /* ---------- Typography ---------- */
+  --laara-font:             'Lato', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* Archivo Black is LOGO ARTWORK ONLY — do not load or use as web type */
+
+  --laara-fw-regular:       400;
+  --laara-fw-semibold:      600;
+  --laara-fw-bold:          700;
+  --laara-fw-black:         900;
+
+  /* Fluid type scale (min at 360px, max at 1280px) */
+  --laara-fs-display:       clamp(2.5rem,  1.40rem + 4.9vw, 5rem);      /* 40 -> 80 */
+  --laara-fs-h1:            clamp(2.125rem, 1.45rem + 3.0vw, 3.5rem);   /* 34 -> 56 */
+  --laara-fs-h2:            clamp(1.75rem, 1.40rem + 1.5vw, 2.625rem);  /* 28 -> 42 */
+  --laara-fs-h3:            clamp(1.375rem, 1.25rem + 0.5vw, 1.75rem);  /* 22 -> 28 */
+  --laara-fs-body-lg:       clamp(1.0625rem, 1.02rem + 0.2vw, 1.25rem); /* 17 -> 20 */
+  --laara-fs-body:          1rem;                                        /* 16 min  */
+  --laara-fs-small:         0.875rem;                                    /* 14      */
+
+  --laara-lh-display:       1.02;
+  --laara-lh-heading:       1.15;
+  --laara-lh-body:          1.6;
+  --laara-lh-tight:         1.25;
+
+  --laara-measure:          68ch;   /* max paragraph width */
+
+  /* ---------- Spacing scale ---------- */
+  --laara-space-1:          0.25rem;   /*   4px */
+  --laara-space-2:          0.5rem;    /*   8px */
+  --laara-space-3:          0.75rem;   /*  12px */
+  --laara-space-4:          1rem;      /*  16px */
+  --laara-space-6:          1.5rem;    /*  24px */
+  --laara-space-8:          2rem;      /*  32px */
+  --laara-space-12:         3rem;      /*  48px */
+  --laara-space-16:         4rem;      /*  64px */
+  --laara-space-24:         6rem;      /*  96px */
+  --laara-space-32:         8rem;      /* 128px */
+
+  --laara-section-y:        clamp(3.5rem, 2.2rem + 5.5vw, 7.5rem);
+  --laara-page-x:           clamp(1.5rem, 0.9rem + 2.6vw, 5rem);
+
+  /* ---------- Layout ---------- */
+  --laara-content-max:      1280px;
+  --laara-header-h:         64px;
+  --laara-header-h-desktop: 72px;
+
+  /* ---------- Radius ---------- */
+  --laara-radius-sm:        4px;
+  --laara-radius:           8px;    /* buttons, inputs */
+  --laara-radius-card:      10px;
+  --laara-radius-lg:        16px;   /* feature cards */
+
+  /* ---------- Elevation ---------- */
+  --laara-shadow-sm:        0 1px 2px rgba(16, 17, 20, 0.06);
+  --laara-shadow:           0 4px 16px rgba(16, 17, 20, 0.08);
+  --laara-shadow-lg:        0 12px 32px rgba(16, 17, 20, 0.12);
+
+  /* ---------- Motion ---------- */
+  --laara-dur-micro:        180ms;
+  --laara-dur-reveal:       280ms;
+  --laara-dur-section:      500ms;
+  --laara-ease-out:         cubic-bezier(0.16, 1, 0.3, 1);
+  --laara-ease-in-out:      cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ---------- Controls ---------- */
+  --laara-control-h:        48px;   /* min button / input height */
+  --laara-touch-min:        44px;   /* WCAG 2.2 target size */
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+body {
+  font-family: var(--laara-font);
+  font-weight: var(--laara-fw-regular);
+  font-size: var(--laara-fs-body);
+  line-height: var(--laara-lh-body);
+  color: var(--laara-text);
+  background: var(--laara-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { line-height: var(--laara-lh-heading); text-wrap: balance; }
+h1 { font-size: var(--laara-fs-h1); font-weight: var(--laara-fw-black); }
+h2 { font-size: var(--laara-fs-h2); font-weight: var(--laara-fw-bold); }
+h3 { font-size: var(--laara-fs-h3); font-weight: var(--laara-fw-bold); }
+
+.laara-display {
+  font-size: var(--laara-fs-display);
+  font-weight: var(--laara-fw-black);
+  line-height: var(--laara-lh-display);
+}
+
+p { max-width: var(--laara-measure); }
+
+a { color: var(--laara-link); text-underline-offset: 0.2em; }
+a:hover { text-decoration: underline; }
+
+/* Visible focus everywhere — WCAG 2.2 */
+:focus-visible {
+  outline: 3px solid var(--laara-focus-ring);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+
+.laara-container {
+  width: 100%;
+  max-width: var(--laara-content-max);
+  margin-inline: auto;
+  padding-inline: var(--laara-page-x);
+}
+
+.laara-section { padding-block: var(--laara-section-y); }
+
+.laara-header {
+  min-height: var(--laara-header-h);
+  display: flex;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .laara-header { min-height: var(--laara-header-h-desktop); }
+}
+
+/* ============================================================
+   LOGO
+   Header uses the COMPACT mark (laara. only) — Tier 2.
+   The primary lockup with DIGITAL needs 200px+ to stay legible.
+   ============================================================ */
+
+.laara-logo {
+  width: clamp(110px, 12vw, 150px);
+  height: auto;
+  max-height: 40px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Only use this where the rendered width is genuinely 200px+ */
+.laara-logo--primary {
+  width: clamp(200px, 22vw, 320px);
+  max-height: none;
+}
+
+/* ============================================================
+   BUTTONS
+   Green background ALWAYS takes ink text. White on green is
+   2.62:1 and fails WCAG AA. This is the most common mistake.
+   ============================================================ */
+
+.laara-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--laara-control-h);
+  padding: 0 var(--laara-space-6);
+  border-radius: var(--laara-radius);
+  font-family: var(--laara-font);
+  font-size: 1.0625rem;
+  font-weight: var(--laara-fw-bold);
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: background var(--laara-dur-micro) var(--laara-ease-in-out),
+              color var(--laara-dur-micro) var(--laara-ease-in-out);
+}
+
+.laara-btn--primary {
+  background: var(--laara-accent);
+  color: var(--laara-on-accent);   /* ink — 7.20:1 */
+}
+.laara-btn--primary:hover  { background: var(--laara-green-hover); }
+.laara-btn--primary:active { background: var(--laara-green-active); }
+
+.laara-btn--secondary {
+  background: transparent;
+  color: var(--laara-ink);
+  border-color: var(--laara-ink);
+}
+.laara-btn--secondary:hover { background: var(--laara-ink); color: var(--laara-paper); }
+
+/* On an ink background, the primary button is unchanged —
+   green + ink text works on both light and dark surfaces. */
+.laara-inverse .laara-btn--secondary {
+  color: var(--laara-paper);
+  border-color: var(--laara-paper);
+}
+.laara-inverse .laara-btn--secondary:hover {
+  background: var(--laara-paper);
+  color: var(--laara-ink);
+}
+.laara-inverse :focus-visible { outline-color: var(--laara-focus-ring-dark); }
+
+/* ============================================================
+   SURFACES
+   ============================================================ */
+
+.laara-inverse {
+  background: var(--laara-bg-inverse);
+  color: var(--laara-text-inverse);
+}
+.laara-inverse a { color: var(--laara-link-on-dark); }   /* 7.20:1 on ink */
+.laara-inverse .laara-text-secondary { color: var(--laara-on-dark-muted); }
+
+.laara-card {
+  background: var(--laara-white);
+  border: 1.5px solid var(--laara-border);
+  border-radius: var(--laara-radius-card);
+  padding: var(--laara-space-8);
+}
+
+.laara-text-secondary { color: var(--laara-text-secondary); }
+
+/* Muted grey is 3.25:1 — large text only. Never body copy. */
+.laara-label {
+  color: var(--laara-muted-grey);
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   FORMS
+   ============================================================ */
+
+.laara-input {
+  min-height: var(--laara-control-h);
+  width: 100%;
+  padding: var(--laara-space-3) var(--laara-space-4);
+  font-family: var(--laara-font);
+  font-size: var(--laara-fs-body);   /* 16px — prevents iOS zoom on focus */
+  color: var(--laara-text);
+  background: var(--laara-white);
+  border: 1.5px solid var(--laara-border);
+  border-radius: var(--laara-radius);
+}
+.laara-input:focus-visible { border-color: var(--laara-ink); }
+
+.laara-field-label {
+  display: block;
+  margin-bottom: var(--laara-space-2);
+  font-weight: var(--laara-fw-semibold);
+  color: var(--laara-text);
+}
+
+/* ============================================================
+   BRAND MOTIF — the dot
+   The green full stop, reused as a bullet / marker.
+   Decorative: hidden from assistive tech.
+   ============================================================ */
+
+.laara-dot {
+  display: inline-block;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 0.11em;   /* matches the logo dot's 22% radius */
+  background: var(--laara-accent);
+  vertical-align: baseline;
+}
+
+.laara-list { list-style: none; padding-left: 0; }
+.laara-list li {
+  position: relative;
+  padding-left: var(--laara-space-6);
+  margin-bottom: var(--laara-space-3);
+}
+.laara-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 1.5px;
+  background: var(--laara-accent);
+}
+
+/* ============================================================
+   MOTION PREFERENCES
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
