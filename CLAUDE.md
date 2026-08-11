@@ -6,12 +6,15 @@ Audience: small UK business owners — plumbers, barbers, salon and restaurant o
 
 For what's being built right now — phases, page order, image rules — read `docs/BUILD-PROMPT.md`.
 
+**The full brand guidelines doc is paused as a build reference — it isn't even in this repo right now, and that's deliberate.** Cuneyt is revising it, and building strictly to it produced an accurate but generic v1 homepage: flat white cards, no bold type scale, no dark sections, nothing that looked like an agency worth hiring for its own design taste. Don't go looking for it or rebuild it from memory. The parts of it that are non-negotiable regardless of any future revision — colour, contrast, type scale, spacing, motion timing, logo rules — are already encoded in `brand/laara-brand-tokens.css`. Build from that file. For look and feel, `Insparation/` is the primary reference now.
+
 ---
 
 ## Sources of truth — never invent these
 
 | Topic | File |
 |---|---|
+| **Design system — the hard constraints.** Colours, contrast pairings, type scale, spacing, motion timing, ready-made `.laara-btn`/`.laara-card`/`.laara-input` components | `brand/laara-brand-tokens.css` / `.json` |
 | **Every price on the site** | `docs/pricing.md` |
 | Page structure, nav, slugs | `docs/sitemap.md` |
 | What each service page covers | `docs/services.md` |
@@ -22,7 +25,7 @@ For what's being built right now — phases, page order, image rules — read `d
 
 These are synced copies. The master lives in Cuneyt's Agency Launch folder — flag drift rather than editing a price here.
 
-`Insparation/` holds screenshots of marino.co.uk and cbwebsitedesign.co.uk. **Feel and motion reference only — never clone layouts, colours or type.** Their `Matter-TRIAL` font is unlicensed.
+**`Insparation/` is the primary visual and structural reference right now** — screenshots of marino.co.uk and cbwebsitedesign.co.uk, plus captured style notes in `Insparation/marino/Marino Styles.md` and `Insparation/cbwebsitedesign/Creative.md`. Study these closely and get much closer to them than v1 did: bold oversized type, alternating dark/light full-bleed sections, editorial work-grid cards with overlay tags, asymmetric layout. **Borrow structure and motion concepts only — never clone their layouts, colours, fonts or copy verbatim.** cbwebsitedesign's `Matter-TRIAL` font is an unlicensed trial font — not usable even as a close match. Laara's typeface stays Lato regardless of what's borrowed structurally.
 
 ---
 
@@ -84,8 +87,8 @@ There are currently no testimonials, no Google reviews and no measured results. 
 
 ## Build defaults
 
-- **Multi-page static site.** One HTML file per route in `docs/sitemap.md`, sharing one linked stylesheet. Do not inline styles per page.
-- **Plain CSS.** Don't add Tailwind via CDN — it compiles in-browser, which is a large JS payload and a flash of unstyled content on exactly the mid-range phones this audience uses. If Tailwind is ever wanted, it needs a real build step.
+- **Multi-page static site.** One HTML file per route in `docs/sitemap.md`, sharing one linked stylesheet built on `brand/laara-brand-tokens.css`. Do not inline styles per page.
+- **Plain CSS on the token system.** Don't add Tailwind via CDN — it compiles in-browser, which is a large JS payload and a flash of unstyled content on exactly the mid-range phones this audience uses. If Tailwind is ever wanted, it needs a real build step.
 - Mobile-first. Never hardcode a one-off hex, size or timing that should be a shared variable.
 - Placeholder images: `https://placehold.co/WIDTHxHEIGHT`, only where no real asset exists.
 
@@ -105,11 +108,11 @@ Required `<head>` on every page:
 
 ## Design guardrails
 
-- **Colours:** use the palette in Brand facts only. No default Tailwind palette (indigo-500, blue-600).
-- **Typography:** Lato throughout — weight, size and tracking carry the hierarchy, not a second family. Tight tracking on large headings, `line-height: 1.7` on body.
-- **Shadows:** layered, ink-tinted, low opacity — never flat `shadow-md`.
-- **Depth:** base → elevated → floating. Surfaces shouldn't all sit at one z-plane.
-- **Animations:** `transform` and `opacity` only. No `transition-all`.
+- **Colours:** derive from the token palette only. No default Tailwind palette (indigo-500, blue-600).
+- **Typography:** Lato throughout — weight, size and tracking carry the hierarchy, not a second family. Use the full type scale in the tokens, including `--laara-fs-display` — v1 never used it and every heading ended up the same size. Tight tracking on large headings, `line-height: 1.7` on body.
+- **Shadows:** layered, ink-tinted, low opacity — use `--laara-shadow-*`, never flat `shadow-md`.
+- **Depth:** base → elevated → floating. Surfaces shouldn't all sit at one z-plane. v1 put almost everything on the same paper-white plane — mix in `--laara-bg-inverse` (ink) sections.
+- **Animations:** `transform` and `opacity` only. No `transition-all`. Timings and easing from `--laara-dur-*` / `--laara-ease-*`.
 - **Interactive states:** every clickable element needs hover, focus-visible and active. Every hover effect needs a tap-state equivalent — most traffic is touch.
 - **Scroll reveals:** `IntersectionObserver` on opacity + translateY. Never trigger on page load.
 - **Reduced motion:** every animation needs a `prefers-reduced-motion: reduce` path — implement it explicitly per animation, don't rely on a shared fallback.

@@ -20,13 +20,31 @@ One thing to clear out on the first pass: **`index.html` at the repo root is a l
 
 ---
 
+## Homepage v2 — redo, closer to Insparation
+
+A first version of the homepage exists (`index.html`, `assets/css/style.css`, `assets/js/main.js`, checked into git as a checkpoint commit — diff against it if you want to see exactly what's changing). It's accurate — right colours, right copy, right prices — but generic: every section is a centred stack of white/paper cards on the same background plane, the hero headline uses the default h1 size instead of the display scale, the work section is plain cards with a link underneath instead of image-led, and the trust strip is a static 6-icon grid. It reads like a template, not like an agency selling its own design taste.
+
+**Rebuild it.** Keep the content — copy, prices, portfolio facts, sector list are all still correct and sourced from `docs/services.md`, `docs/pricing.md` and `docs/portfolio.md`. Redo the visual and structural execution to sit much closer to `Insparation/marino/marino.png` and `Insparation/cbwebsitedesign/cbwebsitedesign.png`.
+
+Specifically, borrow from Insparation:
+
+- **Alternating light/dark full-bleed sections.** v1 puts almost everything on paper/white. Use `--laara-bg-inverse` for at least one section — a process break or a stat section works well, both reference sites do this.
+- **Oversized display typography.** Use `--laara-fs-display` for the hero headline and section breaks instead of defaulting to h1/h2 sizes everywhere. Marino's hero headline dominates the fold; v1's doesn't.
+- **An editorial work grid.** Each portfolio card gets a strong image with a dark gradient overlay and small pill/tag labels (sector, service type) sitting over the image — not a white card with a caption underneath. `node screenshot.mjs <url>` against the sites in `docs/portfolio.md` for the source images.
+- **A moving trust strip.** Sectors served as a slow marquee (already scoped as medium-priority in `docs/laara-design-animation-brief.md`), not a static icon grid.
+- **Confident asymmetry.** Image and text side-by-side or offset in places, not everything centred and uniformly stacked.
+
+What doesn't change: the brand tokens (colour, contrast pairings, Lato, logo files), the pricing figures, the service names, the honest-proof numbers below, accessibility floors, and the four priority animations — `main.js` already implements scroll reveals, animated counters and the smart sticky header reasonably well; keep that logic and build the new visual design on top of it rather than starting the JS from scratch. Card/button hover-lift micro-interactions weren't clearly present in v1 — add those this pass.
+
+---
+
 ## Build order
 
 Don't build all 10 pages at once. Get the homepage right, then templatise.
 
-**Phase 1 — Home + Contact.** The conversion core. Nothing else matters if this doesn't work on a phone.
+**Phase 1 — Home + Contact.** The conversion core. Nothing else matters if this doesn't work on a phone. This is the v2 redo above.
 
-Homepage section order is fixed by guidelines §17:
+Section order (this part of v1 was already right, keep it):
 
 1. Hero — the promise, one sentence, primary CTA, trust line
 2. Trust strip — sectors served
@@ -41,7 +59,7 @@ Homepage section order is fixed by guidelines §17:
 
 **Phase 3 — Work + About.** Build Work from `docs/portfolio.md`. About needs Cuneyt's real photo and story — leave a clearly-marked placeholder if it isn't supplied yet.
 
-**Phase 4 — Sector pages.** Footer-linked, not in the header nav. Highest-return SEO play per §19, but only after the core site is live.
+**Phase 4 — Sector pages.** Footer-linked, not in the header nav (see `docs/sitemap.md`). Highest-return SEO play for this business, but only after the core site is live.
 
 ---
 
@@ -96,7 +114,7 @@ Prompt in the brand palette (ink `#101114`, green `#12B76A`, paper `#FAFAF9`), r
 
 | Asset | Use instead |
 |---|---|
-| Cuneyt's founder photo | A real photograph. §16 lists "real photo of the founder" as a core trust element — an AI face is the fastest way to lose exactly the trust this site is built to earn. |
+| Cuneyt's founder photo | A real photograph. A real photo of the founder is a core trust element for this audience — an AI face is the fastest way to lose exactly the trust this site is built to earn. |
 | Portfolio thumbnails | `node screenshot.mjs <live-url>` against the 6 URLs in `docs/portfolio.md` |
 | Any face presented as a client, customer or reviewer | Nothing. Don't create these. |
 | Logo, icons, favicons, OG image | `brand_assets/00_Upload_Ready/` — already produced |
