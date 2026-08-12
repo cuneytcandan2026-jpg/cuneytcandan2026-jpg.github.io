@@ -4,9 +4,9 @@ Frontend repo for the Laara Digital agency website. Founder: Cuneyt Candan, Lond
 
 Audience: small UK business owners — plumbers, barbers, salon and restaurant owners. Older-skewing, mostly on a phone, often burned before by a bad web quote. Every rule below exists to serve that person.
 
-For what's being built right now — phases, page order, image rules — read `docs/BUILD-PROMPT.md`.
+**The site is built out across the full sitemap** — Home, About, Contact, Pricing, Work, 5 service pages, 6 sector pages, plus `robots.txt` and `sitemap.xml`. See "Site structure & key systems" below. `docs/BUILD-PROMPT.md` is the original phased build brief (page order, the v1→v2 homepage redo, image-generation rules, the honest-proof number list) — phases 1–4 are done, so treat it as build history and standing rules (image sourcing, honest-proof numbers) rather than a live task list. It still tracks two open decisions worth checking before assuming: the founder photo (still a placeholder on About) and hosting. The contact-form-backend decision it also lists is resolved — Web3Forms, wired up in `assets/js/contact-wizard.js`.
 
-**The full brand guidelines doc is paused as a build reference — it isn't even in this repo right now, and that's deliberate.** Cuneyt is revising it, and building strictly to it produced an accurate but generic v1 homepage: flat white cards, no bold type scale, no dark sections, nothing that looked like an agency worth hiring for its own design taste. Don't go looking for it or rebuild it from memory. The parts of it that are non-negotiable regardless of any future revision — colour, contrast, type scale, spacing, motion timing, logo rules — are already encoded in `brand/laara-brand-tokens.css`. Build from that file. For look and feel, `Insparation/` is the primary reference now.
+**The full brand guidelines doc is paused as a build reference — it isn't even in this repo right now, and that's deliberate.** Cuneyt is revising it, and building strictly to it produced an accurate but generic v1 homepage: flat white cards, no bold type scale, no dark sections, nothing that looked like an agency worth hiring for its own design taste. Don't go looking for it or rebuild it from memory. The parts of it that are non-negotiable regardless of any future revision — colour, contrast, type scale, spacing, motion timing, logo rules — are already encoded in `brand/laara-brand-tokens.css`. Build from that file. For look and feel, `Insparation/` is the primary reference.
 
 ---
 
@@ -25,7 +25,27 @@ For what's being built right now — phases, page order, image rules — read `d
 
 These are synced copies. The master lives in Cuneyt's Agency Launch folder — flag drift rather than editing a price here.
 
-**`Insparation/` is the primary visual and structural reference right now** — screenshots of marino.co.uk and cbwebsitedesign.co.uk, plus captured style notes in `Insparation/marino/Marino Styles.md` and `Insparation/cbwebsitedesign/Creative.md`. Study these closely and get much closer to them than v1 did: bold oversized type, alternating dark/light full-bleed sections, editorial work-grid cards with overlay tags, asymmetric layout. **Borrow structure and motion concepts only — never clone their layouts, colours, fonts or copy verbatim.** cbwebsitedesign's `Matter-TRIAL` font is an unlicensed trial font — not usable even as a close match. Laara's typeface stays Lato regardless of what's borrowed structurally.
+**`Insparation/` is the primary visual and structural reference** — screenshots of marino.co.uk and cbwebsitedesign.co.uk, plus captured style notes in `Insparation/marino/Marino Styles.md` and `Insparation/cbwebsitedesign/Creative.md`. Study these closely: bold oversized type, alternating dark/light full-bleed sections, editorial work-grid cards with overlay tags, asymmetric layout. **Borrow structure and motion concepts only — never clone their layouts, colours, fonts or copy verbatim.** cbwebsitedesign's `Matter-TRIAL` font is an unlicensed trial font — not usable even as a close match. Laara's typeface stays Lato regardless of what's borrowed structurally.
+
+The `.mp4` clips at the repo root (`Cards.mp4`, `Cards2.mp4`, `Section Headers.mp4`, `ContactUsForm.mp4`, `Be Creative.mp4`) are Cuneyt's own motion/interaction reference recordings — same role as `Insparation/` but for animation rather than layout. They're untracked and large (several MB up to 25MB) — don't sweep them into a commit with `git add -A`/`.`; add other files by name instead.
+
+---
+
+## Site structure & key systems
+
+Full sitemap (`docs/sitemap.md` §6) — every route below is built and must stay listed in `sitemap.xml` and reachable per `robots.txt` when it changes:
+
+- Home (`index.html`), About, Contact, Pricing, Work
+- Services dropdown: `services/website-design.html`, `local-seo.html`, `booking-systems.html`, `care-plans.html`, `growth-ads.html`
+- Sector pages, footer-only (not in header nav): `sectors/trades.html`, `hair-beauty.html`, `food.html`, `cleaning-removals.html`, `fitness.html`, `garages-mot.html`
+
+Three custom JS systems carry real logic — read them before editing:
+
+- **`assets/js/fluid-hero.js`** — WebGL hero background built on the MIT-licensed Pavel Dobryakov fluid sim (attribution comment at the top of the file — keep it). Falls back to a static CSS background on `prefers-reduced-motion`, no WebGL support, or `navigator.connection.saveData`. Check all three paths, not just the animated one.
+- **`assets/js/contact-wizard.js` + `contact-wizard-config.js`** — the Contact page's quote wizard and short enquiry form. Wording and price bands live in `contact-wizard-config.js` only — edit content there, not inline. Both forms submit to Web3Forms (`api.web3forms.com`); wizard progress persists to `sessionStorage`.
+- **`assets/js/pricing.js` + `pricing-data.js`** — the Pricing page's "Help Me Choose" tool. Scoring logic must stay traceable to `docs/pricing.md`; don't add a rule that isn't sourced from that file.
+
+`_verify_heroes.mjs` is a narrower companion to `screenshot.mjs`: it loads the five inner-page heroes, fires a synthetic pointer sweep across `.hero-fluid` to trigger a visible reveal, watches for console/page errors, and clips a screenshot to just the hero box. Run it after touching `fluid-hero.js` or page-hero markup; use `screenshot.mjs` for everything else.
 
 ---
 
@@ -92,17 +112,41 @@ There are currently no testimonials, no Google reviews and no measured results. 
 - Mobile-first. Never hardcode a one-off hex, size or timing that should be a shared variable.
 - Placeholder images: `https://placehold.co/WIDTHxHEIGHT`, only where no real asset exists.
 
-Required `<head>` on every page:
+Required `<head>` on every page — every existing page follows this pattern, match it exactly for new ones:
 
 ```html
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Page Title</title>
+<title>Page Title — Laara Digital</title>
 <meta name="description" content="..." />
+<link rel="canonical" href="https://laaradigital.co.uk/<path>" />
 <meta property="og:title" content="..." />
 <meta property="og:description" content="..." />
 <meta property="og:type" content="website" />
+<meta property="og:url" content="https://laaradigital.co.uk/<path>" />
+<meta property="og:image" content="https://laaradigital.co.uk/brand_assets/00_Upload_Ready/06_Web_Assets/og-image.png" />
+<meta property="og:locale" content="en_GB" />
+<meta property="og:site_name" content="Laara Digital" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="..." />
+<meta name="twitter:description" content="..." />
+<meta name="twitter:image" content="https://laaradigital.co.uk/brand_assets/00_Upload_Ready/06_Web_Assets/og-image.png" />
+
+<link rel="icon" href="/brand_assets/00_Upload_Ready/04_Favicons/favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="/brand_assets/00_Upload_Ready/04_Favicons/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/brand_assets/00_Upload_Ready/04_Favicons/favicon-16.png" />
+<link rel="apple-touch-icon" href="/brand_assets/00_Upload_Ready/04_Favicons/apple-touch-icon.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700;900&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="/brand/laara-brand-tokens.css" />
+<link rel="stylesheet" href="/assets/css/style.css" />
 ```
+
+Plus a page-appropriate `application/ld+json` schema block — `ProfessionalService` on the homepage, `BreadcrumbList` on inner pages (see any existing page's `<head>` for the exact shape). Add the new route to `sitemap.xml` in the same pass.
 
 ---
 
@@ -144,6 +188,8 @@ Saves to `./temporary-screenshots/`. Chrome at `C:/Program Files/Google/Chrome/A
 
 ## Images
 
+**Never generate an image, video, or any other asset via ChatGPT/OpenAI (`npm run generate-image`) or Higgsfield without Cuneyt's explicit, per-item approval first.** Describe what you want to generate — prompt, filename, purpose — and wait for a yes before running it. This applies every time, not just once per session.
+
 `npm run generate-image "<prompt>" <filename.png>` — OpenAI `gpt-image-2`, 1536×1024, saves to `assets/img/`. Key is in `.env`.
 
 Never AI-generate: the founder photo, portfolio thumbnails, or any face presented as a client or reviewer. Full rules in `docs/BUILD-PROMPT.md`.
@@ -166,3 +212,4 @@ Branch is `master`. No remote configured yet. Commit locally as you go. **Never 
 - [ ] Every price traceable to `docs/pricing.md`
 - [ ] Phone and WhatsApp reachable in the mobile header
 - [ ] Desktop and mobile screenshots both reviewed
+- [ ] New routes added to `sitemap.xml`, reachable per `robots.txt`, full `<head>` pattern matched

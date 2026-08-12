@@ -34,16 +34,19 @@ if (pageHeight * 2 > MAX_TEXTURE_HEIGHT) {
   await page.setViewport({ width: viewportWidth, height: viewportHeight, deviceScaleFactor: safeScaleFactor });
 }
 
-// Scroll through the page to trigger IntersectionObserver reveals, then return to top
+// Scroll through the page to trigger IntersectionObserver reveals, then return to top.
+// Uses direct scrollTop assignment (not scrollBy/scrollTo) because it's always instant,
+// bypassing the site's CSS `scroll-behavior: smooth` — scrollBy/scrollTo would otherwise
+// animate each step, so the loop outruns the real scroll position and reveals never settle.
 await page.evaluate(async () => {
   await new Promise(resolve => {
     const distance = 500;
     const delay = 80;
     const timer = setInterval(() => {
-      window.scrollBy(0, distance);
-      if (window.scrollY + window.innerHeight >= document.body.scrollHeight) {
+      document.documentElement.scrollTop += distance;
+      if (document.documentElement.scrollTop + window.innerHeight >= document.body.scrollHeight) {
         clearInterval(timer);
-        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
         resolve();
       }
     }, delay);

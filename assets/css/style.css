@@ -5,8 +5,10 @@
    ============================================================ */
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
 img { max-width: 100%; display: block; }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
 
 .skip-link {
   position: absolute;
@@ -20,6 +22,106 @@ img { max-width: 100%; display: block; }
   transition: top var(--laara-dur-micro) var(--laara-ease-out);
 }
 .skip-link:focus { top: var(--laara-space-4); }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================================
+   UNIVERSAL CARD SYSTEM
+   Every .laara-card (generic/service/pricing) shares one hover
+   language: background washes to brand green, text/icons flip
+   to ink for contrast, subtle lift, CTA arrow nudges right.
+   .work-card is image-led and opts out — see WORK section.
+   ============================================================ */
+
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover,
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within {
+  background: var(--laara-accent);
+  color: var(--laara-on-accent);
+  text-decoration: none;
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: var(--laara-shadow-lg);
+}
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):active { transform: translateY(-1px) scale(1); }
+
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover h3,
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within h3,
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover p,
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within p,
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .pricing-price,
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .pricing-price,
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .pricing-price span,
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .pricing-price span,
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .card-link,
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .card-link,
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .laara-list li,
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .laara-list li {
+  color: var(--laara-on-accent);
+}
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .laara-list li::before,
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .laara-list li::before {
+  background: var(--laara-on-accent);
+}
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .laara-dot,
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .laara-dot {
+  background: var(--laara-on-accent);
+}
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .laara-dot svg,
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .laara-dot svg {
+  color: var(--laara-green);
+}
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .pricing-card-badge,
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .pricing-card-badge {
+  background: var(--laara-on-accent);
+  color: var(--laara-green);
+}
+
+.laara-card .card-link,
+.laara-card .laara-btn {
+  display: inline-flex;
+  align-items: center;
+  margin-top: auto;
+  transition: transform var(--laara-dur-micro) var(--laara-ease-out);
+}
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .card-link,
+.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .card-link {
+  transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover,
+  .laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within,
+  .laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .card-link,
+  .laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .card-link {
+    transform: none;
+  }
+}
+
+@media (hover: none) {
+  .laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):active {
+    background: var(--laara-accent);
+    color: var(--laara-on-accent);
+    transform: scale(0.99);
+    transition-duration: var(--laara-dur-micro);
+  }
+}
+
+/* Adds a transform transition to primary CTA buttons so the JS magnetic-pull
+   effect (main.js) eases smoothly instead of jumping between mousemove ticks. */
+.laara-btn--primary {
+  transition: background var(--laara-dur-micro) var(--laara-ease-in-out),
+              color var(--laara-dur-micro) var(--laara-ease-in-out),
+              transform var(--laara-dur-micro) var(--laara-ease-out);
+}
 
 /* ============================================================
    HEADER
@@ -64,6 +166,7 @@ img { max-width: 100%; display: block; }
 .icon-link svg { width: 22px; height: 22px; }
 
 .main-nav {
+  position: relative;
   display: none;
   gap: var(--laara-space-6);
 }
@@ -75,10 +178,19 @@ img { max-width: 100%; display: block; }
 .main-nav a:hover,
 .main-nav a:focus-visible { color: var(--laara-green-text); }
 
-@media (min-width: 900px) {
-  .main-nav { display: flex; align-items: center; }
-  .nav-toggle { display: none; }
+.nav-toggle {
+  width: var(--laara-touch-min);
+  height: var(--laara-touch-min);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--laara-ink);
 }
+
+.header-cta { display: none; }
 
 @media (max-width: 899px) {
   .main-nav--open {
@@ -101,16 +213,114 @@ img { max-width: 100%; display: block; }
   }
 }
 
-.nav-toggle {
-  width: var(--laara-touch-min);
-  height: var(--laara-touch-min);
+/* Desktop header always shows the full nav inline — the hamburger is
+   mobile-only and gets replaced by a converting CTA instead. This block
+   must come after the unconditional .nav-toggle rule above: same
+   specificity, so source order decides, and the override needs to win. */
+@media (min-width: 900px) {
+  .main-nav { display: flex; align-items: center; }
+  .nav-toggle { display: none; }
+  .header-cta { display: inline-flex; }
+}
+
+/* ---------- Services nav dropdown ----------
+   Mobile-first as a disclosure inside .main-nav--open (grid-template-rows
+   0fr -> 1fr collapse, same technique as the wizard's conditional fields);
+   overridden at desktop to a floating panel under the toggle. */
+.nav-dropdown { position: relative; display: flex; flex-direction: column; }
+
+.nav-dropdown-toggle {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: var(--laara-space-1);
   background: none;
   border: none;
+  padding: 0;
+  font-family: var(--laara-font);
+  font-size: 1rem;
+  color: var(--laara-text);
+  font-weight: var(--laara-fw-semibold);
   cursor: pointer;
-  color: var(--laara-ink);
+}
+.nav-dropdown-toggle:hover,
+.nav-dropdown-toggle:focus-visible,
+.nav-dropdown.is-open .nav-dropdown-toggle { color: var(--laara-green-text); }
+
+.nav-dropdown-chevron {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--laara-dur-micro) var(--laara-ease-out);
+}
+.nav-dropdown.is-open .nav-dropdown-chevron { transform: rotate(180deg); }
+
+.nav-dropdown-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  overflow: hidden;
+  transition: grid-template-rows var(--laara-dur-section) var(--laara-ease-out),
+              opacity var(--laara-dur-reveal) var(--laara-ease-out);
+}
+.nav-dropdown-panel-inner { min-height: 0; }
+.nav-dropdown.is-open .nav-dropdown-panel { grid-template-rows: 1fr; opacity: 1; }
+
+.nav-dropdown-link {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--laara-space-3) 0 var(--laara-space-3) var(--laara-space-4);
+  min-height: var(--laara-touch-min);
+  justify-content: center;
+  text-decoration: none;
+  border-radius: var(--laara-radius);
+}
+.nav-dropdown-link-title { font-weight: var(--laara-fw-bold); color: var(--laara-text); }
+.nav-dropdown-link-desc { font-size: var(--laara-fs-small); color: var(--laara-text-secondary); }
+.nav-dropdown-link:hover,
+.nav-dropdown-link:focus-visible { text-decoration: none; background: var(--laara-surface); }
+.nav-dropdown-link:hover .nav-dropdown-link-title,
+.nav-dropdown-link:focus-visible .nav-dropdown-link-title { color: var(--laara-green-text); }
+
+@media (max-width: 899px) {
+  .main-nav--open .nav-dropdown-toggle {
+    width: 100%;
+    justify-content: space-between;
+    padding: var(--laara-space-3) 0;
+    min-height: var(--laara-touch-min);
+  }
+}
+
+@media (min-width: 900px) {
+  .nav-dropdown-panel {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 50%;
+    display: block;
+    grid-template-rows: none;
+    width: 320px;
+    background: var(--laara-white);
+    border: 1.5px solid var(--laara-border);
+    border-radius: var(--laara-radius-lg);
+    box-shadow: var(--laara-shadow-lg);
+    padding: var(--laara-space-2);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    overflow: visible;
+    transform: translateX(-50%) translateY(4px);
+    transition: opacity var(--laara-dur-micro) var(--laara-ease-out),
+                transform var(--laara-dur-micro) var(--laara-ease-out),
+                visibility 0s linear var(--laara-dur-micro);
+    z-index: 5;
+  }
+  .nav-dropdown.is-open .nav-dropdown-panel {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+    transition-delay: 0s;
+  }
+  .nav-dropdown-link { padding-left: var(--laara-space-4); }
 }
 
 /* ============================================================
@@ -119,30 +329,171 @@ img { max-width: 100%; display: block; }
 
 .hero {
   position: relative;
-  background: var(--laara-bg-inverse);
-  color: var(--laara-text-inverse);
+  background: var(--laara-bg);
+  color: var(--laara-text);
   overflow: hidden;
-  padding-block: var(--laara-space-24) var(--laara-space-16);
+  /* Fluid top padding so the hero gets real breathing room on large screens
+     (was a fixed 96px, too tight to let the display type dominate the fold
+     on 1440px+) while staying compact on small phones. Bottom padding reuses
+     the same --laara-section-y every other section boundary uses, so the
+     seam into Trust Strip keeps the page's established vertical rhythm. */
+  padding-block: clamp(3.5rem, 2rem + 7vw, 7rem) var(--laara-section-y);
 }
-.hero-bg {
+/* Hairline fade at the foot of the hero — a deliberate, understated seam
+   into Trust Strip rather than the two near-identical light backgrounds
+   butting together with no boundary at all. */
+.hero::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--laara-border) 50%, transparent);
+}
+.hero-fluid {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  opacity: 0.55;
+  display: block;
+  /* Base gradient shows instantly and stays as the fallback if WebGL never
+     initialises (reduced motion, no WebGL, save-data). --hero-glow is an
+     "R, G, B" triple set per page (see page-hero accent classes below);
+     unset on the homepage, so it falls back to the original pink. */
+  background: radial-gradient(120% 90% at 78% 12%, rgba(var(--hero-glow, 216, 88, 143), 0.16) 0%, transparent 60%),
+              radial-gradient(100% 80% at 15% 85%, rgba(var(--hero-glow, 216, 88, 143), 0.10) 0%, transparent 65%),
+              var(--laara-bg);
 }
 .hero-content {
   position: relative;
   z-index: 1;
-  max-width: 46rem;
+  max-width: 40rem;
 }
-.hero-content h1 { color: var(--laara-paper); margin: 0 0 var(--laara-space-4); }
+
+/* ---------- Fluid hero on inner pages (Services/Work/Pricing/About/Contact) ----------
+   Modifier applied alongside .page-hero, not a replacement for it — bare
+   .page-hero (used by the other 11 pages) and .laara-inverse (final-CTA
+   bands, stat band) are untouched. Flips that one hero to light so the
+   fluid + white-text reveal reads the same as the homepage, replaces the
+   green glow blob with the fluid canvas, and centers the shorter inner-page
+   copy to match the centered oversized background word. */
+.page-hero.page-hero--fluid {
+  background: var(--laara-bg);
+  color: var(--laara-text);
+}
+.page-hero.page-hero--fluid::before { display: none; }
+.page-hero.page-hero--fluid h1 { color: var(--laara-text); }
+.page-hero.page-hero--fluid p { color: var(--laara-text-secondary); }
+.page-hero.page-hero--fluid > .laara-container {
+  text-align: center;
+  max-width: 40rem;
+  margin-inline: auto;
+}
+.page-hero.page-hero--fluid .hero-actions { justify-content: center; }
+
+.page-hero--services { --hero-glow: 91, 124, 224; }  /* blue */
+.page-hero--work { --hero-glow: 214, 158, 46; }       /* amber */
+.page-hero--pricing { --hero-glow: 39, 168, 158; }    /* teal */
+.page-hero--about { --hero-glow: 214, 100, 74; }      /* coral */
+.page-hero--contact { --hero-glow: 18, 183, 106; }    /* brand green */
+
+/* ---------- Oversized fluid-revealed background typography ----------
+   Sits above the fluid canvas, below the hero content, coloured the same
+   as the canvas's idle backdrop (paper). Against the flat idle canvas it
+   has ~1:1 contrast and reads as almost nothing; where the saturated fluid
+   passes beneath it the same white glyphs suddenly read clearly — the
+   reveal is just natural contrast against a variable-colour backdrop, no
+   blend-mode trickery needed. Decorative only: aria-hidden + pointer-events
+   none, never competes with the real h1. */
+.hero-type {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero-type span {
+  font-family: var(--laara-font);
+  font-weight: var(--laara-fw-black);
+  font-size: clamp(4.5rem, 1rem + 15vw, 13rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--laara-paper);
+  user-select: none;
+}
+@media (max-width: 640px) {
+  .hero-type span {
+    font-size: clamp(3.25rem, 1rem + 20vw, 6rem);
+    letter-spacing: -0.02em;
+  }
+}
+
+/* ---------- Ambient background motion (dark sections) ---------- */
+.page-hero::before,
+.laara-inverse::before {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+.page-hero::before {
+  width: 26rem;
+  height: 26rem;
+  top: -8rem;
+  right: -6rem;
+  background: radial-gradient(circle, var(--laara-green) 0%, transparent 70%);
+  opacity: 0.22;
+  animation: drift-a 34s ease-in-out infinite;
+}
+.laara-inverse::before {
+  width: 24rem;
+  height: 24rem;
+  top: -7rem;
+  left: -5rem;
+  background: radial-gradient(circle, var(--laara-green) 0%, transparent 70%);
+  opacity: 0.16;
+  animation: drift-a 38s ease-in-out infinite;
+}
+@keyframes drift-a {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(2.5rem, 1.75rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-hero::before, .laara-inverse::before { animation: none; }
+}
+.hero-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--laara-space-3);
+  margin-bottom: var(--laara-space-6);
+}
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--laara-space-2);
+  padding: var(--laara-space-2) var(--laara-space-4);
+  border-radius: 999px;
+  background: rgba(16, 17, 20, 0.05);
+  border: 1.5px solid rgba(16, 17, 20, 0.12);
+  color: var(--laara-ink);
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-semibold);
+}
+.hero-content h1 { color: var(--laara-text); margin: 0 0 var(--laara-space-6); }
 .hero-sub {
   font-size: var(--laara-fs-body-lg);
-  color: var(--laara-on-dark-muted);
+  color: var(--laara-text-secondary);
   margin: 0 0 var(--laara-space-8);
-  max-width: 38rem;
+  max-width: 34rem;
 }
 .hero-actions {
   display: flex;
@@ -153,8 +504,14 @@ img { max-width: 100%; display: block; }
 .hero-trust {
   font-size: var(--laara-fs-small);
   font-weight: var(--laara-fw-semibold);
-  color: var(--laara-on-dark-muted);
+  color: var(--laara-text-secondary);
   letter-spacing: 0.02em;
+}
+@media (max-width: 480px) {
+  /* Full-width stacked CTAs read as more deliberate and are easier to hit
+     one-handed than two half-width buttons squeezed onto a small phone. */
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-actions .laara-btn { width: 100%; }
 }
 
 /* ============================================================
@@ -163,58 +520,103 @@ img { max-width: 100%; display: block; }
 
 .trust-strip { background: var(--laara-surface); }
 
-.sector-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--laara-space-4);
+/* ---------- Marquee ---------- */
+.marquee {
+  display: flex;
+  overflow: hidden;
+  padding-block: var(--laara-space-8);
+}
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: var(--laara-space-16);
   list-style: none;
   padding: 0;
-  margin: 0 0 var(--laara-space-12);
+  margin: 0;
+  width: max-content;
+  animation: marquee 32s linear infinite;
 }
-@media (min-width: 640px) {
-  .sector-row { grid-template-columns: repeat(3, 1fr); }
+.marquee-track + .marquee-track { margin-left: var(--laara-space-16); }
+@keyframes marquee {
+  to { transform: translateX(calc(-100% - var(--laara-space-16))); }
 }
-@media (min-width: 960px) {
-  .sector-row { grid-template-columns: repeat(6, 1fr); }
-}
-.sector-row li {
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track { animation-play-state: paused; }
+.marquee-track li {
   display: flex;
-  flex-direction: column;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.marquee-track li a {
+  display: flex;
   align-items: center;
-  gap: var(--laara-space-2);
-  text-align: center;
-  padding: var(--laara-space-4);
+  gap: var(--laara-space-3);
+  text-decoration: none;
+  padding: var(--laara-space-2) 0;
+  transition: color var(--laara-dur-micro) var(--laara-ease-in-out);
 }
-.sector-row svg { width: 28px; height: 28px; color: var(--laara-green-deep); flex-shrink: 0; }
-.sector-row span { font-size: var(--laara-fs-small); font-weight: var(--laara-fw-semibold); color: var(--laara-text); }
+.marquee-track li a:hover,
+.marquee-track li a:focus-visible { color: var(--laara-green-text); }
+.marquee-track li a:focus-visible { outline: 2px solid var(--laara-ink); outline-offset: 2px; border-radius: var(--laara-radius-sm); }
+.marquee-track svg { width: 26px; height: 26px; color: var(--laara-green-deep); flex-shrink: 0; }
+.marquee-track span { font-size: var(--laara-fs-body-lg); font-weight: var(--laara-fw-semibold); color: var(--laara-text); }
+.marquee-track li a:hover span,
+.marquee-track li a:focus-visible span { color: inherit; }
 
-.stat-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--laara-space-8);
-  text-align: center;
-  border-top: 1.5px solid var(--laara-border);
-  padding-top: var(--laara-space-8);
+@media (prefers-reduced-motion: reduce) {
+  .marquee { overflow: visible; }
+  .marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: var(--laara-space-6);
+  }
+  .marquee-track + .marquee-track { display: none; }
 }
-@media (min-width: 700px) {
-  .stat-row { grid-template-columns: repeat(4, 1fr); }
+
+/* ---------- Stat band ---------- */
+.stat-band {
+  position: relative;
+  padding-block: var(--laara-section-y);
+  border-top: 1px solid rgba(250, 250, 249, 0.08);
 }
-.stat-number {
-  font-size: var(--laara-fs-h2);
-  font-weight: var(--laara-fw-black);
-  color: var(--laara-ink);
-  line-height: 1;
+.stat-band-text {
+  margin: 0;
+  max-width: none;
 }
-.stat-label {
-  display: block;
-  margin-top: var(--laara-space-2);
-  font-size: var(--laara-fs-small);
-  color: var(--laara-text-secondary);
+/* Real, static values throughout — no count-up. A count animation would
+   momentarily render "3-10 days" / "5+ yrs" mid-tick, which is exactly the
+   kind of temporarily-false claim the factual-animation rule forbids.
+   Instead the correct number reveals via an underline sweep, echoing the
+   green block/wipe heading reveal used everywhere else on the page. */
+.stat-counter {
+  position: relative;
+  display: inline-block;
+  color: var(--laara-link-on-dark);
+}
+.stat-counter::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.05em;
+  height: 0.09em;
+  background: var(--laara-green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--laara-dur-section) var(--laara-ease-out);
+  transition-delay: 200ms;
+}
+.stat-band-text.is-visible .stat-counter::after { transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) {
+  .stat-counter::after { transition: none; transform: scaleX(1); }
 }
 
 /* ============================================================
    SECTION HEADINGS
    ============================================================ */
+
+.section-alt { background: var(--laara-surface); }
 
 .section-head {
   max-width: 42rem;
@@ -239,28 +641,542 @@ img { max-width: 100%; display: block; }
 @media (min-width: 640px) {
   .card-grid { grid-template-columns: repeat(2, 1fr); }
 }
+/* ---------- Services bento: one dominant tile, four smaller ones ----------
+   Flagship becomes a full-width banner from tablet width up (icon + heading
+   side by side), then at 1080px+ the grid gains a 4th column and flagship
+   spans 2x2 — the other four cards auto-flow into the remaining 2x2 block
+   beside it, giving genuine asymmetry instead of one wide card sitting
+   above a uniform row. */
+@media (min-width: 640px) {
+  .card-grid--5 .service-card--flagship {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    column-gap: var(--laara-space-6);
+  }
+  .card-grid--5 .service-card--flagship .laara-dot { grid-row: 1; margin-bottom: 0; width: 3.5rem; height: 3.5rem; }
+  .card-grid--5 .service-card--flagship .laara-dot svg { width: 28px; height: 28px; }
+  .card-grid--5 .service-card--flagship h3 { font-size: var(--laara-fs-h2); grid-column: 2; }
+  .card-grid--5 .service-card--flagship p { grid-column: 2; font-size: var(--laara-fs-body-lg); }
+  .card-grid--5 .service-card--flagship .card-link { grid-column: 2; }
+}
 @media (min-width: 1080px) {
-  .card-grid--5 { grid-template-columns: repeat(3, 1fr); }
+  .card-grid--5 { grid-template-columns: repeat(4, 1fr); }
+  .card-grid--5 .service-card--flagship {
+    grid-column: span 2;
+    grid-row: span 2;
+    background: var(--laara-ink);
+    border-color: rgba(250, 250, 249, 0.12);
+  }
+  .card-grid--5 .service-card--flagship h3 { color: var(--laara-paper); }
+  .card-grid--5 .service-card--flagship p { color: var(--laara-on-dark-muted); }
+  .card-grid--5 .service-card--flagship .card-link { color: var(--laara-link-on-dark); }
+  .card-grid--5 .service-card--flagship .laara-dot { background: rgba(250, 250, 249, 0.1); }
+}
+@media (hover: hover) and (pointer: fine) and (min-width: 1080px) {
+  .card-grid--5 .service-card--flagship:hover h3,
+  .card-grid--5 .service-card--flagship:focus-within h3 {
+    /* The generic glow-card hover heading colour (--laara-green-text) is
+       tuned for text-on-light contrast; on the flagship's ink background
+       that pairing is wrong, so it swaps to the on-ink-safe --laara-green. */
+    color: var(--laara-green);
+  }
 }
 
-.service-card {
-  transition: transform var(--laara-dur-micro) var(--laara-ease-out),
-              box-shadow var(--laara-dur-micro) var(--laara-ease-out);
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-.service-card:hover,
-.service-card:focus-visible {
-  transform: translateY(-4px);
-  box-shadow: var(--laara-shadow-lg);
-}
-.service-card:active { transform: translateY(-1px); }
 .service-card .laara-dot { margin-bottom: var(--laara-space-4); width: 2.5rem; height: 2.5rem; border-radius: var(--laara-radius); display: flex; align-items: center; justify-content: center; background: var(--laara-ink); }
 .service-card .laara-dot svg { width: 22px; height: 22px; color: var(--laara-green); }
 .service-card h3 { margin: 0 0 var(--laara-space-2); }
-.service-card p { color: var(--laara-text-secondary); margin: 0 0 var(--laara-space-4); font-size: var(--laara-fs-body); }
+.service-card p { color: var(--laara-text-secondary); margin: 0 0 var(--laara-space-4); font-size: var(--laara-fs-body); flex-grow: 1; }
 .service-card .card-link { color: var(--laara-link); font-weight: var(--laara-fw-semibold); font-size: var(--laara-fs-small); }
+
+/* ============================================================
+   GLOW CARDS — cursor-reactive glow + icon micro-interactions
+   Shared by every icon-led card on the site: the services grid
+   (.service-card), the plain differentiator cards on the homepage
+   and about page (.laara-card--plain), and the contact method
+   cards (.contact-method) — add "glow-card" alongside their own
+   class to opt in. Opted out of the universal green-wash system
+   above (.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success)) in favour of
+   a quieter, premium treatment: soft pointer-tracked glow, a
+   brand-tinted border/elevation, and a small per-icon animation
+   that means something for that icon. Pricing cards deliberately
+   keep the bold green-wash instead — that's a "pick me" moment,
+   not a browse-and-compare one. Full glow effect is fine-pointer/
+   hover only (see the (hover: hover) query below) — touch devices
+   keep the default card look plus a light tap state.
+   ============================================================ */
+
+.glow-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform var(--laara-dur-reveal) var(--laara-ease-out),
+              border-color var(--laara-dur-section) var(--laara-ease-out),
+              box-shadow var(--laara-dur-section) var(--laara-ease-out);
+}
+
+/* Cursor-tracked radial glow. --mx/--my are written by main.js on
+   pointermove (rAF-throttled); they default to the card centre so
+   keyboard focus still shows a centred glow with no JS coordinate. */
+.glow-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%),
+              rgba(18, 183, 106, 0.11), transparent 60%);
+  opacity: 0;
+  transition: opacity var(--laara-dur-section) var(--laara-ease-out);
+  pointer-events: none;
+}
+.glow-card > * { position: relative; z-index: 1; }
+
+@media (hover: hover) and (pointer: fine) {
+  .glow-card:hover,
+  .glow-card:focus-within {
+    transform: translateY(-2px);
+    border-color: rgba(18, 183, 106, 0.4);
+    box-shadow: var(--laara-shadow), 0 20px 44px -26px rgba(18, 183, 106, 0.45);
+    text-decoration: none;
+  }
+  .glow-card:hover::before,
+  .glow-card:focus-within::before {
+    opacity: 1;
+  }
+  .glow-card:hover h3,
+  .glow-card:focus-within h3 {
+    color: var(--laara-green-text);
+    transition: color var(--laara-dur-section) var(--laara-ease-out);
+  }
+  .glow-card:hover .card-link,
+  .glow-card:focus-within .card-link {
+    transform: translateX(4px);
+  }
+  .glow-card .laara-dot,
+  .glow-card .contact-method-icon {
+    transition: box-shadow var(--laara-dur-section) var(--laara-ease-out),
+                transform var(--laara-dur-section) var(--laara-ease-out);
+  }
+  .glow-card:hover .laara-dot,
+  .glow-card:focus-within .laara-dot,
+  .glow-card:hover .contact-method-icon,
+  .glow-card:focus-within .contact-method-icon {
+    box-shadow: 0 0 0 6px rgba(18, 183, 106, 0.10);
+    transform: translateY(-1px);
+  }
+}
+
+/* Light, honest tap feedback on touch — no lingering fake hover. */
+@media (hover: none) {
+  .glow-card:active {
+    transform: scale(0.99);
+    border-color: rgba(18, 183, 106, 0.35);
+    transition-duration: var(--laara-dur-micro);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-card:hover,
+  .glow-card:focus-within {
+    transform: none;
+  }
+  .glow-card .laara-dot,
+  .glow-card .contact-method-icon,
+  .glow-card:hover .laara-dot,
+  .glow-card:focus-within .laara-dot,
+  .glow-card:hover .contact-method-icon,
+  .glow-card:focus-within .contact-method-icon {
+    transform: none;
+  }
+}
+
+/* ---------- Per-icon micro-animations ----------
+   Each is a small element the base icon doesn't have at rest
+   (a checkmark, a ping, a pulse line) that draws in on hover and
+   reverses smoothly on leave — nothing loops, nothing is added
+   for icons that don't have a natural motion to borrow. */
+
+/* 1. Website design & build — page content "typing in" */
+.icon-build-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 600ms var(--laara-ease-out);
+}
+.icon-build-line--2 { transition-delay: 90ms; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .glow-card:hover .icon-build-line,
+  .glow-card:focus-within .icon-build-line {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* 2. Local SEO & Google visibility — signal ping from the pin */
+.icon-ping {
+  transform-origin: 12px 10px;
+  transform: scale(0.7);
+  opacity: 0;
+  transition: transform 700ms var(--laara-ease-out), opacity 700ms var(--laara-ease-out);
+}
+.icon-ping-2 { transition-delay: 140ms; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .glow-card:hover .icon-ping-1,
+  .glow-card:focus-within .icon-ping-1 {
+    transform: scale(1.9);
+    opacity: 0;
+    animation: none;
+  }
+  .glow-card:hover .icon-ping-1 { opacity: 0.55; }
+  .glow-card:hover .icon-ping-2,
+  .glow-card:focus-within .icon-ping-2 {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+  .glow-card:hover .icon-pin-shape,
+  .glow-card:focus-within .icon-pin-shape {
+    transform: translateY(-1px);
+    transition: transform 500ms var(--laara-ease-out);
+  }
+}
+.icon-pin-shape { transition: transform 500ms var(--laara-ease-out); }
+
+/* 3. Booking & enquiry systems — a booking gets ticked off */
+.icon-check {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 620ms var(--laara-ease-out) 80ms;
+}
+.icon-ring { transition: transform 400ms var(--laara-ease-out); }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .glow-card:hover .icon-check,
+  .glow-card:focus-within .icon-check {
+    stroke-dashoffset: 0;
+  }
+  .glow-card:hover .icon-ring,
+  .glow-card:focus-within .icon-ring {
+    transform: translateY(-1px);
+  }
+}
+
+/* 4. Ongoing care & support — a quiet heartbeat, shield breathes */
+.icon-pulse {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 700ms var(--laara-ease-out) 60ms;
+}
+.icon-shield-shape {
+  transform-origin: 12px 12px;
+  transition: transform 550ms var(--laara-ease-out);
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .glow-card:hover .icon-pulse,
+  .glow-card:focus-within .icon-pulse {
+    stroke-dashoffset: 0;
+  }
+  .glow-card:hover .icon-shield-shape,
+  .glow-card:focus-within .icon-shield-shape {
+    transform: scale(1.035);
+  }
+}
+
+/* 5. Growth & paid ads — data points land on the trend line in sequence.
+   The line itself is the icon's original shape, so (unlike the bonus
+   elements on the other four icons) it stays fully visible at rest —
+   only the marker dots are new and hidden until hover. */
+.icon-trend-dot {
+  opacity: 0;
+  transform: scale(0.3);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 400ms var(--laara-ease-out), opacity 400ms var(--laara-ease-out);
+}
+.icon-trend-dot-1 { transition-delay: 100ms; }
+.icon-trend-dot-2 { transition-delay: 280ms; }
+.icon-trend-dot-3 { transition-delay: 460ms; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .glow-card:hover .icon-trend-line,
+  .glow-card:focus-within .icon-trend-line {
+    transform: translateY(-1px);
+    transition: transform 500ms var(--laara-ease-out);
+  }
+  .glow-card:hover .icon-trend-dot,
+  .glow-card:focus-within .icon-trend-dot {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.icon-trend-line {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 500ms var(--laara-ease-out);
+}
+
+/* 6. Fast delivery / 7–10 days — bolt releases a spark on landing */
+.icon-spark {
+  opacity: 0;
+  transform: scale(0.3);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 450ms var(--laara-ease-out), opacity 450ms var(--laara-ease-out);
+}
+.icon-bolt-shape { transition: transform 400ms var(--laara-ease-out); }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .glow-card:hover .icon-spark,
+  .glow-card:focus-within .icon-spark {
+    opacity: 1;
+    transform: scale(1);
+    transition-delay: 260ms;
+  }
+  .glow-card:hover .icon-bolt-shape,
+  .glow-card:focus-within .icon-bolt-shape {
+    transform: translateY(-1px);
+  }
+}
+
+/* 7. Industry expertise / marketing-led design — clock hand ticks forward */
+.icon-clock-hand {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transition: transform 550ms var(--laara-ease-out);
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .glow-card:hover .icon-clock-hand,
+  .glow-card:focus-within .icon-clock-hand {
+    transform: rotate(35deg);
+  }
+}
+
+/* 8. Talk to the person building it — a presence dot confirms someone's there */
+.icon-presence {
+  opacity: 0;
+  transform: scale(0.4);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 450ms var(--laara-ease-out), opacity 450ms var(--laara-ease-out);
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .glow-card:hover .icon-presence,
+  .glow-card:focus-within .icon-presence {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 9. Call us — the handset gives a small, restrained ring wiggle */
+.icon-phone-shape { transform-box: fill-box; transform-origin: 60% 15%; }
+@keyframes icon-phone-ring {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-12deg); }
+  50% { transform: rotate(9deg); }
+  75% { transform: rotate(-5deg); }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .glow-card:hover .icon-phone-shape,
+  .glow-card:focus-within .icon-phone-shape {
+    animation: icon-phone-ring 550ms var(--laara-ease-out) 1;
+  }
+}
+
+/* 10. WhatsApp us — a reply bubble lands, as if a message just came in */
+.icon-chat-dot {
+  opacity: 0;
+  transform: scale(0.4);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 400ms var(--laara-ease-out), opacity 400ms var(--laara-ease-out);
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .glow-card:hover .icon-chat-dot,
+  .glow-card:focus-within .icon-chat-dot {
+    opacity: 1;
+    transform: scale(1);
+    transition-delay: 120ms;
+  }
+}
+
+/* 11. Email us — the envelope flap opens and a sent tick draws in */
+.icon-mail-flap {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  transition: transform 400ms var(--laara-ease-out);
+}
+.icon-mail-tick {
+  opacity: 0;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 450ms var(--laara-ease-out) 200ms,
+              opacity 1ms linear 200ms;
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .glow-card:hover .icon-mail-tick,
+  .glow-card:focus-within .icon-mail-tick {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---------- Generic/differentiator cards (no CTA) ---------- */
+.laara-card--plain { gap: var(--laara-space-2); }
+.laara-card--plain .laara-dot { margin-bottom: var(--laara-space-4); width: 2.5rem; height: 2.5rem; border-radius: var(--laara-radius); display: flex; align-items: center; justify-content: center; background: var(--laara-ink); }
+.laara-card--plain .laara-dot svg { width: 22px; height: 22px; color: var(--laara-green); }
+.laara-card--plain h3 { margin: 0 0 var(--laara-space-2); }
+.laara-card--plain p { margin: 0; color: var(--laara-text-secondary); }
+
+/* ============================================================
+   WHY LAARA — editorial layout (homepage only)
+   Sits on top of .laara-card--plain/.glow-card entirely unchanged
+   (still shared with about.html) — this only adds a numeral and a
+   two-column split wrapper, so nothing here touches other pages.
+   ============================================================ */
+.why-laara-layout {
+  display: grid;
+  gap: var(--laara-space-10);
+}
+@media (min-width: 1080px) {
+  .why-laara-layout {
+    grid-template-columns: minmax(260px, 360px) 1fr;
+    align-items: start;
+    gap: var(--laara-space-16);
+  }
+}
+
+/* Token-coloured placeholder — stands in for the single Higgsfield
+   asset (Phase 10) so this section's layout/copy isn't blocked on
+   that generation. The gradient stays as the image's load-in backdrop
+   (same brand tones, no flash of empty ink while the file arrives)
+   rather than being deleted now that the real asset is wired in. */
+.why-laara-visual {
+  position: relative;
+  border-radius: var(--laara-radius-card);
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background:
+    radial-gradient(120% 140% at 12% 0%, rgba(18, 183, 106, 0.38), transparent 55%),
+    radial-gradient(90% 110% at 100% 100%, rgba(18, 183, 106, 0.16), transparent 60%),
+    var(--laara-ink);
+  box-shadow: var(--laara-shadow-lg);
+}
+@media (min-width: 1080px) {
+  .why-laara-visual { aspect-ratio: 3 / 4; }
+}
+.why-laara-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.why-laara-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--laara-space-6);
+}
+
+.why-laara-row { gap: var(--laara-space-6); }
+@media (min-width: 768px) {
+  .why-laara-row { flex-direction: row; align-items: flex-start; }
+  /* Alternating composition: the numeral hops sides row to row —
+     copy itself stays left-aligned throughout, so body text never
+     reads right-to-left ragged. */
+  .why-laara-list > .why-laara-row:nth-child(even) { flex-direction: row-reverse; }
+}
+
+.why-laara-num {
+  display: block;
+  flex-shrink: 0;
+  margin-top: -0.09em;
+  color: var(--laara-muted-grey);
+  font-family: var(--laara-font);
+  font-weight: var(--laara-fw-black);
+  font-size: var(--laara-fs-display);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+@media (min-width: 768px) {
+  .why-laara-num { width: 5rem; }
+}
+
+.why-laara-row-body { min-width: 0; }
+
+/* ============================================================
+   VS TABLE — Laara vs traditional agency (homepage only)
+   Deliberately not named .compare-table — that class already
+   belongs to pricing.html's package comparison table, with its own
+   light-theme styling and data-active states; reusing it here
+   silently inherited that component's white background.
+   A real <table> for built-in accessibility (row/column semantics
+   screen readers understand natively, no ARIA role-juggling) inside
+   a dark section for a distinct beat before Pricing. The Laara
+   column gets a quiet green wash to read as the "win" without ever
+   pairing green with white text.
+   ============================================================ */
+.vs-scroll-hint {
+  display: none;
+  margin: 0 0 var(--laara-space-3);
+  color: var(--laara-on-dark-muted);
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-semibold);
+}
+@media (max-width: 767px) {
+  .vs-scroll-hint { display: block; }
+}
+
+.vs-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--laara-radius-card);
+  border: 1px solid rgba(250, 250, 249, 0.14);
+}
+.vs-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  min-width: 480px;
+}
+.vs-table th,
+.vs-table td {
+  padding: var(--laara-space-5) var(--laara-space-6);
+  text-align: left;
+  vertical-align: top;
+  font-size: var(--laara-fs-body);
+}
+.vs-table th:first-child,
+.vs-table td:first-child { width: 38%; }
+.vs-table th:not(:first-child),
+.vs-table td:not(:first-child) { width: 31%; }
+.vs-table thead th {
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--laara-on-dark-muted);
+  border-bottom: 1px solid rgba(250, 250, 249, 0.14);
+}
+.vs-table tbody th {
+  font-weight: var(--laara-fw-bold);
+  color: var(--laara-paper);
+  white-space: nowrap;
+}
+.vs-table tbody td { color: var(--laara-on-dark-muted); }
+.vs-table tbody tr + tr th,
+.vs-table tbody tr + tr td {
+  border-top: 1px solid rgba(250, 250, 249, 0.10);
+}
+.vs-table td.vs-col--laara,
+.vs-table th.vs-col--laara {
+  background: rgba(18, 183, 106, 0.12);
+}
+.vs-table tbody td.vs-col--laara {
+  color: var(--laara-paper);
+  font-weight: var(--laara-fw-semibold);
+}
+.vs-table thead th.vs-col--laara { color: var(--laara-green); }
+.vs-note {
+  display: block;
+  margin-top: var(--laara-space-1);
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-regular);
+  color: var(--laara-on-dark-muted);
+}
 
 /* ============================================================
    WORK
@@ -271,26 +1187,577 @@ img { max-width: 100%; display: block; }
   grid-template-columns: 1fr;
   gap: var(--laara-space-6);
 }
-@media (min-width: 780px) {
-  .work-grid { grid-template-columns: repeat(3, 1fr); }
+@media (min-width: 640px) {
+  .work-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 }
+@media (min-width: 1080px) {
+  .work-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 400px)); justify-content: center; }
+  /* Masonry span only makes sense once a 4th card exists to fill row 2 under it — with 1-3 cards it just leaves a void. */
+  .work-grid:has(a:nth-child(4)) a:first-child { grid-row: span 2; }
+  .work-grid:has(a:nth-child(4)) a:first-child .work-media { aspect-ratio: 4 / 5.6; }
+}
+
 .work-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  background: var(--laara-white);
+  border: 1.5px solid var(--laara-border);
+  border-radius: var(--laara-radius-card);
   overflow: hidden;
-  padding: 0;
   transition: transform var(--laara-dur-micro) var(--laara-ease-out),
-              box-shadow var(--laara-dur-micro) var(--laara-ease-out);
+              box-shadow var(--laara-dur-micro) var(--laara-ease-out),
+              border-color var(--laara-dur-micro) var(--laara-ease-out);
 }
-.work-card:hover, .work-card:focus-within { transform: translateY(-4px); box-shadow: var(--laara-shadow-lg); }
-.work-thumb { aspect-ratio: 4 / 3; overflow: hidden; }
-.work-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-.work-body { padding: var(--laara-space-6); }
-.work-tag {
-  display: inline-block;
+/* text-decoration: none needed here too, not just on the base rule — the
+   global `a:hover { text-decoration: underline }` in brand tokens has
+   higher specificity (0,1,1) than the class-only base rule (0,1,0) and
+   would otherwise win the moment a card is hovered. */
+.work-card:hover, .work-card:focus-visible { transform: translateY(-4px); box-shadow: var(--laara-shadow-lg); border-color: var(--laara-ink); text-decoration: none; }
+.work-card:active { transform: translateY(-1px); }
+@media (hover: none) {
+  .work-card:active { transform: scale(0.99); }
+}
+
+/* Image sits on its own — no text overlaid on top of it, so nothing
+   competes with the real site screenshot's own baked-in UI/text. */
+.work-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--laara-ink);
+}
+.work-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform var(--laara-dur-section) var(--laara-ease-out);
+}
+.work-card:hover .work-media img,
+.work-card:focus-visible .work-media img { transform: scale(1.05); }
+
+.work-tags {
+  position: absolute;
+  top: var(--laara-space-4);
+  left: var(--laara-space-4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--laara-space-2);
+}
+.work-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--laara-space-1) var(--laara-space-3);
+  border-radius: 999px;
+  background: var(--laara-accent);
+  color: var(--laara-on-accent);
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-bold);
+}
+.work-pill--ghost {
+  background: rgba(16, 17, 20, 0.55);
+  color: var(--laara-paper);
+  border: 1.5px solid rgba(250, 250, 249, 0.4);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+/* Homepage carousel only: tags sit in their own row above the image
+   instead of overlaid on it, so the ghost pill needs a plain on-white
+   treatment rather than the blur-over-photo one above. The direct-child
+   selector is what scopes this — sector pages nest .work-tags inside
+   .work-overlay, so their overlay-on-image cards are untouched. */
+.work-card > .work-tags {
+  position: static;
+  padding: var(--laara-space-4) var(--laara-space-6) var(--laara-space-3);
+}
+.work-card > .work-tags .work-pill--ghost {
+  background: none;
+  color: var(--laara-text-secondary);
+  border: 1.5px solid var(--laara-border);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* Caption content lives in a solid card body below the image — same
+   idea as the reference card Cuneyt shared: image up top, plain
+   content block underneath, nothing fighting for legibility. */
+.work-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: var(--laara-space-6);
+}
+.work-index {
+  display: block;
+  color: var(--laara-muted-grey);
+  font-family: var(--laara-font);
+  font-weight: var(--laara-fw-black);
+  font-size: var(--laara-fs-h3);
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--laara-space-2);
+}
+.work-body h3 { color: var(--laara-ink); margin: 0 0 var(--laara-space-1); font-size: var(--laara-fs-h3); }
+.work-body p { color: var(--laara-text-secondary); margin: 0 0 var(--laara-space-4); font-size: var(--laara-fs-small); }
+.work-cta {
+  display: inline-flex;
+  align-items: center;
+  margin-top: auto;
+  color: var(--laara-link);
+  font-weight: var(--laara-fw-semibold);
+  font-size: var(--laara-fs-small);
+  transition: transform var(--laara-dur-micro) var(--laara-ease-out);
+}
+.work-card:hover .work-cta,
+.work-card:focus-visible .work-cta { transform: translateX(4px); }
+@media (prefers-reduced-motion: reduce) {
+  .work-card:hover .work-cta,
+  .work-card:focus-visible .work-cta { transform: none; }
+}
+
+/* ---------- Work carousel (homepage centrepiece) ----------
+   work.html keeps its plain .work-grid untouched; this wraps the same
+   .work-card/.work-media/.work-overlay markup in a horizontal, arrow +
+   dot navigated carousel for the homepage — multiple projects visible at
+   once with a peek of the next, no extra page-scroll consumed at all.
+   Native scroll-snap means it's swipeable/draggable on touch even if JS
+   never runs; main.js layers on a mouse click-and-hold drag, a pausable
+   autoplay, and arrow/dot controls kept in sync with the scroll state. */
+.work-track {
+  display: flex;
+  gap: var(--laara-space-6);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-block: var(--laara-space-2);
+  cursor: grab;
+}
+.work-track::-webkit-scrollbar { display: none; }
+.work-track:focus-visible { outline: 2px solid var(--laara-ink); outline-offset: 4px; }
+@media (prefers-reduced-motion: no-preference) {
+  .work-track { scroll-behavior: smooth; }
+}
+/* Dragging: kill smooth-scroll and snap so scrollLeft tracks the pointer
+   1:1 instead of lagging/fighting the snap points, and stop card links
+   and image/text selection from intercepting the gesture mid-drag. */
+.work-track.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto !important;
+  scroll-snap-type: none;
+  user-select: none;
+}
+.work-track.is-dragging .work-card { pointer-events: none; }
+@media (hover: none) and (pointer: coarse) {
+  .work-track { cursor: auto; }
+}
+.work-track .work-card {
+  flex: 0 0 84%;
+  scroll-snap-align: start;
+}
+@media (min-width: 640px) {
+  .work-track .work-card { flex: 0 0 56%; }
+}
+@media (min-width: 1080px) {
+  .work-track .work-card { flex: 0 0 31%; }
+}
+
+.work-carousel-controls {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--laara-space-6);
+  margin-top: var(--laara-space-8);
+}
+.work-carousel-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--laara-control-h);
+  height: var(--laara-control-h);
+  border-radius: 999px;
+  border: 1.5px solid var(--laara-border);
+  background: var(--laara-white);
+  color: var(--laara-ink);
+  cursor: pointer;
+  transition: background var(--laara-dur-micro) var(--laara-ease-out),
+              border-color var(--laara-dur-micro) var(--laara-ease-out),
+              color var(--laara-dur-micro) var(--laara-ease-out),
+              transform var(--laara-dur-micro) var(--laara-ease-out);
+}
+.work-carousel-arrow svg { width: 20px; height: 20px; }
+.work-carousel-arrow:hover:not(:disabled) { border-color: var(--laara-ink); transform: translateY(-1px); }
+.work-carousel-arrow:active:not(:disabled) { transform: translateY(0); }
+.work-carousel-arrow:disabled { opacity: 0.35; cursor: default; }
+
+.work-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--laara-space-2);
+  /* Grid items default to min-width:auto, so 4 dots at 44px touch
+     targets (200px) forced this grid's 1fr track — and the whole
+     page — wider than the viewport at 320px once a 4th project was
+     added. min-width:0 lets the track actually shrink; overflow-x
+     is the fallback if dots ever genuinely can't fit at any width. */
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.work-carousel-dots::-webkit-scrollbar { display: none; }
+.work-carousel-dot {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.work-carousel-dot::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--laara-border);
+  transition: background var(--laara-dur-micro) var(--laara-ease-out),
+              transform var(--laara-dur-micro) var(--laara-ease-out);
+}
+.work-carousel-dot:hover::before { background: var(--laara-muted-grey); }
+.work-carousel-dot[aria-current="true"]::before {
+  background: var(--laara-accent);
+  transform: scale(1.35);
+}
+@media (prefers-reduced-motion: reduce) {
+  .work-track { scroll-behavior: auto; }
+}
+
+/* ============================================================
+   CASE STUDIES (Work page)
+   ============================================================ */
+
+.case-study {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--laara-space-6);
+  align-items: start;
+  padding-bottom: var(--laara-space-16);
+  margin-bottom: var(--laara-space-16);
+  border-bottom: 1.5px solid var(--laara-border);
+}
+.case-study:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+@media (min-width: 900px) {
+  .case-study { grid-template-columns: 1.1fr 1fr; gap: var(--laara-space-12); }
+  .case-study--reverse .case-study-media { order: 2; }
+  .case-study--reverse .case-study-body { order: 1; }
+}
+
+.case-study-media { overflow: hidden; border-radius: var(--laara-radius-card); }
+.case-study-media img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--laara-radius-card);
+  box-shadow: var(--laara-shadow-lg);
+  display: block;
+  transition: transform var(--laara-dur-section) var(--laara-ease-out);
+}
+.case-study:hover .case-study-media img { transform: scale(1.04); }
+
+.case-study-tags {
+  display: flex;
+  gap: var(--laara-space-2);
   margin-bottom: var(--laara-space-3);
 }
-.work-body h3 { margin: 0 0 var(--laara-space-2); }
-.work-body p { color: var(--laara-text-secondary); font-size: var(--laara-fs-body); margin: 0 0 var(--laara-space-4); }
-.work-body a { font-weight: var(--laara-fw-semibold); font-size: var(--laara-fs-small); }
+
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--laara-space-1) var(--laara-space-3);
+  border-radius: 999px;
+  border: 1.5px solid var(--laara-border);
+  color: var(--laara-text-secondary);
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-semibold);
+}
+.case-study-body h3 { margin: 0 0 var(--laara-space-2); }
+.case-study-body p { margin: 0 0 var(--laara-space-4); }
+.case-study-body .laara-btn { margin-top: var(--laara-space-2); }
+
+/* ============================================================
+   CASE GRID (Work page — browser-frame preview cards)
+   Scoped classes (case-frame, case-card, case-filters) so this
+   redesign doesn't touch the shared .work-card / .case-study
+   patterns still used on index.html, about.html and sector pages.
+   ============================================================ */
+
+.case-filters,
+.service-pill-nav {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  gap: var(--laara-space-2);
+  margin: var(--laara-space-8) 0 0;
+  padding: var(--laara-space-2);
+  background: var(--laara-surface);
+  border: 1.5px solid var(--laara-border);
+  border-radius: var(--laara-radius-lg);
+  box-shadow: var(--laara-shadow-sm);
+}
+.case-filters::-webkit-scrollbar,
+.service-pill-nav::-webkit-scrollbar { display: none; }
+.filter-pill {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--laara-space-5);
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--laara-text-secondary);
+  font-family: var(--laara-font);
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-semibold);
+  cursor: pointer;
+  transition: background var(--laara-dur-micro) var(--laara-ease-in-out),
+              color var(--laara-dur-micro) var(--laara-ease-in-out);
+}
+.filter-pill:hover:not(.is-active) { background: rgba(16, 17, 20, 0.06); color: var(--laara-ink); }
+.filter-pill.is-active { background: var(--laara-green); color: var(--laara-ink); font-weight: var(--laara-fw-bold); }
+@media (hover: none) {
+  .filter-pill:active { transform: scale(0.97); }
+}
+.filter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  margin-left: var(--laara-space-2);
+  border-radius: 999px;
+  background: rgba(16, 17, 20, 0.08);
+  color: inherit;
+  font-size: 0.6875rem;
+  font-weight: var(--laara-fw-bold);
+}
+.filter-pill.is-active .filter-count { background: rgba(16, 17, 20, 0.14); }
+
+/* Sliding capsule behind the active pill — ink text (set on .filter-pill.is-active
+   above) stays readable against both the plain track and this green capsule, so
+   there's no contrast flip to time against the slide transition. The pill's own
+   instant background flip (above) covers first paint/click before this settles. */
+.filter-indicator {
+  position: absolute;
+  z-index: 0;
+  top: var(--laara-space-2);
+  left: 0;
+  height: 44px;
+  width: 0;
+  background: var(--laara-green);
+  border-radius: 999px;
+  transition: transform var(--laara-dur-section) var(--laara-ease-out),
+              width var(--laara-dur-section) var(--laara-ease-out);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .filter-indicator { transition: none; }
+}
+
+.case-card {
+  display: flex;
+  flex-direction: column;
+}
+.case-card.is-hidden { display: none; }
+
+/* Real vs. concept — a coloured top edge on the frame so the two are
+   scannable at a glance, not just from the status badge in the body. */
+.case-card--real .case-frame { border-top: 3px solid var(--laara-green); }
+.case-card--concept .case-frame { border-top: 3px solid var(--laara-border); }
+
+.case-frame {
+  border-radius: var(--laara-radius-lg);
+  overflow: hidden;
+  background: var(--laara-ink);
+  box-shadow: var(--laara-shadow-lg);
+  transition: transform var(--laara-dur-section) var(--laara-ease-out),
+              box-shadow var(--laara-dur-section) var(--laara-ease-out),
+              border-color var(--laara-dur-micro) var(--laara-ease-in-out);
+}
+.case-card:hover .case-frame,
+.case-card:focus-within .case-frame {
+  transform: translateY(-4px);
+  box-shadow: var(--laara-shadow-lg), 0 20px 44px -26px rgba(16, 17, 20, 0.35);
+}
+.case-card--real:hover .case-frame,
+.case-card--real:focus-within .case-frame { border-top-color: var(--laara-green-deep); }
+@media (hover: none) {
+  .case-card:active .case-frame { transform: scale(0.99); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .case-card:hover .case-frame,
+  .case-card:focus-within .case-frame { transform: none; }
+}
+.case-frame-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--laara-space-3) var(--laara-space-4);
+  background: #1b1c20;
+}
+.case-frame-bar span:not(.case-frame-url) {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(250, 250, 249, 0.22);
+  flex-shrink: 0;
+}
+.case-frame-url {
+  margin-left: var(--laara-space-3);
+  padding: 3px var(--laara-space-3);
+  border-radius: 999px;
+  background: rgba(250, 250, 249, 0.08);
+  color: var(--laara-on-dark-subtle);
+  font-size: 0.75rem;
+  font-family: var(--laara-font);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.case-frame-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+.case-frame-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform var(--laara-dur-section) var(--laara-ease-out);
+}
+.case-card:hover .case-frame-media img,
+.case-card:focus-within .case-frame-media img { transform: scale(1.05); }
+
+.case-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-top: var(--laara-space-5);
+}
+.case-card-tags { display: flex; flex-wrap: wrap; gap: var(--laara-space-2); margin-bottom: var(--laara-space-3); }
+.case-card-body h3 {
+  margin: 0 0 var(--laara-space-1);
+  font-size: var(--laara-fs-h3);
+  transition: color var(--laara-dur-micro) var(--laara-ease-in-out);
+}
+.case-card:hover .case-card-body h3,
+.case-card:focus-within .case-card-body h3 { color: var(--laara-green-text); }
+.case-card-location { color: var(--laara-text-secondary); font-size: var(--laara-fs-small); margin: 0 0 var(--laara-space-3); }
+.case-card-excerpt {
+  color: var(--laara-text-secondary);
+  margin: 0 0 var(--laara-space-5);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.case-card-link {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--laara-space-2);
+  width: fit-content;
+  min-height: var(--laara-touch-min);
+  font-weight: var(--laara-fw-bold);
+  color: var(--laara-ink);
+  text-decoration: none;
+  transition: color var(--laara-dur-micro) var(--laara-ease-in-out);
+}
+.case-card-link:hover, .case-card-link:focus-visible { color: var(--laara-green-text); text-decoration: underline; }
+.case-card-link span[aria-hidden] {
+  display: inline-block;
+  transition: transform var(--laara-dur-micro) var(--laara-ease-out);
+}
+.case-card-link:hover span[aria-hidden],
+.case-card-link:focus-visible span[aria-hidden] { transform: translate(2px, -2px); }
+
+/* ---------- Project number + status badge ---------- */
+.case-number {
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-bold);
+  letter-spacing: 0.04em;
+  color: var(--laara-text-secondary);
+  margin: 0 0 var(--laara-space-2);
+}
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--laara-space-2);
+  padding: var(--laara-space-1) var(--laara-space-3);
+  border-radius: 999px;
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-bold);
+  margin-bottom: var(--laara-space-3);
+  width: fit-content;
+}
+.status-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--laara-green); flex-shrink: 0; }
+.status-badge--client {
+  background: color-mix(in srgb, var(--laara-green) 14%, var(--laara-white));
+  color: var(--laara-green-deep);
+}
+.status-badge--concept {
+  background: var(--laara-surface);
+  color: var(--laara-text-secondary);
+  border: 1.5px solid var(--laara-border);
+}
+
+/* ---------- Concept-build tooltip (native <details>, keyboard + touch accessible) ---------- */
+.status-badge-tooltip { position: relative; display: inline-flex; }
+.status-badge-tooltip summary {
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  font-size: 0.6875rem;
+  font-weight: var(--laara-fw-bold);
+  color: inherit;
+  cursor: pointer;
+}
+.status-badge-tooltip summary::-webkit-details-marker { display: none; }
+.status-badge-tooltip summary:focus-visible { outline: 3px solid var(--laara-focus-ring); outline-offset: 2px; }
+.status-badge-tooltip[open] summary { background: var(--laara-ink); color: var(--laara-paper); border-color: var(--laara-ink); }
+.status-badge-tooltip p {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + var(--laara-space-2));
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 240px;
+  margin: 0;
+  padding: var(--laara-space-3) var(--laara-space-4);
+  border-radius: var(--laara-radius);
+  background: var(--laara-ink);
+  color: var(--laara-paper);
+  box-shadow: var(--laara-shadow-lg);
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-regular);
+  text-align: left;
+}
 
 /* ============================================================
    PRICING TEASER
@@ -304,13 +1771,19 @@ img { max-width: 100%; display: block; }
 @media (min-width: 780px) {
   .pricing-grid { grid-template-columns: repeat(3, 1fr); }
 }
-.pricing-card {
-  display: flex;
-  flex-direction: column;
-  transition: transform var(--laara-dur-micro) var(--laara-ease-out),
-              box-shadow var(--laara-dur-micro) var(--laara-ease-out);
+
+/* ---------- Tier grid (service pages — lighter package tiles) ----------
+   Package counts vary per service (2-4 tiers), so this stays a plain
+   auto-wrapping grid rather than pricing-grid's fixed 3-column layout;
+   cards still reuse .laara-card.pricing-card unchanged. */
+.tier-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--laara-space-6);
 }
-.pricing-card:hover { transform: translateY(-4px); box-shadow: var(--laara-shadow-lg); }
+@media (min-width: 640px) { .tier-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .tier-grid { grid-template-columns: repeat(3, 1fr); } }
+
 .pricing-card--featured { border-color: var(--laara-ink); border-width: 2px; position: relative; }
 .pricing-card-badge {
   align-self: flex-start;
@@ -330,12 +1803,179 @@ img { max-width: 100%; display: block; }
   margin-bottom: var(--laara-space-4);
 }
 .pricing-price span { font-size: var(--laara-fs-body); font-weight: var(--laara-fw-regular); color: var(--laara-text-secondary); }
-.pricing-card ul { flex-grow: 1; margin-bottom: var(--laara-space-6); }
+.pricing-card ul { flex-grow: 1; margin-bottom: var(--laara-space-4); }
 .pricing-card .laara-btn { align-self: flex-start; }
+.pricing-meta {
+  font-size: var(--laara-fs-small);
+  color: var(--laara-text-secondary);
+  margin: 0 0 var(--laara-space-2);
+}
+.pricing-meta:last-of-type { margin-bottom: var(--laara-space-6); }
+.pricing-meta strong { color: var(--laara-text); }
+
+/* ---------- Pricing helper (homepage-only compact "help me choose") ----------
+   pricing.html keeps its own full 3-question tool with a dedicated
+   result panel (pricing.js/pricing-data.js) — this is a smaller,
+   self-contained version scoped to the homepage teaser that answers
+   by highlighting the matching card above instead of duplicating a
+   result panel. Reuses .pill-toggle/.pill-toggle-btn verbatim (same
+   component the contact wizard uses) rather than inventing a new
+   input style. */
+.pricing-helper {
+  margin-top: var(--laara-space-10);
+  padding-top: var(--laara-space-10);
+  border-top: 1px solid var(--laara-border);
+}
+.pricing-helper-label {
+  font-weight: var(--laara-fw-bold);
+  font-size: var(--laara-fs-body-lg);
+  margin: 0 0 var(--laara-space-6);
+}
+.pricing-helper-q { margin-bottom: var(--laara-space-5); }
+.pricing-helper-q .laara-field-label { margin: 0 0 var(--laara-space-2); }
+.pricing-helper-result {
+  margin: var(--laara-space-2) 0 0;
+  font-weight: var(--laara-fw-semibold);
+  color: var(--laara-text-secondary);
+}
+
+.pricing-card.is-recommended {
+  border-color: var(--laara-green);
+  box-shadow: 0 0 0 3px rgba(18, 183, 106, 0.25), var(--laara-shadow-lg);
+}
+
+/* ============================================================
+   COMPARISON TABLE
+   Real <table> semantics — free screen-reader row/column
+   association via scope="row"/"col", no hand-rolled ARIA.
+   .table-scroll is an unconditional horizontal-scroll fallback
+   at every viewport; the mobile tab-switcher (pricing.js) only
+   ever hides columns when it sets data-active on .compare-table
+   itself, so with JS disabled/failed no [data-active] attribute
+   is ever present and every column stays visible + scrollable.
+   ============================================================ */
+
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--laara-radius-card);
+  border: 1.5px solid var(--laara-border);
+}
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--laara-white);
+}
+/* Only the full 4-column desktop table needs a sizing floor — the mobile
+   tab-switcher reduces this to 2 visible columns (feature + one package),
+   and a leftover 640px floor would force it wide enough to push the
+   package column off-screen, reachable only by scrolling past it. */
+@media (min-width: 780px) {
+  .compare-table { min-width: 640px; }
+}
+.compare-table th, .compare-table td {
+  padding: var(--laara-space-4) var(--laara-space-5);
+  text-align: left;
+  border-bottom: 1.5px solid var(--laara-border);
+  font-size: var(--laara-fs-small);
+}
+.compare-table thead th {
+  font-size: var(--laara-fs-body);
+  font-weight: var(--laara-fw-bold);
+  color: var(--laara-text);
+  background: var(--laara-surface);
+  white-space: nowrap;
+}
+.compare-table th[scope="row"] {
+  font-weight: var(--laara-fw-semibold);
+  color: var(--laara-text);
+}
+.compare-table td { color: var(--laara-text-secondary); }
+.compare-row--group th {
+  background: var(--laara-ink);
+  color: var(--laara-paper);
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding-block: var(--laara-space-3);
+  border-bottom: none;
+}
+.compare-check { color: var(--laara-green-deep); font-weight: var(--laara-fw-bold); }
+.compare-dash { color: var(--laara-muted-grey); }
+.compare-table tfoot td { border-bottom: none; padding-top: var(--laara-space-6); }
+.compare-table tfoot .laara-btn { width: 100%; justify-content: center; }
+
+/* ---------- Plan selector (reuses .option-card verbatim — same
+   selected-state look as Help Me Choose below: green border, light
+   green tint, checkmark badge. Only sizing is overridden here.) ---------- */
+.compare-select-grid { margin-bottom: var(--laara-space-6); }
+.compare-select-card { padding: var(--laara-space-5); gap: var(--laara-space-1); }
+.compare-select-card .option-card-desc { font-size: var(--laara-fs-body); font-weight: var(--laara-fw-bold); color: var(--laara-text); }
+.compare-select-badge { margin-bottom: 0; }
+
+/* ---------- Highlight the selected package's column ----------
+   Same driver as the mobile hide rule below (compareTable.dataset.active,
+   set by pricing.js from the radio group's change event) — without JS
+   the radios still work as inputs but have no effect on the table, which
+   stays fully readable via .table-scroll's unconditional overflow-x. */
+.compare-table[data-active="essential"] [data-package="essential"],
+.compare-table[data-active="professional"] [data-package="professional"],
+.compare-table[data-active="growth"] [data-package="growth"] {
+  background: color-mix(in srgb, var(--laara-green) 8%, var(--laara-white));
+}
+.compare-table[data-active="essential"] td[data-package="essential"],
+.compare-table[data-active="professional"] td[data-package="professional"],
+.compare-table[data-active="growth"] td[data-package="growth"] {
+  color: var(--laara-text);
+  font-weight: var(--laara-fw-semibold);
+}
+.compare-table[data-active="essential"] thead th[data-package="essential"],
+.compare-table[data-active="professional"] thead th[data-package="professional"],
+.compare-table[data-active="growth"] thead th[data-package="growth"] {
+  box-shadow: inset 0 -3px 0 var(--laara-green);
+}
+
+/* ---------- Mobile: hide the two non-selected columns (progressive
+   enhancement) — a 4-column table needs this on a phone even with the
+   highlight above; .table-scroll is the no-JS fallback either way. ---------- */
+@media (max-width: 779px) {
+  .compare-table[data-active] [data-package] { display: none; }
+  .compare-table[data-active="essential"] [data-package="essential"],
+  .compare-table[data-active="professional"] [data-package="professional"],
+  .compare-table[data-active="growth"] [data-package="growth"] { display: table-cell; }
+}
+
+/* ============================================================
+   HELP ME CHOOSE
+   Question groups reuse .option-card-grid/.option-card verbatim
+   (built for the contact-page wizard). Only the result panel
+   below is new.
+   ============================================================ */
+
+.choose-questions { display: flex; flex-direction: column; gap: var(--laara-space-10); margin-bottom: var(--laara-space-8); }
+.choose-question-label { display: block; margin-bottom: var(--laara-space-4); }
+.choose-result {
+  display: none;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--laara-dur-reveal) var(--laara-ease-out),
+              transform var(--laara-dur-reveal) var(--laara-ease-out);
+}
+.choose-result.is-visible { display: flex; }
+.choose-result.is-shown { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  .choose-result { transition: none; }
+}
+.choose-result-eyebrow { margin-bottom: var(--laara-space-2); }
+.choose-result h3 { margin: 0 0 var(--laara-space-2); }
+.choose-result p { color: var(--laara-text-secondary); margin: 0 0 var(--laara-space-6); }
 
 /* ============================================================
    PROCESS
    ============================================================ */
+
+.process-wrap { position: relative; }
 
 .process-list {
   display: grid;
@@ -348,7 +1988,7 @@ img { max-width: 100%; display: block; }
 @media (min-width: 780px) {
   .process-list { grid-template-columns: repeat(3, 1fr); }
 }
-.process-step { text-align: left; }
+.process-step { position: relative; z-index: 1; text-align: left; }
 .process-icon {
   width: 56px;
   height: 56px;
@@ -359,18 +1999,220 @@ img { max-width: 100%; display: block; }
   align-items: center;
   justify-content: center;
   margin-bottom: var(--laara-space-4);
+  transition: background var(--laara-dur-section) var(--laara-ease-out),
+              color var(--laara-dur-section) var(--laara-ease-out);
 }
 .process-icon svg { width: 26px; height: 26px; }
 .process-step h3 { margin: 0 0 var(--laara-space-2); }
 .process-step p { color: var(--laara-text-secondary); margin: 0; }
 
+/* "Line reaches each step" activation — desktop only (see below for why
+   this doesn't try to be a literal connecting line on mobile). No
+   scroll-position tracking: the whole thing triggers once, the same
+   moment every other .reveal on the page does, via the existing shared
+   IntersectionObserver. The staggered feel comes entirely from each
+   icon's own transition-delay, timed to land as the line "reaches" it. */
+@media (min-width: 780px) {
+  .process-step:nth-child(1) .process-icon { transition-delay: 150ms; }
+  .process-step:nth-child(2) .process-icon { transition-delay: 450ms; }
+  .process-step:nth-child(3) .process-icon { transition-delay: 750ms; }
+  .process-step.is-visible .process-icon {
+    background: var(--laara-green);
+    color: var(--laara-ink);
+  }
+}
+
+/* Connecting line through the icon centres. Desktop: horizontal, spans
+   icon 1's centre to icon 3's centre — reliable because grid puts all
+   three icons on the same row regardless of paragraph length. Mobile
+   keeps the plain vertical stack without a drawn line: with items
+   stacked in normal flow, paragraph length varies each step's height,
+   so there's no way to calculate icon-centre-to-icon-centre in pure
+   CSS without measuring live layout — not worth JS for a decorative
+   line when the staggered fade-up already reads as a sequence. */
+.process-connector { display: none; }
+@media (min-width: 780px) {
+  .process-connector {
+    display: block;
+    position: absolute;
+    top: 28px;
+    left: 16.66%;
+    right: 16.66%;
+    height: 1.5px;
+    background: var(--laara-border);
+    overflow: hidden;
+    z-index: 0;
+  }
+}
+/* A drawn line sliding up 20px like a card reads oddly — keep the base
+   .reveal opacity fade but neutralise its translateY for this element. */
+.process-connector.reveal { transform: none; }
+.process-connector-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--laara-green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 900ms var(--laara-ease-out);
+}
+.process-connector.is-visible .process-connector-fill { transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) {
+  .process-connector-fill { transition: none; }
+  .process-step .process-icon { transition: none; }
+}
+
+/* ============================================================
+   ADD-ONS GRID
+   Uses .glow-card's quieter hover treatment deliberately — the
+   bold green-wash on .laara-card is reserved for "pick me"
+   package decisions, not browse-and-compare add-ons.
+   ============================================================ */
+
+.addon-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--laara-space-6);
+}
+@media (min-width: 640px) {
+  .addon-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 900px) {
+  .addon-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.addon-card { padding: var(--laara-space-6); }
+.addon-card .laara-dot { margin-bottom: var(--laara-space-4); width: 2.5rem; height: 2.5rem; border-radius: var(--laara-radius); display: flex; align-items: center; justify-content: center; background: var(--laara-ink); }
+.addon-card .laara-dot svg { width: 20px; height: 20px; color: var(--laara-green); }
+.addon-card h3 { margin: 0 0 var(--laara-space-2); font-size: var(--laara-fs-h3); }
+.addon-price { font-weight: var(--laara-fw-bold); color: var(--laara-text); margin: 0; }
+.addon-note { display: block; font-size: var(--laara-fs-small); color: var(--laara-text-secondary); font-weight: var(--laara-fw-regular); }
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+
+.faq-list {
+  max-width: 46rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--laara-space-4);
+}
+.faq-item {
+  background: var(--laara-white);
+  border: 1.5px solid var(--laara-border);
+  border-radius: var(--laara-radius-card);
+  padding: var(--laara-space-6);
+  transition: border-color var(--laara-dur-section) var(--laara-ease-out),
+              box-shadow var(--laara-dur-section) var(--laara-ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .faq-item:not([open]):hover { border-color: var(--laara-ink); }
+}
+.faq-item[open] {
+  border-color: var(--laara-green);
+  box-shadow: var(--laara-shadow);
+}
+.faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--laara-space-4);
+  min-height: var(--laara-touch-min);
+  cursor: pointer;
+  list-style: none;
+  font-weight: var(--laara-fw-bold);
+  font-size: var(--laara-fs-body-lg);
+  transition: color var(--laara-dur-micro) var(--laara-ease-out);
+}
+.faq-item[open] summary { color: var(--laara-green-text); }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+';
+  flex-shrink: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--laara-green-text);
+  transition: transform var(--laara-dur-reveal) var(--laara-ease-in-out);
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item summary:focus-visible {
+  outline: 2px solid var(--laara-ink);
+  outline-offset: 4px;
+}
+.faq-item p {
+  margin: var(--laara-space-4) 0 0;
+  color: var(--laara-text-secondary);
+}
+@media (prefers-reduced-motion: reduce) {
+  .faq-item,
+  .faq-item summary,
+  .faq-item[open] summary::after { transition: none; }
+}
+
+/* ============================================================
+   SECTOR CHIPS (service pages — "Who it's for")
+   ============================================================ */
+
+.sector-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--laara-space-3);
+}
+.sector-chip {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1px;
+  min-height: var(--laara-touch-min);
+  padding: var(--laara-space-2) var(--laara-space-5);
+  border-radius: 999px;
+  border: 1.5px solid var(--laara-border);
+  background: var(--laara-white);
+  text-decoration: none;
+  justify-content: center;
+  transition: border-color var(--laara-dur-micro) var(--laara-ease-in-out),
+              background var(--laara-dur-micro) var(--laara-ease-in-out),
+              transform var(--laara-dur-micro) var(--laara-ease-out);
+}
+.sector-chip-name { font-weight: var(--laara-fw-bold); color: var(--laara-text); }
+.sector-chip-note { font-size: var(--laara-fs-small); color: var(--laara-text-secondary); }
+@media (hover: hover) and (pointer: fine) {
+  .sector-chip:hover,
+  .sector-chip:focus-visible { border-color: var(--laara-ink); background: var(--laara-surface); transform: translateY(-1px); }
+}
+@media (hover: none) {
+  .sector-chip:active { transform: scale(0.97); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sector-chip:hover,
+  .sector-chip:focus-visible { transform: none; }
+}
+
 /* ============================================================
    FINAL CTA
    ============================================================ */
 
-.final-cta { text-align: center; }
-.final-cta h2 { margin: 0 0 var(--laara-space-4); }
-.final-cta p { margin: 0 auto var(--laara-space-8); color: var(--laara-on-dark-muted); max-width: 34rem; }
+/* More dramatic than the other .laara-inverse sections (stat band is an
+   informational beat, this is the closing one) — bigger type, more
+   padding, and the shared ambient glow (.laara-inverse::before) turned
+   up a little. Still the same soft blurred/drifting blob, explicitly
+   not the hero's WebGL fluid canvas — just a larger, slightly brighter
+   version of it for this one moment. */
+.final-cta {
+  text-align: center;
+  padding-block: calc(var(--laara-section-y) * 1.3);
+}
+.final-cta::before {
+  width: 34rem;
+  height: 34rem;
+  top: -9rem;
+  left: -8rem;
+  opacity: 0.22;
+}
+.final-cta h2 {
+  font-size: var(--laara-fs-display);
+  margin: 0 0 var(--laara-space-6);
+}
+.final-cta p { margin: 0 auto var(--laara-space-10); color: var(--laara-on-dark-muted); font-size: var(--laara-fs-body-lg); max-width: 34rem; }
 .final-cta-actions {
   display: flex;
   flex-wrap: wrap;
@@ -394,9 +2236,35 @@ img { max-width: 100%; display: block; }
   margin-bottom: var(--laara-space-12);
 }
 @media (min-width: 780px) {
-  .footer-grid { grid-template-columns: 2fr 1fr 1fr; }
+  .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; }
 }
 .footer-brand p { color: var(--laara-on-dark-muted); margin: var(--laara-space-4) 0 0; max-width: 28rem; }
+.footer-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--laara-space-2);
+  margin-top: var(--laara-space-5);
+  padding: var(--laara-space-2) var(--laara-space-4);
+  border-radius: 999px;
+  border: 1.5px solid rgba(250, 250, 249, 0.16);
+  color: var(--laara-on-dark-muted);
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-semibold);
+}
+.footer-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--laara-green);
+  flex-shrink: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .footer-status-dot { animation: footer-status-pulse 2.4s ease-in-out infinite; }
+}
+@keyframes footer-status-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(18, 183, 106, 0.5); }
+  50% { box-shadow: 0 0 0 4px rgba(18, 183, 106, 0); }
+}
 .footer-col h3 {
   font-size: var(--laara-fs-small);
   text-transform: uppercase;
@@ -469,12 +2337,19 @@ img { max-width: 100%; display: block; }
 .contact-response p { margin: 0; color: var(--laara-on-dark-muted); }
 
 .page-hero {
+  position: relative;
+  overflow: hidden;
   background: var(--laara-bg-inverse);
   color: var(--laara-text-inverse);
   padding-block: var(--laara-space-16) var(--laara-space-12);
 }
 .page-hero h1 { color: var(--laara-paper); margin: 0 0 var(--laara-space-4); }
 .page-hero p { color: var(--laara-on-dark-muted); max-width: 38rem; margin: 0; font-size: var(--laara-fs-body-lg); }
+.page-hero > .laara-container { position: relative; z-index: 1; }
+
+/* Dark-band containers get relative/overflow so ambient blobs stay clipped and behind content */
+.laara-inverse { position: relative; overflow: hidden; }
+.laara-inverse > .laara-container { position: relative; z-index: 1; }
 
 /* ============================================================
    SCROLL REVEAL
@@ -488,6 +2363,769 @@ img { max-width: 100%; display: block; }
 }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
+/* ---------- Zoom-reveal (portfolio/case-study imagery) ---------- */
+.reveal-zoom {
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity var(--laara-dur-section) var(--laara-ease-out),
+              transform var(--laara-dur-section) var(--laara-ease-out);
+}
+.reveal-zoom.is-visible { opacity: 1; transform: scale(1); }
+
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
+  .reveal-zoom { opacity: 1; transform: none; transition: none; }
+}
+
+/* ============================================================
+   HEADING REVEAL — colour-sweep wipe
+   A brand-coloured block travels left->right across a section
+   heading. The block's trailing edge and the text's clip-path
+   reveal boundary are both linear functions of the same eased
+   transition progress, matched at t=0 and t=1 (see plan doc) —
+   so they track each other exactly at every instant, not just
+   at the endpoints. No keyframes needed, one transition drives
+   both the block and the reveal.
+   ============================================================ */
+
+.reveal-heading {
+  position: relative;
+  overflow: hidden;
+  padding-block: 0.3em;
+  margin-block: -0.3em;
+}
+.reveal-heading__inner {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  padding-block: 0.3em;
+  margin-block: -0.3em;
+}
+.reveal-heading__text {
+  display: inline-block;
+  clip-path: inset(-0.3em 100% -0.3em -0.3em);
+  transform: translateX(-18px);
+  transition: clip-path var(--laara-dur-heading) var(--laara-ease-out) 90ms,
+              transform var(--laara-dur-heading) var(--laara-ease-out) 90ms;
+}
+.reveal-heading__sweep {
+  position: absolute;
+  inset: -0.3em auto -0.3em 0;
+  width: 24%;
+  background: var(--heading-reveal-color, var(--laara-green));
+  transform: translateX(0%);
+  transition: transform var(--laara-dur-heading) var(--laara-ease-out) 90ms;
+  pointer-events: none;
+}
+.reveal-heading.is-visible .reveal-heading__text {
+  clip-path: inset(-0.3em 0 -0.3em -0.3em);
+  transform: translateX(0);
+}
+.reveal-heading.is-visible .reveal-heading__sweep {
+  transform: translateX(416.667%);
+}
+
+/* ---------- Supporting copy under a reveal-heading ---------- */
+.reveal-support {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--laara-dur-reveal) var(--laara-ease-out) 300ms,
+              transform var(--laara-dur-reveal) var(--laara-ease-out) 300ms;
+}
+.reveal-support.is-visible { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-heading__text {
+    clip-path: none;
+    transform: none;
+    transition: none;
+  }
+  .reveal-heading__sweep { display: none; }
+  .reveal-support { opacity: 1; transform: none; transition: none; }
+}
+
+/* ============================================================
+   ANIMATED TYPOGRAPHY (hero headline word-split)
+   ============================================================ */
+
+.word-split-wrap { display: inline; }
+.word-split {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.5em);
+  transition: opacity var(--laara-dur-reveal) var(--laara-ease-out),
+              transform var(--laara-dur-reveal) var(--laara-ease-out);
+}
+.word-split-parent.is-visible .word-split { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .word-split { opacity: 1; transform: none; transition: none; }
+}
+
+/* ============================================================
+   NAV INDICATOR
+   ============================================================ */
+
+.nav-indicator {
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: var(--laara-green-deep);
+  border-radius: 2px;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform var(--laara-dur-micro) var(--laara-ease-out),
+              width var(--laara-dur-micro) var(--laara-ease-out),
+              opacity var(--laara-dur-micro) var(--laara-ease-out);
+}
+
+/* ============================================================
+   CUSTOM CURSOR (decorative, desktop only, additive)
+   ============================================================ */
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  margin-left: -11px;
+  margin-top: -11px;
+  border-radius: 50%;
+  background: var(--laara-green);
+  opacity: 0.45;
+  mix-blend-mode: normal;
+  pointer-events: none;
+  z-index: 200;
+  transition: width var(--laara-dur-micro) var(--laara-ease-out),
+              height var(--laara-dur-micro) var(--laara-ease-out),
+              margin var(--laara-dur-micro) var(--laara-ease-out),
+              opacity var(--laara-dur-micro) var(--laara-ease-out);
+}
+.custom-cursor--active {
+  width: 44px;
+  height: 44px;
+  margin-left: -22px;
+  margin-top: -22px;
+  opacity: 0.22;
+}
+@media (max-width: 899px), (hover: none), (pointer: coarse) {
+  .custom-cursor { display: none; }
+}
+
+/* ============================================================
+   QUOTE WIZARD (Contact page)
+   Fully namespaced (.mode-switch, .quote-wizard*, .option-card,
+   .chip-select, .pill-toggle, .wizard-*) — only contact.html
+   loads this markup. Values pull from brand tokens throughout.
+   ============================================================ */
+
+.quote-wizard-section { padding-top: var(--laara-space-12); }
+
+/* ---------- Mode switch ---------- */
+.mode-switch {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--laara-space-2);
+  background: var(--laara-surface);
+  border-radius: var(--laara-radius-lg);
+  padding: var(--laara-space-2);
+  margin-bottom: var(--laara-space-10);
+}
+@media (min-width: 640px) {
+  .mode-switch { flex-direction: row; }
+}
+.mode-switch-btn {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--laara-space-1);
+  text-align: left;
+  padding: var(--laara-space-4) var(--laara-space-6);
+  min-height: var(--laara-control-h);
+  border: none;
+  background: transparent;
+  border-radius: var(--laara-radius-card);
+  cursor: pointer;
+  font-family: var(--laara-font);
+  color: var(--laara-text-secondary);
+  transition: color var(--laara-dur-micro) var(--laara-ease-in-out);
+}
+.mode-switch-title { font-weight: var(--laara-fw-bold); font-size: var(--laara-fs-body-lg); color: var(--laara-text); }
+.mode-switch-hint { font-size: var(--laara-fs-small); color: var(--laara-text-secondary); }
+.mode-switch-btn.is-active .mode-switch-title { color: var(--laara-ink); }
+.mode-switch-btn:focus-visible { outline: 3px solid var(--laara-focus-ring); outline-offset: 2px; }
+.mode-switch-indicator {
+  position: absolute;
+  z-index: 0;
+  top: var(--laara-space-2);
+  left: var(--laara-space-2);
+  height: calc(100% - var(--laara-space-4));
+  width: 0;
+  background: var(--laara-white);
+  border-radius: var(--laara-radius-card);
+  box-shadow: var(--laara-shadow);
+  transition: transform var(--laara-dur-section) var(--laara-ease-out),
+              width var(--laara-dur-section) var(--laara-ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  .mode-switch-indicator { transition: none; }
+}
+
+/* ---------- Layout: wizard column + sticky summary ---------- */
+.quote-wizard-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--laara-space-10);
+  margin-bottom: var(--laara-space-12);
+}
+@media (min-width: 1080px) {
+  .quote-wizard-layout { grid-template-columns: 7fr 3fr; align-items: start; }
+}
+.quote-wizard { min-width: 0; }
+
+/* ---------- Progress tracker ---------- */
+.wizard-progress { margin-bottom: var(--laara-space-8); }
+.wizard-progress-track-wrap { position: relative; display: none; }
+@media (min-width: 1080px) {
+  .wizard-progress-track-wrap { display: block; }
+  .wizard-progress-mobile { display: none; }
+}
+.wizard-progress-line {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  background: var(--laara-border);
+}
+.wizard-progress-line-fill {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  height: 2px;
+  width: 0%;
+  background: var(--laara-green);
+  transition: width var(--laara-dur-section) var(--laara-ease-out);
+}
+.wizard-progress-track {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.wizard-progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--laara-space-2);
+  text-align: center;
+  flex: 1;
+}
+.wizard-progress-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--laara-white);
+  border: 1.5px solid var(--laara-border);
+  color: var(--laara-text-secondary);
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-bold);
+  transition: background var(--laara-dur-section) var(--laara-ease-out),
+              border-color var(--laara-dur-section) var(--laara-ease-out),
+              color var(--laara-dur-section) var(--laara-ease-out);
+}
+.wizard-progress-label { font-size: var(--laara-fs-small); color: var(--laara-text-secondary); }
+.wizard-progress-step.is-current .wizard-progress-num { background: var(--laara-ink); border-color: var(--laara-ink); color: var(--laara-paper); }
+.wizard-progress-step.is-current .wizard-progress-label { color: var(--laara-text); font-weight: var(--laara-fw-semibold); }
+.wizard-progress-step.is-complete .wizard-progress-num { background: var(--laara-green); border-color: var(--laara-green); color: var(--laara-on-accent); }
+
+.wizard-progress-mobile-label { margin: 0 0 var(--laara-space-3); font-size: var(--laara-fs-small); font-weight: var(--laara-fw-semibold); color: var(--laara-text); }
+.wizard-progress-bar { height: 4px; border-radius: 999px; background: var(--laara-border); overflow: hidden; }
+.wizard-progress-bar-fill { height: 100%; width: 20%; background: var(--laara-green); border-radius: 999px; transition: width var(--laara-dur-section) var(--laara-ease-out); }
+@media (prefers-reduced-motion: reduce) {
+  .wizard-progress-line-fill, .wizard-progress-bar-fill, .wizard-progress-num { transition: none; }
+}
+
+/* ---------- Form card + steps ---------- */
+.quote-form-card, .enquiry-form-card { padding: var(--laara-space-8); }
+.wizard-step { display: none; opacity: 1; transform: none; }
+.wizard-step.is-active { display: block; }
+.wizard-step h2 { margin: 0 0 var(--laara-space-2); }
+.wizard-step-hint { color: var(--laara-text-secondary); margin: 0 0 var(--laara-space-6); }
+.wizard-field-group { margin-bottom: var(--laara-space-8); }
+.wizard-field-group:last-child { margin-bottom: var(--laara-space-8); }
+.wizard-field-group > .laara-field-label,
+.wizard-field-group > span.laara-field-label { display: block; margin-bottom: var(--laara-space-3); }
+.wizard-field-row { display: grid; grid-template-columns: 1fr; gap: 0 var(--laara-space-6); }
+@media (min-width: 560px) {
+  .wizard-field-row { grid-template-columns: 1fr 1fr; }
+}
+
+.wizard-step.is-leaving-forward { opacity: 0; transform: translateX(-24px); }
+.wizard-step.is-entering-forward { opacity: 0; transform: translateX(24px); }
+.wizard-step.is-leaving-back { opacity: 0; transform: translateX(24px); }
+.wizard-step.is-entering-back { opacity: 0; transform: translateX(-24px); }
+.wizard-step.is-transitioning { transition: opacity var(--laara-dur-reveal) var(--laara-ease-out), transform var(--laara-dur-reveal) var(--laara-ease-out); }
+@media (prefers-reduced-motion: reduce) {
+  .wizard-step.is-transitioning { transition: opacity var(--laara-dur-micro) linear; }
+  .wizard-step.is-leaving-forward, .wizard-step.is-entering-forward,
+  .wizard-step.is-leaving-back, .wizard-step.is-entering-back { transform: none; }
+}
+
+/* ---------- Option cards (services, budget bands) ---------- */
+.option-card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--laara-space-4);
+}
+@media (min-width: 640px) {
+  .option-card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 900px) {
+  .option-card-grid:not(.option-card-grid--compact) { grid-template-columns: repeat(3, 1fr); }
+}
+
+.option-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--laara-space-2);
+  padding: var(--laara-space-6);
+  border: 1.5px solid var(--laara-border);
+  border-radius: var(--laara-radius-card);
+  background: var(--laara-white);
+  cursor: pointer;
+  transition: border-color var(--laara-dur-micro) var(--laara-ease-out),
+              background var(--laara-dur-micro) var(--laara-ease-out),
+              transform var(--laara-dur-micro) var(--laara-ease-out),
+              box-shadow var(--laara-dur-micro) var(--laara-ease-out);
+}
+.option-card-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  margin: 0;
+}
+.option-card:focus-within { outline: 3px solid var(--laara-focus-ring); outline-offset: 2px; }
+.option-card-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--laara-radius);
+  background: var(--laara-ink);
+  color: var(--laara-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--laara-space-2);
+}
+.option-card-icon svg { width: 22px; height: 22px; }
+.option-card-title { font-weight: var(--laara-fw-bold); color: var(--laara-text); }
+.option-card-desc { font-size: var(--laara-fs-small); color: var(--laara-text-secondary); }
+.option-card-range { font-weight: var(--laara-fw-bold); color: var(--laara-text); font-size: var(--laara-fs-body-lg); }
+
+@media (hover: hover) and (pointer: fine) {
+  .option-card:hover { border-color: var(--laara-ink); transform: translateY(-2px); box-shadow: var(--laara-shadow); }
+}
+.option-card.is-selected,
+.option-card:has(.option-card-input:checked) {
+  border-color: var(--laara-green);
+  background: color-mix(in srgb, var(--laara-green) 8%, var(--laara-white));
+  box-shadow: var(--laara-shadow);
+}
+.option-card.is-selected::after,
+.option-card:has(.option-card-input:checked)::after {
+  content: '';
+  position: absolute;
+  top: var(--laara-space-4);
+  right: var(--laara-space-4);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--laara-green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23101114' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E") center / 13px no-repeat;
+}
+.option-card--muted { border-style: dashed; }
+.option-card--muted .option-card-title,
+.option-card--muted .option-card-desc { color: var(--laara-text-secondary); }
+@media (prefers-reduced-motion: reduce) {
+  .option-card:hover { transform: none; }
+}
+
+/* ---------- Chip select (multi-select feature chips) ---------- */
+.chip-select { display: flex; flex-wrap: wrap; gap: var(--laara-space-2); }
+.chip-select-item {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--laara-space-4);
+  border-radius: 999px;
+  border: 1.5px solid var(--laara-border);
+  background: var(--laara-white);
+  color: var(--laara-text-secondary);
+  font-family: var(--laara-font);
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-semibold);
+  cursor: pointer;
+  transition: background var(--laara-dur-micro) var(--laara-ease-in-out),
+              color var(--laara-dur-micro) var(--laara-ease-in-out),
+              border-color var(--laara-dur-micro) var(--laara-ease-in-out);
+}
+.chip-select-item:hover { border-color: var(--laara-ink); color: var(--laara-ink); }
+.chip-select-item:focus-visible { outline: 3px solid var(--laara-focus-ring); outline-offset: 2px; }
+.chip-select-item[aria-pressed="true"] { background: var(--laara-green); border-color: transparent; color: var(--laara-ink); }
+@media (hover: none) {
+  .chip-select-item:active { transform: scale(0.97); }
+}
+
+/* ---------- Pill toggle (yes/no + single-select groups) ---------- */
+.pill-toggle { display: flex; flex-wrap: wrap; gap: var(--laara-space-3); }
+.pill-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--laara-space-5);
+  border-radius: 999px;
+  border: 1.5px solid var(--laara-border);
+  background: var(--laara-white);
+  color: var(--laara-text-secondary);
+  font-family: var(--laara-font);
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-semibold);
+  cursor: pointer;
+  transition: background var(--laara-dur-micro) var(--laara-ease-in-out),
+              color var(--laara-dur-micro) var(--laara-ease-in-out),
+              border-color var(--laara-dur-micro) var(--laara-ease-in-out);
+}
+.pill-toggle-btn:hover { border-color: var(--laara-ink); color: var(--laara-ink); }
+.pill-toggle-btn:focus-visible { outline: 3px solid var(--laara-focus-ring); outline-offset: 2px; }
+.pill-toggle-btn[aria-pressed="true"],
+.pill-toggle-btn[aria-checked="true"] { background: var(--laara-ink); border-color: var(--laara-ink); color: var(--laara-paper); }
+@media (hover: none) {
+  .pill-toggle-btn:active { transform: scale(0.97); }
+}
+
+/* ---------- Conditional reveal fields ---------- */
+.wizard-reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  overflow: hidden;
+  transition: grid-template-rows var(--laara-dur-section) var(--laara-ease-out),
+              opacity var(--laara-dur-reveal) var(--laara-ease-out);
+}
+.wizard-reveal-inner { min-height: 0; }
+.wizard-reveal.is-open { grid-template-rows: 1fr; opacity: 1; margin-top: var(--laara-space-4); }
+@media (prefers-reduced-motion: reduce) {
+  .wizard-reveal { transition: none; }
+}
+
+/* ---------- Field errors ---------- */
+.wizard-field-error {
+  color: #B3261E;
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-semibold);
+  margin-top: var(--laara-space-2);
+}
+.laara-input[aria-invalid="true"] { border-color: #B3261E; }
+
+/* ---------- Wizard controls ---------- */
+.wizard-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--laara-space-4);
+  margin-top: var(--laara-space-8);
+  padding-top: var(--laara-space-6);
+  border-top: 1.5px solid var(--laara-border);
+}
+.wizard-controls .wizard-next,
+.wizard-controls .wizard-submit { margin-left: auto; }
+.laara-btn:disabled,
+.laara-btn[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+
+/* ---------- Review step ---------- */
+.wizard-review { display: flex; flex-direction: column; gap: var(--laara-space-6); margin-bottom: var(--laara-space-6); }
+.wizard-review-group { border: 1.5px solid var(--laara-border); border-radius: var(--laara-radius-card); padding: var(--laara-space-5) var(--laara-space-6); }
+.wizard-review-group-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--laara-space-3); }
+.wizard-review-group-head .laara-label { margin: 0; }
+.wizard-review-edit {
+  background: none;
+  border: none;
+  padding: var(--laara-space-1) var(--laara-space-2);
+  color: var(--laara-link);
+  font-weight: var(--laara-fw-semibold);
+  font-size: var(--laara-fs-small);
+  cursor: pointer;
+  min-height: 32px;
+}
+.wizard-review-edit:hover, .wizard-review-edit:focus-visible { color: var(--laara-green-text); text-decoration: underline; }
+.wizard-review-row { display: flex; justify-content: space-between; gap: var(--laara-space-4); padding: var(--laara-space-2) 0; font-size: var(--laara-fs-body); }
+.wizard-review-row dt { color: var(--laara-text-secondary); margin: 0; }
+.wizard-review-row dd { margin: 0; text-align: right; font-weight: var(--laara-fw-semibold); color: var(--laara-text); }
+.wizard-reassurance { color: var(--laara-text-secondary); margin: 0 0 var(--laara-space-2); }
+.wizard-privacy-note { color: var(--laara-muted-grey); font-size: var(--laara-fs-small); margin: 0; }
+
+/* ---------- Success state ---------- */
+.wizard-success { text-align: center; padding: var(--laara-space-12) var(--laara-space-8); }
+.wizard-success-check { display: inline-flex; margin-bottom: var(--laara-space-6); width: 72px; height: 72px; }
+.wizard-success-check svg { width: 100%; height: 100%; }
+.wizard-success-check-circle {
+  stroke: var(--laara-green);
+  stroke-width: 2.5;
+  stroke-dasharray: 145;
+  stroke-dashoffset: 145;
+}
+.wizard-success-check-mark {
+  stroke: var(--laara-green);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+}
+.wizard-success:not([hidden]) .wizard-success-check-circle { animation: wizard-draw-circle 700ms var(--laara-ease-out) forwards; }
+.wizard-success:not([hidden]) .wizard-success-check-mark { animation: wizard-draw-mark 450ms var(--laara-ease-out) 550ms forwards; }
+@keyframes wizard-draw-circle { to { stroke-dashoffset: 0; } }
+@keyframes wizard-draw-mark { to { stroke-dashoffset: 0; } }
+.wizard-success h2 { margin: 0 0 var(--laara-space-3); }
+.wizard-success p { color: var(--laara-text-secondary); max-width: 32rem; margin: 0 auto var(--laara-space-6); }
+.wizard-success-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--laara-space-4); }
+@media (prefers-reduced-motion: reduce) {
+  .wizard-success-check-circle,
+  .wizard-success-check-mark { animation: none; stroke-dashoffset: 0; }
+}
+
+/* ---------- Sticky summary panel ---------- */
+.wizard-summary { display: none; }
+@media (min-width: 1080px) {
+  .wizard-summary {
+    display: block;
+    position: sticky;
+    top: calc(var(--laara-header-h-desktop) + var(--laara-space-6));
+  }
+}
+.wizard-summary-card { padding: var(--laara-space-6); }
+.wizard-summary-body { display: flex; flex-direction: column; }
+.wizard-summary-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--laara-space-3);
+  padding: var(--laara-space-3) 0;
+  border-bottom: 1px solid var(--laara-border);
+  font-size: var(--laara-fs-small);
+}
+.wizard-summary-row:last-child { border-bottom: none; }
+.wizard-summary-row dt { color: var(--laara-text-secondary); margin: 0; }
+.wizard-summary-row dd { margin: 0; text-align: right; font-weight: var(--laara-fw-semibold); color: var(--laara-text); max-width: 60%; }
+.wizard-summary-row dd.is-empty { color: var(--laara-muted-grey); font-weight: var(--laara-fw-regular); }
+
+/* [hidden] loses to any author rule of equal specificity that sets its own
+   display (.laara-card, .quote-wizard-layout, .pill-toggle, etc. all do) —
+   scope one override to the wizard so hidden panels/success states/reveals
+   actually disappear regardless of what else targets that same element. */
+.quote-wizard-section [hidden] { display: none !important; }
+
+/* ---------- Contact methods strip ---------- */
+.contact-methods-strip {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--laara-space-4);
+}
+@media (min-width: 640px) {
+  .contact-methods-strip { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1080px) {
+  .contact-methods-strip { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ============================================================
+   WORK PAGE — REDESIGN
+   Everything below is additive/scoped to work.html. Reuses the
+   .case-frame / .case-card / .reveal* / .laara-inverse patterns
+   defined above rather than introducing a second visual system.
+   ============================================================ */
+
+/* ---------- Hero: two-column layout override ----------
+   .page-hero.page-hero--fluid > .laara-container (defined earlier)
+   centers a single narrow column for the other fluid-hero pages.
+   Same specificity (3 classes), so this wins on source order for
+   the work-page hero only, without touching that shared rule. */
+.page-hero--work.page-hero--fluid > .laara-container {
+  text-align: left;
+  max-width: var(--laara-content-max);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--laara-space-10);
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .page-hero--work.page-hero--fluid > .laara-container {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--laara-space-12);
+  }
+}
+.work-hero { padding-block: var(--laara-space-12) var(--laara-space-10); }
+.work-hero-copy .laara-label { margin-bottom: var(--laara-space-4); }
+.work-hero-copy h1 { margin: 0 0 var(--laara-space-5); }
+.work-hero-sub {
+  font-size: var(--laara-fs-body-lg);
+  color: var(--laara-text-secondary);
+  max-width: 34rem;
+  margin: 0 0 var(--laara-space-6);
+}
+.work-hero-scroll {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--laara-space-2);
+  min-height: var(--laara-touch-min);
+  font-weight: var(--laara-fw-bold);
+  color: var(--laara-ink);
+  text-decoration: none;
+}
+.work-hero-scroll:hover, .work-hero-scroll:focus-visible { color: var(--laara-green-text); text-decoration: underline; }
+.work-hero-scroll span {
+  display: inline-block;
+  transition: transform var(--laara-dur-micro) var(--laara-ease-out);
+}
+.work-hero-scroll:hover span { transform: translateY(3px); }
+
+/* ---------- Hero project collage ---------- */
+.work-hero-collage { position: relative; }
+.work-hero-frame {
+  position: relative;
+  width: min(340px, 88%);
+  margin-inline: auto;
+  aspect-ratio: 16 / 10;
+  transform: translate(calc(var(--px, 0px) * var(--depth, 1)), calc(var(--py, 0px) * var(--depth, 1)));
+}
+.work-hero-frame--2, .work-hero-frame--3 { display: none; }
+.work-hero-frame-inner {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--laara-radius-lg);
+  overflow: hidden;
+  background: var(--laara-ink);
+  box-shadow: var(--laara-shadow-lg);
+}
+.work-hero-frame-inner img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.work-hero-frame--2 .work-hero-frame-inner { transition-delay: 90ms; }
+.work-hero-frame--3 .work-hero-frame-inner { transition-delay: 160ms; }
+@media (min-width: 1024px) {
+  .work-hero-collage { height: 420px; }
+  .work-hero-frame { width: auto; margin: 0; position: absolute; }
+  .work-hero-frame--1 { width: 60%; top: 6%; left: 2%; z-index: 3; }
+  .work-hero-frame--2 { display: block; width: 42%; top: 52%; left: 44%; z-index: 2; }
+  .work-hero-frame--3 { display: block; width: 34%; top: -4%; left: 60%; z-index: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .work-hero-frame { transform: none; }
+}
+
+/* ---------- Featured project ----------
+   Bottom padding trimmed from the default --laara-section-y (up to 120px)
+   down to a fixed --laara-space-12 (48px): this section's own content is
+   comparatively short (one image + a short text column), so the default
+   padding stacked with the next section's own top padding read as one
+   large dead gap rather than normal section rhythm. Same fix applied to
+   .browse-work below for the same reason (short filter-bar content). */
+.featured-project { padding-bottom: var(--laara-space-12); }
+.featured-project-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--laara-space-10);
+}
+@media (min-width: 1024px) {
+  .featured-project-layout { grid-template-columns: 1.6fr 1fr; align-items: start; gap: var(--laara-space-12); }
+}
+.featured-project-layout > * { min-width: 0; }
+.featured-project-media:hover .case-frame-media img,
+.featured-project-media:focus-within .case-frame-media img { transform: scale(1.05); }
+.featured-project-body h2 { margin: var(--laara-space-3) 0 var(--laara-space-2); font-size: clamp(2rem, 1.4rem + 2.4vw, 3.25rem); }
+.featured-project-meta { color: var(--laara-text-secondary); font-weight: var(--laara-fw-semibold); margin: 0 0 var(--laara-space-4); }
+.featured-project-body > p:not(.featured-project-meta) { color: var(--laara-text-secondary); margin: 0 0 var(--laara-space-6); }
+
+/* ---------- Browse the work ---------- */
+.browse-work { padding-top: var(--laara-space-12); padding-bottom: var(--laara-space-12); }
+.browse-work .section-head { margin-bottom: 0; }
+
+/* ---------- Client work: equal two-up ---------- */
+.client-work { padding-top: var(--laara-space-12); }
+.client-work-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--laara-space-12);
+  margin-top: var(--laara-space-8);
+}
+@media (min-width: 900px) {
+  .client-work-grid { grid-template-columns: 1fr 1fr; align-items: start; gap: var(--laara-space-8); }
+}
+.client-work-grid > .case-card { min-width: 0; }
+
+/* ---------- Concept lab: dark section, 2x2 grid ---------- */
+.concept-lab .section-head p { color: var(--laara-on-dark-muted); }
+.concept-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--laara-space-10) var(--laara-space-8);
+  margin-top: var(--laara-space-4);
+}
+@media (min-width: 640px) {
+  .concept-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.concept-grid > .case-card { min-width: 0; }
+.concept-lab .case-card--concept .case-frame { border-top-color: rgba(250, 250, 249, 0.25); }
+.concept-lab .case-number { color: var(--laara-on-dark-subtle); }
+.concept-lab .case-card-body h3 { color: var(--laara-text-inverse); }
+.concept-lab .case-card:hover .case-card-body h3,
+.concept-lab .case-card:focus-within .case-card-body h3 { color: var(--laara-green); }
+.concept-lab .case-card-location,
+.concept-lab .case-card-excerpt { color: var(--laara-on-dark-muted); }
+.concept-lab .tag-pill { border-color: rgba(250, 250, 249, 0.25); color: var(--laara-on-dark-muted); }
+.concept-lab .case-card-link { color: var(--laara-paper); }
+.concept-lab .case-card-link:hover, .concept-lab .case-card-link:focus-visible { color: var(--laara-green); }
+.concept-lab .status-badge--concept {
+  background: rgba(250, 250, 249, 0.08);
+  color: var(--laara-on-dark-muted);
+  border-color: rgba(250, 250, 249, 0.25);
+}
+.concept-lab .status-badge-tooltip[open] summary { background: var(--laara-paper); color: var(--laara-ink); border-color: var(--laara-paper); }
+
+/* ---------- Approach ---------- */
+.approach-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--laara-space-10) var(--laara-space-8);
+}
+@media (min-width: 780px) {
+  .approach-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.approach-number {
+  font-family: var(--laara-font);
+  font-weight: var(--laara-fw-black);
+  font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+  color: var(--laara-border);
+  margin: 0 0 var(--laara-space-2);
+  line-height: 1;
+}
+.approach-item h3 { margin: 0 0 var(--laara-space-2); }
+.approach-item p { color: var(--laara-text-secondary); margin: 0; }
+
+/* ---------- Final CTA: full-width stacked buttons on small phones ---------- */
+@media (max-width: 480px) {
+  .final-cta-actions { flex-direction: column; }
+  .final-cta-actions .laara-btn { width: 100%; }
 }
