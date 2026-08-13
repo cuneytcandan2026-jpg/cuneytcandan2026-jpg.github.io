@@ -98,7 +98,8 @@
         const navRect = mainNav.getBoundingClientRect();
         const elRect = el.getBoundingClientRect();
         indicator.style.width = `${elRect.width}px`;
-        indicator.style.transform = `translateX(${elRect.left - navRect.left}px)`;
+        indicator.style.height = `${elRect.height}px`;
+        indicator.style.transform = `translate(${elRect.left - navRect.left}px, ${elRect.top - navRect.top}px)`;
         indicator.style.opacity = '1';
       };
       const currentLink = navLinks.find(a => a.getAttribute('href') === window.location.pathname)

@@ -171,6 +171,8 @@ img { max-width: 100%; display: block; }
   gap: var(--laara-space-6);
 }
 .main-nav a {
+  position: relative;
+  z-index: 1;
   color: var(--laara-text);
   text-decoration: none;
   font-weight: var(--laara-fw-semibold);
@@ -218,9 +220,42 @@ img { max-width: 100%; display: block; }
    must come after the unconditional .nav-toggle rule above: same
    specificity, so source order decides, and the override needs to win. */
 @media (min-width: 900px) {
-  .main-nav { display: flex; align-items: center; }
+  .main-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--laara-space-1);
+  }
   .nav-toggle { display: none; }
   .header-cta { display: inline-flex; }
+
+  /* Sliding pill: text stays permanently white and blend-inverts against
+     whatever sits behind it, so it reads dark over paper and light over the
+     ink capsule (.nav-indicator) without any hover colour-swap logic.
+     Selectors are prefixed with .main-nav (not just the bare class) so this
+     beats the later, unscoped base .nav-dropdown-toggle rule on specificity
+     rather than relying on source order. Child combinator (> a), not a bare
+     descendant selector, so this targets only the top-level nav items —
+     .nav-dropdown-link anchors inside the flyout panel sit two levels
+     deeper and must stay untouched: mix-blend-mode flattens all descendant
+     content before blending, so applying it there differenced their ink
+     text against the panel's white background and washed it out to grey. */
+  .main-nav > a,
+  .main-nav .nav-dropdown-toggle {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--laara-touch-min);
+    padding: var(--laara-space-2) var(--laara-space-4);
+    border-radius: 999px;
+    color: #fff;
+    mix-blend-mode: difference;
+  }
+  .main-nav > a:hover,
+  .main-nav > a:focus-visible,
+  .main-nav .nav-dropdown-toggle:hover,
+  .main-nav .nav-dropdown-toggle:focus-visible,
+  .main-nav .nav-dropdown.is-open .nav-dropdown-toggle {
+    color: #fff;
+  }
 }
 
 /* ---------- Services nav dropdown ----------
@@ -230,6 +265,8 @@ img { max-width: 100%; display: block; }
 .nav-dropdown { position: relative; display: flex; flex-direction: column; }
 
 .nav-dropdown-toggle {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   gap: var(--laara-space-1);
@@ -242,9 +279,11 @@ img { max-width: 100%; display: block; }
   font-weight: var(--laara-fw-semibold);
   cursor: pointer;
 }
-.nav-dropdown-toggle:hover,
-.nav-dropdown-toggle:focus-visible,
-.nav-dropdown.is-open .nav-dropdown-toggle { color: var(--laara-green-text); }
+@media (max-width: 899px) {
+  .nav-dropdown-toggle:hover,
+  .nav-dropdown-toggle:focus-visible,
+  .nav-dropdown.is-open .nav-dropdown-toggle { color: var(--laara-green-text); }
+}
 
 .nav-dropdown-chevron {
   width: 16px;
@@ -580,36 +619,116 @@ img { max-width: 100%; display: block; }
   padding-block: var(--laara-section-y);
   border-top: 1px solid rgba(250, 250, 249, 0.08);
 }
-.stat-band-text {
-  margin: 0;
-  max-width: none;
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--laara-space-6);
 }
+@media (min-width: 640px) {
+  .stat-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Glassmorphic tiles that catch the ambient glow drifting behind them
+   (.laara-inverse::before) — a translucent surface reads as "elevated"
+   on an already-dark background without resorting to a flat white card,
+   which would break the ink beat this section exists to provide. */
+.stat-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--laara-space-8) var(--laara-space-6);
+  background: rgba(250, 250, 249, 0.045);
+  border: 1.5px solid rgba(250, 250, 249, 0.14);
+  border-radius: var(--laara-radius-lg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: inset 0 1px 0 rgba(250, 250, 249, 0.08);
+}
+.stat-card .laara-dot {
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: var(--laara-space-5);
+  border-radius: var(--laara-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(18, 183, 106, 0.14);
+}
+.stat-card .laara-dot svg { width: 24px; height: 24px; color: var(--laara-green); }
+
+/* Staggered entrance — higher specificity than the plain .reveal rule so
+   the per-card delay always wins regardless of stylesheet source order. */
+.stat-grid .stat-card.reveal {
+  transition: opacity var(--laara-dur-reveal) var(--laara-ease-out) var(--stat-delay, 0ms),
+              transform var(--laara-dur-reveal) var(--laara-ease-out) var(--stat-delay, 0ms);
+}
+.stat-grid .stat-card:nth-child(2) { --stat-delay: 120ms; }
+.stat-grid .stat-card:nth-child(3) { --stat-delay: 240ms; }
+
+@media (hover: hover) and (pointer: fine) {
+  .stat-card.glow-card:hover,
+  .stat-card.glow-card:focus-within {
+    transform: translateY(-4px);
+    box-shadow: inset 0 1px 0 rgba(250, 250, 249, 0.12), 0 20px 44px -22px rgba(18, 183, 106, 0.5);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stat-card.glow-card:hover,
+  .stat-card.glow-card:focus-within {
+    transform: none;
+  }
+}
+
+.stat-card-value {
+  position: relative;
+  display: inline-block;
+  margin: 0 0 var(--laara-space-2);
+  font-size: var(--laara-fs-h1);
+  font-weight: var(--laara-fw-black);
+  line-height: var(--laara-lh-tight);
+  color: var(--laara-paper);
+  font-variant-numeric: tabular-nums;
+}
+.stat-card-unit {
+  display: inline-block;
+  margin-left: 0.35em;
+  font-size: var(--laara-fs-body-lg);
+  font-weight: var(--laara-fw-semibold);
+  color: var(--laara-on-dark-muted);
+  vertical-align: middle;
+}
+.stat-card-unit--pre { margin-left: 0; margin-right: 0.35em; text-transform: lowercase; }
+.stat-card-plus { color: var(--laara-green); }
+.stat-card-label {
+  margin: 0;
+  max-width: 22ch;
+  color: var(--laara-on-dark-muted);
+  font-size: var(--laara-fs-body);
+}
+
 /* Real, static values throughout — no count-up. A count animation would
    momentarily render "3-10 days" / "5+ yrs" mid-tick, which is exactly the
    kind of temporarily-false claim the factual-animation rule forbids.
    Instead the correct number reveals via an underline sweep, echoing the
    green block/wipe heading reveal used everywhere else on the page. */
-.stat-counter {
-  position: relative;
-  display: inline-block;
-  color: var(--laara-link-on-dark);
-}
-.stat-counter::after {
+.stat-card-value::after {
   content: '';
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -0.05em;
-  height: 0.09em;
+  bottom: -0.08em;
+  height: 0.07em;
   background: var(--laara-green);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--laara-dur-section) var(--laara-ease-out);
-  transition-delay: 200ms;
+  transition-delay: 260ms;
 }
-.stat-band-text.is-visible .stat-counter::after { transform: scaleX(1); }
+.stat-card.is-visible .stat-card-value::after { transform: scaleX(1); }
 @media (prefers-reduced-motion: reduce) {
-  .stat-counter::after { transition: none; transform: scaleX(1); }
+  .stat-card-value::after { transition: none; transform: scaleX(1); }
 }
 
 /* ============================================================
@@ -1011,6 +1130,28 @@ img { max-width: 100%; display: block; }
   .glow-card:hover .icon-mail-tick,
   .glow-card:focus-within .icon-mail-tick {
     opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* 12. Fixed pricing stat — the tag tilts as if just handed over, then locks in with a tick */
+.icon-tag-shape {
+  transform-box: fill-box;
+  transform-origin: 30% 70%;
+  transition: transform 400ms var(--laara-ease-out);
+}
+.icon-tag-check {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 550ms var(--laara-ease-out) 120ms;
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .glow-card:hover .icon-tag-shape,
+  .glow-card:focus-within .icon-tag-shape {
+    transform: rotate(-8deg);
+  }
+  .glow-card:hover .icon-tag-check,
+  .glow-card:focus-within .icon-tag-check {
     stroke-dashoffset: 0;
   }
 }
@@ -2469,17 +2610,25 @@ img { max-width: 100%; display: block; }
 
 .nav-indicator {
   position: absolute;
-  bottom: -6px;
+  top: 0;
   left: 0;
-  height: 2px;
+  z-index: 0;
   width: 0;
-  background: var(--laara-green-deep);
-  border-radius: 2px;
+  height: 0;
+  background: var(--laara-ink);
+  border-radius: 999px;
   opacity: 0;
   pointer-events: none;
   transition: transform var(--laara-dur-micro) var(--laara-ease-out),
               width var(--laara-dur-micro) var(--laara-ease-out),
+              height var(--laara-dur-micro) var(--laara-ease-out),
               opacity var(--laara-dur-micro) var(--laara-ease-out);
+}
+@media (max-width: 899px) {
+  .nav-indicator { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-indicator { transition: none; }
 }
 
 /* ============================================================
