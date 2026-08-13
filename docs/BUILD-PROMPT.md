@@ -131,8 +131,8 @@ Home and Contact live locally, verified at 1440px and 390px, every item on the `
 
 ## Open decisions — ask Cuneyt, don't assume
 
-1. **Founder photo** — is a real photo available? Blocks the About page and the hero trust element.
-2. **Contact form backend** — Formspree, Netlify Forms, or email only for now?
-3. **Hosting** — Hostinger already runs the domain and email. Same for the site?
+1. ~~**Founder photo**~~ — **Resolved.** Real photo supplied and wired into `about.html` (`assets/img/founder-cuneyt-candan.png`), replacing the placehold.co placeholder.
+2. ~~**Contact form backend**~~ — **Resolved: Web3Forms.** Wired up in `assets/js/contact-wizard.js` (quote wizard + general enquiry form on `contact.html`), live access key in place, confirmed working end-to-end.
+3. **Hosting** — Hostinger already runs the domain and email. Same for the site? **Still open.**
 
 Record the answers here as they're decided.
