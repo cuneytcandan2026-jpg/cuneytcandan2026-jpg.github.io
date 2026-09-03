@@ -429,9 +429,8 @@
     });
   }
 
-  /* ---------- Smart sticky header + scroll-linked parallax (shared rAF loop) ---------- */
+  /* ---------- Smart sticky header (rAF-throttled scroll listener) ---------- */
   const header = document.querySelector('.site-header');
-  const parallaxEl = document.querySelector('.hero-bg');
   let lastScrollY = window.scrollY;
   let ticking = false;
   const hideThreshold = 80;
@@ -445,10 +444,6 @@
       } else {
         header.classList.remove('header--hidden');
       }
-    }
-
-    if (parallaxEl && !prefersReducedMotion) {
-      parallaxEl.style.transform = `translateY(${currentY * 0.15}px)`;
     }
 
     lastScrollY = currentY;

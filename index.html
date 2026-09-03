@@ -338,7 +338,7 @@
               <div class="work-media">
                 <picture>
                   <source type="image/webp" srcset="/assets/img/work-ooh-la-la.webp" />
-                  <img src="/assets/img/work-ooh-la-la.png" alt="Homepage of Ooh La La Brasserie, a café and brasserie website built by Laara Digital" width="1280" height="900" loading="lazy" />
+                  <img src="/assets/img/work-ooh-la-la.jpg" alt="Homepage of Ooh La La Brasserie, a café and brasserie website built by Laara Digital" width="1280" height="900" loading="lazy" decoding="async" />
                 </picture>
               </div>
               <div class="work-body">
@@ -356,7 +356,7 @@
               <div class="work-media">
                 <picture>
                   <source type="image/webp" srcset="/assets/img/work-n10-academy.webp" />
-                  <img src="/assets/img/work-n10-academy.png" alt="Homepage of N10 Academy, a youth football academy website built by Laara Digital" width="1280" height="900" loading="lazy" />
+                  <img src="/assets/img/work-n10-academy.jpg" alt="Homepage of N10 Academy, a youth football academy website built by Laara Digital" width="1280" height="900" loading="lazy" decoding="async" />
                 </picture>
               </div>
               <div class="work-body">
@@ -374,7 +374,7 @@
               <div class="work-media">
                 <picture>
                   <source type="image/webp" srcset="/assets/img/work-olympic-cafe.webp" />
-                  <img src="/assets/img/work-olympic-cafe.png" alt="Homepage of Olympic Cafe, a neighbourhood café website built by Laara Digital" width="1280" height="900" loading="lazy" />
+                  <img src="/assets/img/work-olympic-cafe.jpg" alt="Homepage of Olympic Cafe, a neighbourhood café website built by Laara Digital" width="1280" height="900" loading="lazy" decoding="async" />
                 </picture>
               </div>
               <div class="work-body">
@@ -392,7 +392,7 @@
               <div class="work-media">
                 <picture>
                   <source type="image/webp" srcset="/assets/img/work-ember.webp" />
-                  <img src="/assets/img/work-ember.png" alt="Homepage of Ember Fitness, a concept demo website for a boutique fitness studio" width="1280" height="900" loading="lazy" />
+                  <img src="/assets/img/work-ember.jpg" alt="Homepage of Ember Fitness, a concept demo website for a boutique fitness studio" width="1280" height="900" loading="lazy" decoding="async" />
                 </picture>
               </div>
               <div class="work-body">
@@ -432,7 +432,14 @@
 
         <div class="why-laara-layout">
           <div class="why-laara-visual reveal-zoom" aria-hidden="true">
-            <img src="/assets/img/why-laara-visual.webp" alt="" width="1080" height="1440" loading="lazy" />
+            <!-- This shipped WebP-only, so a client without WebP support got a
+                 broken image rather than a fallback. Now matches the <picture>
+                 pattern every other image on the site uses. The JPEG is q75
+                 because this is decorative and only ever the fallback path. -->
+            <picture>
+              <source type="image/webp" srcset="/assets/img/why-laara-visual.webp" />
+              <img src="/assets/img/why-laara-visual.jpg" alt="" width="1080" height="1440" loading="lazy" decoding="async" />
+            </picture>
           </div>
 
           <div class="why-laara-list">

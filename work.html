@@ -134,12 +134,22 @@
           <p class="work-hero-sub reveal">A mix of client projects and concept builds, each one clearly labelled, so you always know which is which.</p>
           <a class="work-hero-scroll reveal" href="#featured-project">Explore the work <span aria-hidden="true">↓</span></a>
         </div>
+        <!-- Loading strategy here is deliberate and tied to the CSS.
+             .work-hero-frame--2/--3 are display:none below 1024px (style.css
+             ~L3115/3127), so on a phone they were eager-fetching two images the
+             layout never shows. loading="lazy" on a display:none element never
+             intersects the viewport, so those two fetches simply don't happen on
+             mobile; above 1024px they are in the viewport and load immediately,
+             just below frame 1 in priority. Frame 1 is the only frame visible at
+             every width and the largest above-the-fold image, so it is the LCP
+             candidate and the one that gets fetchpriority="high".
+             If the 1024px breakpoint moves, revisit this. -->
         <div class="work-hero-collage" aria-hidden="true">
           <div class="work-hero-frame work-hero-frame--1" style="--depth: 0.6;">
             <div class="work-hero-frame-inner reveal-zoom">
               <picture>
                 <source type="image/webp" srcset="/assets/img/work-ooh-la-la.webp" />
-                <img src="/assets/img/work-ooh-la-la.png" alt="" width="1280" height="900" loading="eager" />
+                <img src="/assets/img/work-ooh-la-la.jpg" alt="" width="1280" height="900" loading="eager" fetchpriority="high" decoding="async" />
               </picture>
             </div>
           </div>
@@ -147,7 +157,7 @@
             <div class="work-hero-frame-inner reveal-zoom">
               <picture>
                 <source type="image/webp" srcset="/assets/img/work-fade-and-co.webp" />
-                <img src="/assets/img/work-fade-and-co.png" alt="" width="1280" height="900" loading="eager" />
+                <img src="/assets/img/work-fade-and-co.jpg" alt="" width="1280" height="900" loading="lazy" decoding="async" />
               </picture>
             </div>
           </div>
@@ -155,7 +165,7 @@
             <div class="work-hero-frame-inner reveal-zoom">
               <picture>
                 <source type="image/webp" srcset="/assets/img/work-n10-academy.webp" />
-                <img src="/assets/img/work-n10-academy.png" alt="" width="1280" height="900" loading="eager" />
+                <img src="/assets/img/work-n10-academy.jpg" alt="" width="1280" height="900" loading="lazy" decoding="async" />
               </picture>
             </div>
           </div>
@@ -179,7 +189,7 @@
             <div class="case-frame-media">
               <picture>
                 <source type="image/webp" srcset="/assets/img/work-ooh-la-la.webp" />
-                <img src="/assets/img/work-ooh-la-la.png" alt="Homepage of Ooh La La Brasserie, a café and brasserie website built by Laara Digital" width="1280" height="900" loading="eager" />
+                <img src="/assets/img/work-ooh-la-la.jpg" alt="Homepage of Ooh La La Brasserie, a café and brasserie website built by Laara Digital" width="1280" height="900" loading="eager" decoding="async" />
               </picture>
             </div>
           </div>
@@ -238,7 +248,7 @@
               <div class="case-frame-media" data-scroll-scrub>
                 <picture>
                   <source type="image/webp" srcset="/assets/img/work-n10-academy.webp" />
-                  <img src="/assets/img/work-n10-academy.png" alt="Homepage of N10 Academy, a youth football academy website built by Laara Digital" width="1280" height="900" loading="lazy" />
+                  <img src="/assets/img/work-n10-academy.jpg" alt="Homepage of N10 Academy, a youth football academy website built by Laara Digital" width="1280" height="900" loading="lazy" decoding="async" />
                 </picture>
               </div>
             </div>
@@ -266,7 +276,7 @@
               <div class="case-frame-media" data-scroll-scrub>
                 <picture>
                   <source type="image/webp" srcset="/assets/img/work-olympic-cafe.webp" />
-                  <img src="/assets/img/work-olympic-cafe.png" alt="Homepage of Olympic Cafe, a neighbourhood café website built by Laara Digital" width="1280" height="900" loading="lazy" />
+                  <img src="/assets/img/work-olympic-cafe.jpg" alt="Homepage of Olympic Cafe, a neighbourhood café website built by Laara Digital" width="1280" height="900" loading="lazy" decoding="async" />
                 </picture>
               </div>
             </div>
@@ -311,7 +321,7 @@
               <div class="case-frame-media" data-scroll-scrub>
                 <picture>
                   <source type="image/webp" srcset="/assets/img/work-fade-and-co.webp" />
-                  <img src="/assets/img/work-fade-and-co.png" alt="Homepage of Fade & Co, a concept demo website for a barbershop" width="1280" height="900" loading="lazy" />
+                  <img src="/assets/img/work-fade-and-co.jpg" alt="Homepage of Fade & Co, a concept demo website for a barbershop" width="1280" height="900" loading="lazy" decoding="async" />
                 </picture>
               </div>
             </div>
@@ -344,7 +354,7 @@
               <div class="case-frame-media" data-scroll-scrub>
                 <picture>
                   <source type="image/webp" srcset="/assets/img/work-bloom.webp" />
-                  <img src="/assets/img/work-bloom.png" alt="Homepage of Bloom Hair & Beauty, a concept demo website for a hair and beauty salon" width="1280" height="900" loading="lazy" />
+                  <img src="/assets/img/work-bloom.jpg" alt="Homepage of Bloom Hair & Beauty, a concept demo website for a hair and beauty salon" width="1280" height="900" loading="lazy" decoding="async" />
                 </picture>
               </div>
             </div>
@@ -377,7 +387,7 @@
               <div class="case-frame-media" data-scroll-scrub>
                 <picture>
                   <source type="image/webp" srcset="/assets/img/work-harris-plumbing.webp" />
-                  <img src="/assets/img/work-harris-plumbing.png" alt="Homepage of Harris Plumbing & Heating, a concept demo website for a trades business" width="1280" height="900" loading="lazy" />
+                  <img src="/assets/img/work-harris-plumbing.jpg" alt="Homepage of Harris Plumbing & Heating, a concept demo website for a trades business" width="1280" height="900" loading="lazy" decoding="async" />
                 </picture>
               </div>
             </div>
@@ -410,7 +420,7 @@
               <div class="case-frame-media" data-scroll-scrub>
                 <picture>
                   <source type="image/webp" srcset="/assets/img/work-ember.webp" />
-                  <img src="/assets/img/work-ember.png" alt="Homepage of Ember Fitness, a concept demo website for a boutique fitness studio" width="1280" height="900" loading="lazy" />
+                  <img src="/assets/img/work-ember.jpg" alt="Homepage of Ember Fitness, a concept demo website for a boutique fitness studio" width="1280" height="900" loading="lazy" decoding="async" />
                 </picture>
               </div>
             </div>
