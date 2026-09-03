@@ -59,6 +59,132 @@
     ]
   }
   </script>
+  <!-- Offer catalogue. Every figure here is copied from docs/pricing.md and
+       must be updated in the same pass as the visible cards below — a price
+       that disagrees with the page is worse than no markup at all.
+
+       "from" prices are modelled as PriceSpecification.minPrice, not price,
+       because they are entry points, not fixed totals. Retainers use
+       UnitPriceSpecification with a 1-month referenceQuantity.
+
+       Deliberately absent: aggregateRating and review. There are no reviews
+       yet, and inventing them would be both dishonest and a manual action
+       risk. Do not add them until real ones exist.
+
+       valueAddedTaxIncluded is omitted rather than guessed. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://laaradigital.co.uk/pricing.html#packages",
+    "name": "Website design and care plans",
+    "serviceType": "Website design, build and ongoing support",
+    "url": "https://laaradigital.co.uk/pricing.html",
+    "description": "Fixed-price website packages for UK trades, salons, restaurants and local service businesses, from £797, plus optional monthly care plans from £97.",
+    "provider": {
+      "@id": "https://laaradigital.co.uk/#organization"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Kingdom"
+    },
+    "hasOfferCatalog": [
+      {
+        "@type": "OfferCatalog",
+        "name": "Website packages",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "Essential",
+            "description": "4-5 pages, mobile-optimised, contact form, WhatsApp integration, Google Business Profile setup, basic meta SEO. Live in 7-10 days.",
+            "url": "https://laaradigital.co.uk/pricing.html#packages",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "minPrice": 797,
+              "priceCurrency": "GBP"
+            }
+          },
+          {
+            "@type": "Offer",
+            "name": "Professional",
+            "description": "6-8 pages, full on-page SEO, booking and enquiry system, GA4 analytics, schema markup, 2 revision rounds. Live in 10-14 days.",
+            "url": "https://laaradigital.co.uk/pricing.html#packages",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "minPrice": 1497,
+              "priceCurrency": "GBP"
+            }
+          },
+          {
+            "@type": "Offer",
+            "name": "Growth",
+            "description": "8-12 pages, local SEO deep-dive, online booking, email capture and welcome sequence, competitor analysis, landing page. Live in 2-3 weeks.",
+            "url": "https://laaradigital.co.uk/pricing.html#packages",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "minPrice": 2497,
+              "priceCurrency": "GBP"
+            }
+          }
+        ]
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "Monthly care plans",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "Maintain",
+            "description": "Hosting, security, updates and minor copy changes.",
+            "url": "https://laaradigital.co.uk/pricing.html#care-plans",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": 97,
+              "priceCurrency": "GBP",
+              "referenceQuantity": {
+                "@type": "QuantitativeValue",
+                "value": 1,
+                "unitCode": "MON"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "name": "Grow",
+            "description": "Everything in Maintain, plus monthly SEO, Google Business management and basic reporting.",
+            "url": "https://laaradigital.co.uk/pricing.html#care-plans",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": 297,
+              "priceCurrency": "GBP",
+              "referenceQuantity": {
+                "@type": "QuantitativeValue",
+                "value": 1,
+                "unitCode": "MON"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "name": "Market",
+            "description": "Everything in Grow, plus Google and Meta Ads management and a monthly content post.",
+            "url": "https://laaradigital.co.uk/pricing.html#care-plans",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": 497,
+              "priceCurrency": "GBP",
+              "referenceQuantity": {
+                "@type": "QuantitativeValue",
+                "value": 1,
+                "unitCode": "MON"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>

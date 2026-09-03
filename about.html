@@ -59,6 +59,41 @@
     ]
   }
   </script>
+  <!-- The person behind the business, linked to the ProfessionalService
+       declared on the homepage via its @id.
+
+       No sameAs: that property is for verified profiles on other sites, and
+       there are no real social or directory profiles to point at yet. Adding
+       plausible-looking URLs would be fabrication. Add it when profiles exist.
+
+       image points at the .png fallback because that is what about.html
+       currently serves. Phase 5 re-encodes these to JPEG — update this URL in
+       the same commit. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://laaradigital.co.uk/about.html#cuneyt-candan",
+    "name": "Cuneyt Candan",
+    "givenName": "Cuneyt",
+    "familyName": "Candan",
+    "jobTitle": "Founder",
+    "description": "Founder of Laara Digital, with 11+ years in CRM and customer marketing before starting the studio.",
+    "url": "https://laaradigital.co.uk/about.html",
+    "image": "https://laaradigital.co.uk/assets/img/founder-cuneyt-candan.png",
+    "worksFor": {
+      "@id": "https://laaradigital.co.uk/#organization"
+    },
+    "homeLocation": {
+      "@type": "Place",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "London",
+        "addressCountry": "GB"
+      }
+    }
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>

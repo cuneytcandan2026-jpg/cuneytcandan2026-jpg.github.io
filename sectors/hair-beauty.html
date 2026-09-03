@@ -59,6 +59,48 @@
     ]
   }
   </script>
+  <!-- Sector Service. name/description mirror the visible h1 and meta
+       description — if either changes, change this too.
+
+       Deliberately NOT a LocalBusiness. The business is declared once, on the
+       homepage, as a ProfessionalService with @id #organization; every sector
+       page points at that same @id via provider. Declaring a LocalBusiness per
+       sector page would assert six separate businesses at six addresses, which
+       is false and is the kind of thing that earns a manual action.
+
+       The £797 entry price traces to docs/pricing.md. No aggregateRating or
+       review — none exist. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://laaradigital.co.uk/sectors/hair-beauty.html#service",
+    "name": "Websites for hair & beauty",
+    "serviceType": "Website design for salons, barbers and beauty studios",
+    "url": "https://laaradigital.co.uk/sectors/hair-beauty.html",
+    "description": "Websites for salons, barbers and beauty studios across the UK. Online booking, live in 7-10 days, fixed pricing from £797.",
+    "provider": {
+      "@id": "https://laaradigital.co.uk/#organization"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Kingdom"
+    },
+    "audience": {
+      "@type": "BusinessAudience",
+      "audienceType": "Salons, barbers and beauty studios"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://laaradigital.co.uk/pricing.html",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "minPrice": 797,
+        "priceCurrency": "GBP"
+      }
+    }
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>

@@ -59,6 +59,48 @@
     ]
   }
   </script>
+  <!-- Sector Service. name/description mirror the visible h1 and meta
+       description — if either changes, change this too.
+
+       Deliberately NOT a LocalBusiness. The business is declared once, on the
+       homepage, as a ProfessionalService with @id #organization; every sector
+       page points at that same @id via provider. Declaring a LocalBusiness per
+       sector page would assert six separate businesses at six addresses, which
+       is false and is the kind of thing that earns a manual action.
+
+       The £797 entry price traces to docs/pricing.md. No aggregateRating or
+       review — none exist. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://laaradigital.co.uk/sectors/trades.html#service",
+    "name": "Websites for trades",
+    "serviceType": "Website design for trades businesses",
+    "url": "https://laaradigital.co.uk/sectors/trades.html",
+    "description": "Websites for plumbers, electricians, builders and roofers. Live in 7-10 days, fixed pricing from £797, built to get found on Google.",
+    "provider": {
+      "@id": "https://laaradigital.co.uk/#organization"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Kingdom"
+    },
+    "audience": {
+      "@type": "BusinessAudience",
+      "audienceType": "Plumbers, electricians, builders and roofers"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://laaradigital.co.uk/pricing.html",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "minPrice": 797,
+        "priceCurrency": "GBP"
+      }
+    }
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
