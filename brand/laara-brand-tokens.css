@@ -326,6 +326,10 @@ a:hover { text-decoration: underline; }
 }
 .laara-btn--secondary:hover { background: var(--laara-ink); color: var(--laara-paper); }
 
+/* Full-width button — form submits, stacked mobile CTAs. Replaces the
+   inline style="width:100%" that was on the contact form's submit. */
+.laara-btn--block { width: 100%; }
+
 /* On an ink background, the primary button is unchanged —
    green + ink text works on both light and dark surfaces. */
 .laara-inverse .laara-btn--secondary {

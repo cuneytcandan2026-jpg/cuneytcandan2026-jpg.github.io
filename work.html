@@ -164,7 +164,11 @@
     </section>
 
     <!-- FEATURED PROJECT -->
-    <section class="laara-section featured-project" id="featured-project">
+    <!-- data-category joins this spotlight to the filter set below, so the
+         "01 / 07" numbering and the filter counts describe the same 7 projects.
+         The filter toggles .is-hidden on this whole <section> so the band's
+         padding goes with it. -->
+    <section class="laara-section featured-project" id="featured-project" data-category="food real-client">
       <div class="laara-container featured-project-layout" id="ooh-la-la">
         <div class="featured-project-media">
           <div class="case-frame reveal-zoom">
@@ -204,10 +208,14 @@
           <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Explore the collection</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
         </div>
         <div class="case-filters" role="group" aria-label="Filter projects by category">
-          <button type="button" class="filter-pill is-active" data-filter="all">All <span class="filter-count">6</span></button>
-          <button type="button" class="filter-pill" data-filter="real-client">Client work <span class="filter-count">2</span></button>
+          <!-- Counts must match the case numbers (01/07 … 07/07) and the
+               data-category attributes: 7 total = 3 client (Ooh La La spotlight,
+               N10, Olympic) + 4 concept. By sector: Food 2, Fitness 2,
+               Hair & beauty 2, Trades 1. Update all three together. -->
+          <button type="button" class="filter-pill is-active" data-filter="all">All <span class="filter-count">7</span></button>
+          <button type="button" class="filter-pill" data-filter="real-client">Client work <span class="filter-count">3</span></button>
           <button type="button" class="filter-pill" data-filter="concept-demo">Concept builds <span class="filter-count">4</span></button>
-          <button type="button" class="filter-pill" data-filter="food">Food <span class="filter-count">1</span></button>
+          <button type="button" class="filter-pill" data-filter="food">Food <span class="filter-count">2</span></button>
           <button type="button" class="filter-pill" data-filter="fitness">Fitness <span class="filter-count">2</span></button>
           <button type="button" class="filter-pill" data-filter="hair-beauty">Hair &amp; beauty <span class="filter-count">2</span></button>
           <button type="button" class="filter-pill" data-filter="trades">Trades <span class="filter-count">1</span></button>
@@ -273,7 +281,10 @@
                 <span class="tag-pill">Responsive build</span>
                 <span class="tag-pill">Menu-led layout</span>
               </div>
-              <a class="case-card-link" href="https://cuneytcandan2026-jpg.github.io/Olympic-Cafe/index.html" target="_blank" rel="noopener">Visit live site <span aria-hidden="true">↗</span></a>
+              <!-- "View the build", not "Visit live site": this is still on a
+                   Laara-owned staging URL, not the client's own domain. Switch
+                   the wording only when it moves. See docs/portfolio.md. -->
+              <a class="case-card-link" href="https://cuneytcandan2026-jpg.github.io/Olympic-Cafe/index.html" target="_blank" rel="noopener">View the build <span aria-hidden="true">↗</span></a>
             </div>
           </article>
 
@@ -464,9 +475,14 @@
         <p class="laara-label reveal">Seen something you like?</p>
         <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Let's make the next one yours.</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
         <p class="reveal-support">Tell us what you're looking to build and we'll help turn it into something your customers remember.</p>
+        <!-- Matches the final CTA on every other page: quote / call / WhatsApp.
+             This was the only one missing "Call us", and its WhatsApp link was
+             labelled "Start a conversation", which doesn't tell you it opens
+             WhatsApp. -->
         <div class="final-cta-actions reveal">
-          <a class="laara-btn laara-btn--primary" href="/contact.html">Get a quote →</a>
-          <a class="laara-btn laara-btn--secondary" href="https://wa.me/447896352996" target="_blank" rel="noopener">Start a conversation</a>
+          <a class="laara-btn laara-btn--primary" href="/contact.html">Get your free quote</a>
+          <a class="laara-btn laara-btn--secondary" href="tel:+447896352996">Call us</a>
+          <a class="laara-btn laara-btn--secondary" href="https://wa.me/447896352996" target="_blank" rel="noopener">WhatsApp us</a>
         </div>
       </div>
     </section>

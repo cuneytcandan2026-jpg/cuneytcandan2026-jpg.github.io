@@ -578,7 +578,12 @@
      querySelectorAll('.case-card') already spans both since they're
      just two separate containers of the same card markup. */
   const filterPills = document.querySelectorAll('.filter-pill');
-  const caseCards = document.querySelectorAll('.case-card');
+  /* [data-category] rather than .case-card so the Featured project spotlight
+     joins the filter too: it's a whole <section>, not a card, so it carries the
+     attribute on the section and gets hidden with its band padding intact.
+     Without it the spotlight sat outside the filter and the counts disagreed
+     with the 01/07…07/07 numbering. */
+  const caseCards = document.querySelectorAll('[data-category]');
   const caseFilters = document.querySelector('.case-filters');
   if (filterPills.length && caseCards.length) {
     let moveFilterIndicator = null;
@@ -606,6 +611,15 @@
           const match = filter === 'all' || categories.includes(filter);
           card.classList.toggle('is-hidden', !match);
         });
+
+        /* Collapse a grid section whose cards are now all hidden, so a heading
+           like "Client work" never sits above empty space. The featured
+           spotlight is its own section and is handled by the loop above. */
+        document.querySelectorAll('.client-work, .concept-lab').forEach(section => {
+          const cards = section.querySelectorAll('.case-card');
+          const anyVisible = Array.from(cards).some(c => !c.classList.contains('is-hidden'));
+          section.classList.toggle('is-hidden', cards.length > 0 && !anyVisible);
+        });
       });
     });
   }
@@ -629,7 +643,7 @@
         });
         const result = await response.json();
         if (result.success) {
-          statusEl.textContent = "Thanks — we've got your message and will reply the same working day.";
+          statusEl.textContent = "Thanks — we've got your message and will usually reply within one working day.";
           statusEl.dataset.state = 'success';
           form.reset();
         } else {

@@ -1214,6 +1214,19 @@ img { max-width: 100%; display: block; }
   color: var(--laara-on-dark-muted);
 }
 
+/* Disclaimer under the comparison table: the "typical agency" column quotes
+   indicative ranges, not a specific company, and has to say so. */
+.vs-table-note {
+  margin: var(--laara-space-4) 0 0;
+  /* Body size, not --laara-fs-small: this is the disclaimer that makes the
+     table honest, so it has to be as readable as the claims above it, and
+     the 16px body-text minimum applies. */
+  font-size: var(--laara-fs-body);
+  color: var(--laara-on-dark-muted);
+  max-width: 44rem;
+}
+.vs-table-note a { color: var(--laara-link-on-dark); }
+
 /* ============================================================
    WORK
    ============================================================ */
@@ -1613,7 +1626,14 @@ img { max-width: 100%; display: block; }
   display: flex;
   flex-direction: column;
 }
-.case-card.is-hidden { display: none; }
+/* .featured-project is a whole <section>, not a card, but it carries a
+   data-category and joins the same filter — so it needs the hidden state too.
+   .client-work / .concept-lab are hidden when a filter empties them, so a
+   section heading never sits above nothing. */
+.case-card.is-hidden,
+.featured-project.is-hidden,
+.client-work.is-hidden,
+.concept-lab.is-hidden { display: none; }
 
 /* Real vs. concept — a coloured top edge on the frame so the two are
    scannable at a glance, not just from the status badge in the body. */
@@ -2384,6 +2404,9 @@ img { max-width: 100%; display: block; }
   color: var(--laara-text-inverse);
 }
 .contact-response p { margin: 0; color: var(--laara-on-dark-muted); }
+/* Lifts the lead sentence out of the muted body colour on the dark card.
+   Replaces an inline style="color:var(--laara-paper)". */
+.contact-note-lead { color: var(--laara-paper); }
 
 .page-hero {
   position: relative;
