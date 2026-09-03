@@ -37,50 +37,72 @@ img { max-width: 100%; display: block; }
 
 /* ============================================================
    UNIVERSAL CARD SYSTEM
-   Every .laara-card (generic/service/pricing) shares one hover
-   language: background washes to brand green, text/icons flip
-   to ink for contrast, subtle lift, CTA arrow nudges right.
-   .work-card is image-led and opts out — see WORK section.
+   Cards carrying .laara-card--wash share one hover language:
+   background washes to brand green, text/icons flip to ink for
+   contrast, subtle lift, CTA arrow nudges right.
+
+   This is opt-IN. It used to be opt-OUT — a
+   .laara-card:not(.work-card):not(.glow-card)... chain repeated
+   31 times, so every new card variant meant editing 31 selectors
+   and hoping none were missed. The variants that used to be
+   excluded (glow-card, quote-form-card, enquiry-form-card,
+   wizard-summary-card, wizard-success) simply don't get the class;
+   .work-card was in that chain but is not a .laara-card at all,
+   so it was already doing nothing.
+
+   Adding a new card? It gets no hover wash unless you add
+   .laara-card--wash. That is the intended default.
+
+   The selectors below are written .laara-card.laara-card--wash,
+   doubled on purpose. Most of these cards are also .reveal, and
+   `.reveal.is-visible { transform: translateY(0) }` further down
+   this file is (0,2,0). A single-class .laara-card--wash:hover is
+   also (0,2,0), so it would tie and lose on source order: the
+   hover lift would silently stop working on every revealed card
+   while the colour wash carried on, which is exactly the kind of
+   half-broken state a screenshot at rest never shows. Doubling
+   makes these (0,3,0), so they win on their own merit instead of
+   depending on where they sit in the file. Don't "simplify" it back.
    ============================================================ */
 
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover,
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within {
+.laara-card.laara-card--wash:hover,
+.laara-card.laara-card--wash:focus-within {
   background: var(--laara-accent);
   color: var(--laara-on-accent);
   text-decoration: none;
   transform: translateY(-4px) scale(1.01);
   box-shadow: var(--laara-shadow-lg);
 }
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):active { transform: translateY(-1px) scale(1); }
+.laara-card.laara-card--wash:active { transform: translateY(-1px) scale(1); }
 
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover h3,
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within h3,
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover p,
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within p,
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .pricing-price,
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .pricing-price,
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .pricing-price span,
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .pricing-price span,
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .card-link,
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .card-link,
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .laara-list li,
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .laara-list li {
+.laara-card.laara-card--wash:hover h3,
+.laara-card.laara-card--wash:focus-within h3,
+.laara-card.laara-card--wash:hover p,
+.laara-card.laara-card--wash:focus-within p,
+.laara-card.laara-card--wash:hover .pricing-price,
+.laara-card.laara-card--wash:focus-within .pricing-price,
+.laara-card.laara-card--wash:hover .pricing-price span,
+.laara-card.laara-card--wash:focus-within .pricing-price span,
+.laara-card.laara-card--wash:hover .card-link,
+.laara-card.laara-card--wash:focus-within .card-link,
+.laara-card.laara-card--wash:hover .laara-list li,
+.laara-card.laara-card--wash:focus-within .laara-list li {
   color: var(--laara-on-accent);
 }
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .laara-list li::before,
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .laara-list li::before {
+.laara-card.laara-card--wash:hover .laara-list li::before,
+.laara-card.laara-card--wash:focus-within .laara-list li::before {
   background: var(--laara-on-accent);
 }
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .laara-dot,
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .laara-dot {
+.laara-card.laara-card--wash:hover .laara-dot,
+.laara-card.laara-card--wash:focus-within .laara-dot {
   background: var(--laara-on-accent);
 }
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .laara-dot svg,
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .laara-dot svg {
+.laara-card.laara-card--wash:hover .laara-dot svg,
+.laara-card.laara-card--wash:focus-within .laara-dot svg {
   color: var(--laara-green);
 }
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .pricing-card-badge,
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .pricing-card-badge {
+.laara-card.laara-card--wash:hover .pricing-card-badge,
+.laara-card.laara-card--wash:focus-within .pricing-card-badge {
   background: var(--laara-on-accent);
   color: var(--laara-green);
 }
@@ -92,22 +114,22 @@ img { max-width: 100%; display: block; }
   margin-top: auto;
   transition: transform var(--laara-dur-micro) var(--laara-ease-out);
 }
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .card-link,
-.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .card-link {
+.laara-card.laara-card--wash:hover .card-link,
+.laara-card.laara-card--wash:focus-within .card-link {
   transform: translateX(4px);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover,
-  .laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within,
-  .laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):hover .card-link,
-  .laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):focus-within .card-link {
+  .laara-card.laara-card--wash:hover,
+  .laara-card.laara-card--wash:focus-within,
+  .laara-card.laara-card--wash:hover .card-link,
+  .laara-card.laara-card--wash:focus-within .card-link {
     transform: none;
   }
 }
 
 @media (hover: none) {
-  .laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success):active {
+  .laara-card.laara-card--wash:active {
     background: var(--laara-accent);
     color: var(--laara-on-accent);
     transform: scale(0.99);
@@ -710,8 +732,8 @@ img { max-width: 100%; display: block; }
    (.service-card), the plain differentiator cards on the homepage
    and about page (.laara-card--plain), and the contact method
    cards (.contact-method) — add "glow-card" alongside their own
-   class to opt in. Opted out of the universal green-wash system
-   above (.laara-card:not(.work-card):not(.glow-card):not(.quote-form-card):not(.enquiry-form-card):not(.wizard-summary-card):not(.wizard-success)) in favour of
+   class to opt in. These simply never carry .laara-card--wash, so
+   they sit outside the universal green-wash system above, in favour of
    a quieter, premium treatment: soft pointer-tracked glow, a
    brand-tinted border/elevation, and a small per-icon animation
    that means something for that icon. Pricing cards deliberately
