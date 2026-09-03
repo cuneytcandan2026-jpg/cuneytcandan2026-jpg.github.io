@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Laara Digital</title>
-  <meta name="description" content="Laara Digital was founded in London by Cuneyt Candan, backed by 11+ years of CRM and customer marketing experience, to build honest, fast websites for UK trades and local businesses." />
+  <!-- Sets .js before the stylesheets so the CSS reveal primitives know a
+       script environment exists. No JS => class never set => the page renders
+       fully visible instead of blank. Must stay ABOVE the <link rel=stylesheet>
+       tags: an inline script placed after them blocks on the CSSOM. -->
+  <script>document.documentElement.classList.add('js');</script>
+  <title>About us — Laara Digital</title>
+  <meta name="description" content="Founded in London by Cuneyt Candan, backed by 11+ years in CRM and customer marketing. Honest, fast websites for UK small businesses." />
+  <!-- Pre-launch staging: the site is served from GitHub Pages while
+       laaradigital.co.uk is not yet connected. The canonical below already
+       points at the future production URL, so this stops search engines
+       indexing the github.io copy against it. Remove at go-live. -->
+  <meta name="robots" content="noindex,nofollow" />
   <link rel="canonical" href="https://laaradigital.co.uk/about.html" />
   <meta property="og:title" content="About Laara Digital" />
   <meta property="og:description" content="Founded in London, backed by 11+ years of CRM and customer marketing experience." />
@@ -24,9 +34,8 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/brand_assets/00_Upload_Ready/04_Favicons/favicon-16.png" />
   <link rel="apple-touch-icon" href="/brand_assets/00_Upload_Ready/04_Favicons/apple-touch-icon.png" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="preload" href="/assets/fonts/lato-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/lato-700.woff2" as="font" type="font/woff2" crossorigin />
 
   <link rel="stylesheet" href="/brand/laara-brand-tokens.css" />
   <link rel="stylesheet" href="/assets/css/style.css" />
@@ -116,111 +125,172 @@
 
     <section class="page-hero page-hero--fluid page-hero--about">
       <canvas class="hero-fluid" aria-hidden="true" data-hue-from="0.02" data-hue-to="0.07"></canvas>
-      <div class="hero-type" aria-hidden="true"><span>One founder</span></div>
-      <div class="laara-container">
-        <h1 class="laara-display reveal">One founder. No account managers.</h1>
-        <p class="reveal">Years of hands-on experience helping trades, salons, restaurants and gyms get found and grow.</p>
+      <div class="hero-type" aria-hidden="true"><span>Small studio</span></div>
+      <div class="laara-container about-hero-content">
+        <p class="about-hero-kicker reveal">About Laara Digital</p>
+        <h1 class="laara-display about-hero-heading reveal">
+          <span class="hero-line">Small studio.</span>
+          <span class="hero-line hero-line--accent">No account managers.</span>
+        </h1>
+        <p class="about-hero-sub reveal">One founder. Every decision, every reply, every line of code comes from the same person.</p>
+      </div>
+
+      <div class="about-hero-ticker marquee" role="region" aria-label="Sectors we work with">
+        <ul class="marquee-track">
+          <li><a href="/sectors/trades.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>Trades</span></a></li>
+          <li><a href="/sectors/hair-beauty.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/></svg><span>Hair &amp; beauty</span></a></li>
+          <li><a href="/sectors/food.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg><span>Food</span></a></li>
+          <li><a href="/sectors/cleaning-removals.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M21 15v4a2 2 0 0 1-2 2h-4M9 21H5a2 2 0 0 1-2-2v-4"/></svg><span>Cleaning &amp; removals</span></a></li>
+          <li><a href="/sectors/fitness.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5v11M17.5 6.5v11M2 9.5v5M22 9.5v5M6.5 12h11"/></svg><span>Fitness</span></a></li>
+          <li><a href="/sectors/garages-mot.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M5 17a2 2 0 0 1-2-2v-2l2-5h10l2 5v2a2 2 0 0 1-2 2M5 17v2M19 17v2"/><circle cx="7.5" cy="14.5" r="1"/><circle cx="16.5" cy="14.5" r="1"/></svg><span>Garages &amp; MOT</span></a></li>
+        </ul>
+        <ul class="marquee-track" aria-hidden="true">
+          <li><a href="/sectors/trades.html" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>Trades</span></a></li>
+          <li><a href="/sectors/hair-beauty.html" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/></svg><span>Hair &amp; beauty</span></a></li>
+          <li><a href="/sectors/food.html" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg><span>Food</span></a></li>
+          <li><a href="/sectors/cleaning-removals.html" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M21 15v4a2 2 0 0 1-2 2h-4M9 21H5a2 2 0 0 1-2-2v-4"/></svg><span>Cleaning &amp; removals</span></a></li>
+          <li><a href="/sectors/fitness.html" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5v11M17.5 6.5v11M2 9.5v5M22 9.5v5M6.5 12h11"/></svg><span>Fitness</span></a></li>
+          <li><a href="/sectors/garages-mot.html" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M5 17a2 2 0 0 1-2-2v-2l2-5h10l2 5v2a2 2 0 0 1-2 2M5 17v2M19 17v2"/><circle cx="7.5" cy="14.5" r="1"/><circle cx="16.5" cy="14.5" r="1"/></svg><span>Garages &amp; MOT</span></a></li>
+        </ul>
       </div>
     </section>
 
     <!-- FOUNDER -->
     <section class="laara-section">
-      <div class="laara-container">
-        <div class="case-study reveal">
-          <div class="case-study-media">
-            <img src="/assets/img/founder-cuneyt-candan.png" alt="Cuneyt Candan, founder of Laara Digital" width="640" height="800" loading="lazy" />
+      <div class="laara-container founder-story-grid">
+        <div class="founder-story-media">
+          <div class="founder-story-frame reveal-zoom">
+            <picture>
+              <source type="image/webp" srcset="/assets/img/founder-cuneyt-candan.webp" />
+              <img src="/assets/img/founder-cuneyt-candan.png" alt="Cuneyt Candan, founder of Laara Digital" width="640" height="800" loading="lazy" />
+            </picture>
           </div>
-          <div class="case-study-body">
-            <p class="laara-label section-eyebrow reveal">Meet the founder</p>
-            <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Cuneyt Candan</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-            <p>Cuneyt founded Laara Digital in London after 11+ years in CRM and customer marketing, helping businesses understand and grow their customer base. He started Laara Digital because too many small business owners were being quoted thousands of pounds for a website they didn't understand, then left to figure out the rest on their own.</p>
-            <p>Laara Digital exists to fix that: fast, honest websites with fixed pricing, built by someone who explains every step in plain English — and sticks around afterwards.</p>
+          <div class="founder-story-tags">
+            <span class="tag-pill">Cuneyt Candan</span>
+            <span class="tag-pill">Founder, Laara Digital</span>
+            <span class="tag-pill">London</span>
           </div>
+        </div>
+        <div class="founder-story-body">
+          <p class="laara-label section-eyebrow reveal">Meet the founder</p>
+          <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">11+ years in CRM and customer marketing, before founding Laara Digital.</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
+          <p class="reveal">Cuneyt spent that time helping businesses understand and grow their customer base. That means he doesn&rsquo;t just design websites, he thinks about how they turn visitors into customers.</p>
+          <p class="reveal">Laara Digital is built the way he wished agencies worked for the businesses he used to help: fast, honest, fixed pricing, and someone who explains every step in plain English, and sticks around afterwards.</p>
+          <p class="founder-story-callout reveal">No brief goes through anyone else. If you email Laara Digital, you&rsquo;re emailing Cuneyt.</p>
         </div>
       </div>
     </section>
 
-    <!-- WHY WE DO THIS -->
+    <!-- WHAT WE BELIEVE -->
     <section class="laara-section section-alt">
       <div class="laara-container">
         <div class="section-head">
-          <p class="laara-label section-eyebrow reveal">Why we do this</p>
-          <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Most clients come to us in one of these situations</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
+          <p class="laara-label section-eyebrow reveal">What we believe</p>
+          <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Four things that shape every project</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
         </div>
 
-        <div class="laara-card reveal">
-          <ul class="laara-list" style="max-width:42rem;">
-            <li>No website, or one that looks unprofessional</li>
-            <li>Low visibility in local Google search</li>
-            <li>Not sure who to trust or how to start</li>
-            <li>Quoted thousands by a big agency for more than they need</li>
-            <li>Abandoned after launch with no ongoing support</li>
-          </ul>
-        </div>
+        <ol class="about-beliefs">
+          <li class="about-belief reveal">
+            <span class="about-belief-number" aria-hidden="true">01</span>
+            <p>Design and commercial thinking belong together, not in separate departments.</p>
+          </li>
+          <li class="about-belief about-belief--right reveal">
+            <span class="about-belief-number" aria-hidden="true">02</span>
+            <p>A website should make your phone ring, not win design awards nobody in your industry sees.</p>
+          </li>
+          <li class="about-belief reveal">
+            <span class="about-belief-number" aria-hidden="true">03</span>
+            <p>You should understand every decision made about your own site.</p>
+          </li>
+          <li class="about-belief about-belief--right reveal">
+            <span class="about-belief-number" aria-hidden="true">04</span>
+            <p>Fast doesn&rsquo;t mean rushed. It means no layers of approval slowing things down.</p>
+          </li>
+        </ol>
       </div>
     </section>
 
-    <!-- WHAT MAKES US DIFFERENT -->
+    <!-- SMALL STUDIO ADVANTAGE -->
+    <section class="laara-section laara-inverse">
+      <div class="laara-container">
+        <div class="section-head">
+          <p class="laara-label section-eyebrow reveal">The small studio advantage</p>
+          <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">What changes when there&rsquo;s no layer between you and the work</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
+        </div>
+
+        <ul class="about-compare-list">
+          <li class="about-compare-pair reveal">
+            <span class="about-compare-them">Account manager relays your brief.</span>
+            <span class="about-compare-arrow" aria-hidden="true">&rarr;</span>
+            <span class="about-compare-us">You talk directly to the person building it.</span>
+          </li>
+          <li class="about-compare-pair reveal">
+            <span class="about-compare-them">Weeks of sign-off layers.</span>
+            <span class="about-compare-arrow" aria-hidden="true">&rarr;</span>
+            <span class="about-compare-us">One discovery call, then straight into the build.</span>
+          </li>
+          <li class="about-compare-pair reveal">
+            <span class="about-compare-them">One of hundreds of accounts.</span>
+            <span class="about-compare-arrow" aria-hidden="true">&rarr;</span>
+            <span class="about-compare-us">A deliberately small number of projects, each one built and supported personally.</span>
+          </li>
+          <li class="about-compare-pair reveal">
+            <span class="about-compare-them">Support disappears after the invoice.</span>
+            <span class="about-compare-arrow" aria-hidden="true">&rarr;</span>
+            <span class="about-compare-us">Care plans mean you&rsquo;re never abandoned after launch.</span>
+          </li>
+          <li class="about-compare-pair reveal">
+            <span class="about-compare-them">Generic templates for any industry.</span>
+            <span class="about-compare-arrow" aria-hidden="true">&rarr;</span>
+            <span class="about-compare-us">Sites built specifically for trades, salons, restaurants and gyms.</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- WHO WE WORK WITH -->
     <section class="laara-section">
       <div class="laara-container">
         <div class="section-head">
-          <p class="laara-label section-eyebrow reveal">What makes us different</p>
-          <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">How we work</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
+          <p class="laara-label section-eyebrow reveal">Who we work with</p>
+          <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Six sectors, one focus</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
         </div>
+      </div>
 
-        <div class="card-grid">
-          <div class="laara-card laara-card--plain glow-card reveal">
-            <span class="laara-dot">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline class="icon-bolt-shape" points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-                <circle class="icon-spark" cx="19" cy="5" r="1.3" fill="currentColor" stroke="none"/>
-              </svg>
-            </span>
-            <h3>Fast delivery</h3>
-            <p>Live in 7&ndash;10 days for a straightforward build, up to 3 weeks for a full Growth site. A quick discovery call, then straight into the build.</p>
-          </div>
-          <div class="laara-card laara-card--plain glow-card reveal">
-            <span class="laara-dot">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path class="icon-shield-shape" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                <polyline class="icon-pulse" points="8.5 12 10 12 11 9 12.3 14.5 13.3 12 15.5 12" pathLength="1"/>
-              </svg>
-            </span>
-            <h3>Support after launch</h3>
-            <p>Care plans mean you're never abandoned. We keep your site fresh, secure and optimised.</p>
-          </div>
-          <div class="laara-card laara-card--plain glow-card reveal">
-            <span class="laara-dot">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <path class="icon-clock-hand" d="M12 6v6l4 2"/>
-              </svg>
-            </span>
-            <h3>Industry expertise</h3>
-            <p>We specialise in trades, salons, restaurants and gyms &mdash; not generic web design.</p>
-          </div>
-          <div class="laara-card laara-card--plain glow-card reveal">
-            <span class="laara-dot">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="3" width="20" height="14" rx="2"/>
-                <line x1="8" y1="21" x2="16" y2="21"/>
-                <line x1="12" y1="17" x2="12" y2="21"/>
-                <line class="icon-build-line" x1="5" y1="10.5" x2="14" y2="10.5" pathLength="1"/>
-                <line class="icon-build-line icon-build-line--2" x1="5" y1="13.5" x2="10.5" y2="13.5" pathLength="1"/>
-              </svg>
-            </span>
-            <h3>Clear pricing</h3>
-            <p>Fixed packages, fully scoped up front. No hidden costs, no upselling.</p>
-          </div>
-        </div>
+      <div class="about-sectors reveal" role="region" aria-label="Sectors we work with">
+        <a class="about-sector-tile" href="/sectors/trades.html">
+          <span class="about-sector-tile-name">Trades</span>
+          <span class="about-sector-tile-pitch">Get found on Google. Bring in more enquiries.</span>
+        </a>
+        <a class="about-sector-tile" href="/sectors/hair-beauty.html">
+          <span class="about-sector-tile-name">Hair &amp; beauty</span>
+          <span class="about-sector-tile-pitch">Professional online booking. Attract new clients.</span>
+        </a>
+        <a class="about-sector-tile" href="/sectors/food.html">
+          <span class="about-sector-tile-name">Food</span>
+          <span class="about-sector-tile-pitch">Online menu, easy reservations. Fill tables faster.</span>
+        </a>
+        <a class="about-sector-tile" href="/sectors/cleaning-removals.html">
+          <span class="about-sector-tile-name">Cleaning &amp; removals</span>
+          <span class="about-sector-tile-pitch">A website that works, backed by support that doesn&rsquo;t disappear after launch.</span>
+        </a>
+        <a class="about-sector-tile" href="/sectors/fitness.html">
+          <span class="about-sector-tile-name">Fitness</span>
+          <span class="about-sector-tile-pitch">A site that converts. Sign up more members.</span>
+        </a>
+        <a class="about-sector-tile" href="/sectors/garages-mot.html">
+          <span class="about-sector-tile-name">Garages &amp; MOT</span>
+          <span class="about-sector-tile-pitch">A website that works, backed by support that doesn&rsquo;t disappear after launch.</span>
+        </a>
       </div>
     </section>
 
     <!-- FINAL CTA -->
     <section class="laara-section laara-inverse final-cta">
       <div class="laara-container">
-        <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Ready to get more enquiries?</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-        <p class="reveal-support">Tell us about your business and we'll recommend the right package — no pressure, no jargon.</p>
+        <p class="laara-label section-eyebrow reveal">Let&rsquo;s talk</p>
+        <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Tell me about your business. I&rsquo;ll tell you exactly how I&rsquo;d approach it.</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
+        <p class="reveal-support">No sales team, no hand-off. You&rsquo;ll be talking to the person who&rsquo;ll actually build your site.</p>
         <div class="final-cta-actions reveal">
           <a class="laara-btn laara-btn--primary" href="/contact.html">Get your free quote</a>
           <a class="laara-btn laara-btn--secondary" href="tel:+447896352996">Call us</a>
@@ -269,7 +339,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© 2026 Laara Digital. All rights reserved.</span>
+        <span>&copy; 2026 Laara Digital. All rights reserved.</span>
         <span>laaradigital.co.uk</span>
       </div>
     </div>

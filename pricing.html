@@ -1,13 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Sets .js before the stylesheets so the CSS reveal primitives know a
+       script environment exists. No JS => class never set => the page renders
+       fully visible instead of blank. Must stay ABOVE the <link rel=stylesheet>
+       tags: an inline script placed after them blocks on the CSSOM. -->
+  <script>document.documentElement.classList.add('js');</script>
   <title>Pricing — Laara Digital</title>
-  <meta name="description" content="Clear pricing for UK trade and local business websites — packages from £797, care plans from £97/month, no hidden costs." />
+  <meta name="description" content="Clear pricing for UK trade and local business websites. Packages from £797, care plans from £97/month, no hidden costs." />
+  <!-- Pre-launch staging: the site is served from GitHub Pages while
+       laaradigital.co.uk is not yet connected. The canonical below already
+       points at the future production URL, so this stops search engines
+       indexing the github.io copy against it. Remove at go-live. -->
+  <meta name="robots" content="noindex,nofollow" />
   <link rel="canonical" href="https://laaradigital.co.uk/pricing.html" />
   <meta property="og:title" content="Pricing — Laara Digital" />
-  <meta property="og:description" content="Clear pricing for UK trade and local business websites — packages from £797, care plans from £97/month, no hidden costs." />
+  <meta property="og:description" content="Clear pricing for UK trade and local business websites. Packages from £797, care plans from £97/month, no hidden costs." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://laaradigital.co.uk/pricing.html" />
   <meta property="og:image" content="https://laaradigital.co.uk/brand_assets/00_Upload_Ready/06_Web_Assets/og-image.png" />
@@ -16,7 +26,7 @@
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Pricing — Laara Digital" />
-  <meta name="twitter:description" content="Clear pricing for UK trade and local business websites — packages from £797, care plans from £97/month, no hidden costs." />
+  <meta name="twitter:description" content="Clear pricing for UK trade and local business websites. Packages from £797, care plans from £97/month, no hidden costs." />
   <meta name="twitter:image" content="https://laaradigital.co.uk/brand_assets/00_Upload_Ready/06_Web_Assets/og-image.png" />
 
   <link rel="icon" href="/brand_assets/00_Upload_Ready/04_Favicons/favicon.ico" sizes="any" />
@@ -24,9 +34,8 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/brand_assets/00_Upload_Ready/04_Favicons/favicon-16.png" />
   <link rel="apple-touch-icon" href="/brand_assets/00_Upload_Ready/04_Favicons/apple-touch-icon.png" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="preload" href="/assets/fonts/lato-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/lato-700.woff2" as="font" type="font/woff2" crossorigin />
 
   <link rel="stylesheet" href="/brand/laara-brand-tokens.css" />
   <link rel="stylesheet" href="/assets/css/style.css" />
@@ -132,11 +141,11 @@
         <div class="section-head">
           <p class="laara-label section-eyebrow reveal">Website packages</p>
           <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Choose your starting point</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-          <p class="reveal-support">Most businesses land on Professional or above — Essential is the entry point, not the main offer.</p>
+          <p class="reveal-support">Most businesses land on Professional or above. Essential is the entry point, not the main offer.</p>
         </div>
 
         <div class="pricing-grid">
-          <div class="laara-card pricing-card reveal">
+          <div class="laara-card pricing-card" data-package="essential">
             <h3>Essential</h3>
             <p class="pricing-price">from £797</p>
             <ul class="laara-list">
@@ -149,7 +158,7 @@
             <p class="pricing-meta"><strong>Delivery:</strong> 7&ndash;10 days</p>
             <a class="laara-btn laara-btn--secondary" href="/contact.html?package=essential">Choose Essential</a>
           </div>
-          <div class="laara-card pricing-card pricing-card--featured reveal">
+          <div class="laara-card pricing-card pricing-card--featured" data-package="professional">
             <span class="pricing-card-badge">Recommended</span>
             <h3>Professional</h3>
             <p class="pricing-price">from £1,497</p>
@@ -163,7 +172,7 @@
             <p class="pricing-meta"><strong>Delivery:</strong> 10&ndash;14 days</p>
             <a class="laara-btn laara-btn--primary" href="/contact.html?package=professional">Choose Professional</a>
           </div>
-          <div class="laara-card pricing-card reveal">
+          <div class="laara-card pricing-card" data-package="growth">
             <h3>Growth</h3>
             <p class="pricing-price">from £2,497</p>
             <ul class="laara-list">
@@ -397,7 +406,7 @@
         <div class="section-head">
           <p class="laara-label section-eyebrow reveal">How pricing works</p>
           <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Your final price is agreed before we build</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-          <p class="reveal-support">No mystery maths — here's exactly how we get from "from £797" to your final number.</p>
+          <p class="reveal-support">No mystery maths. Here's exactly how we get from "from £797" to your final number.</p>
         </div>
 
         <ol class="process-list">
@@ -414,7 +423,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="8.5 12 10 12 11 9 12.3 14.5 13.3 12 15.5 12"/></svg>
             </span>
             <h3>02 &mdash; Fixed price, confirmed</h3>
-            <p>We confirm the right package and your price before any work begins &mdash; no surprise invoices, no scope creep.</p>
+            <p>We confirm the right package and your price before any work begins, no surprise invoices, no scope creep.</p>
           </li>
           <li class="process-step reveal">
             <span class="process-icon" aria-hidden="true">
@@ -433,11 +442,11 @@
         <div class="section-head">
           <p class="laara-label section-eyebrow reveal">Monthly care plans</p>
           <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Stay live, stay found, stay competitive</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-          <p class="reveal-support">Every site launches onto a care plan — hosting, security and updates are ongoing, not one-off.</p>
+          <p class="reveal-support">Every site launches onto a care plan. Hosting, security and updates are ongoing, not one-off.</p>
         </div>
 
         <div class="pricing-grid">
-          <div class="laara-card pricing-card reveal">
+          <div class="laara-card pricing-card">
             <h3>Maintain</h3>
             <p class="pricing-price">£97<span>/month</span></p>
             <ul class="laara-list">
@@ -448,7 +457,7 @@
             </ul>
             <a class="laara-btn laara-btn--secondary" href="/contact.html?package=care-only">Enquire about Maintain</a>
           </div>
-          <div class="laara-card pricing-card reveal">
+          <div class="laara-card pricing-card">
             <h3>Grow</h3>
             <p class="pricing-price">£297<span>/month</span></p>
             <ul class="laara-list">
@@ -459,7 +468,7 @@
             </ul>
             <a class="laara-btn laara-btn--secondary" href="/contact.html?package=care-only">Enquire about Grow</a>
           </div>
-          <div class="laara-card pricing-card reveal">
+          <div class="laara-card pricing-card">
             <h3>Market</h3>
             <p class="pricing-price">£497<span>/month</span></p>
             <ul class="laara-list">
@@ -479,7 +488,7 @@
         <div class="section-head">
           <p class="laara-label section-eyebrow reveal">Optional extras</p>
           <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Add what you need, skip what you don't</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-          <p class="reveal-support">Priced individually — add only what your business needs, whenever you need it.</p>
+          <p class="reveal-support">Priced individually. Add only what your business needs, whenever you need it.</p>
         </div>
 
         <div class="addon-grid">
@@ -544,7 +553,7 @@
           </details>
           <details class="faq-item reveal">
             <summary>Can I add extra pages or features later?</summary>
-            <p>Yes — extra pages are £150 each, and add-ons like a logo, Google Business Profile setup or an email welcome sequence can be added at any time.</p>
+            <p>Yes, extra pages are £150 each, and add-ons like a logo, Google Business Profile setup or an email welcome sequence can be added at any time.</p>
           </details>
           <details class="faq-item reveal">
             <summary>How many rounds of revisions do I get?</summary>
@@ -558,7 +567,7 @@
     <section class="laara-section laara-inverse final-cta">
       <div class="laara-container">
         <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Ready to get more enquiries?</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-        <p class="reveal-support">Tell us about your business and we'll recommend the right package — no pressure, no jargon.</p>
+        <p class="reveal-support">Tell us about your business and we'll recommend the right package. No pressure, no jargon.</p>
         <div class="final-cta-actions reveal">
           <a class="laara-btn laara-btn--primary" href="/contact.html">Get your free quote</a>
           <a class="laara-btn laara-btn--secondary" href="tel:+447896352996">Call us</a>
@@ -617,5 +626,8 @@
   <script src="/assets/js/main.js" defer></script>
   <script src="/assets/js/pricing-data.js" defer></script>
   <script src="/assets/js/pricing.js" defer></script>
+  <script src="/assets/vendor/gsap/gsap.min.js" defer></script>
+  <script src="/assets/vendor/gsap/ScrollTrigger.min.js" defer></script>
+  <script src="/assets/js/pricing-scroll.js" defer></script>
 </body>
 </html>

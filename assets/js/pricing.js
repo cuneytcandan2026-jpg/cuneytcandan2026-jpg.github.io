@@ -45,6 +45,10 @@
       const pkg = packages.find((p) => p.id === id);
       if (!pkg) return;
 
+      document.querySelectorAll('#packages .pricing-card[data-package]').forEach((card) => {
+        card.classList.toggle('is-recommended', card.dataset.package === id);
+      });
+
       resultPanel.querySelector('.choose-result-name').textContent = `${pkg.label} looks like your best starting point`;
       resultPanel.querySelector('.choose-result-desc').textContent = pkg.bestFor;
       const cta = resultPanel.querySelector('.choose-result-cta');

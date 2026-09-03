@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Laara Digital — Websites for UK trades, salons and local businesses</title>
+  <!-- Sets .js before the stylesheets so the CSS reveal primitives know a
+       script environment exists. No JS => class never set => the page renders
+       fully visible instead of blank. Must stay ABOVE the <link rel=stylesheet>
+       tags: an inline script placed after them blocks on the CSSOM. -->
+  <script>document.documentElement.classList.add('js');</script>
+  <title>Website design for UK trades &amp; small businesses — Laara Digital</title>
   <meta name="description" content="Fast, mobile-ready websites for UK trades, salons, restaurants and local service businesses. Live in as little as 7&ndash;10 days, fixed pricing from £797." />
+  <!-- Pre-launch staging: the site is served from GitHub Pages while
+       laaradigital.co.uk is not yet connected. The canonical below already
+       points at the future production URL, so this stops search engines
+       indexing the github.io copy against it. Remove at go-live. -->
+  <meta name="robots" content="noindex,nofollow" />
   <link rel="canonical" href="https://laaradigital.co.uk/" />
   <meta property="og:title" content="Laara Digital — Websites that get you found" />
   <meta property="og:description" content="Fast, mobile-ready websites for UK trades, salons, restaurants and local service businesses. Live in as little as 7&ndash;10 days, fixed pricing from £797." />
@@ -24,9 +34,8 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/brand_assets/00_Upload_Ready/04_Favicons/favicon-16.png" />
   <link rel="apple-touch-icon" href="/brand_assets/00_Upload_Ready/04_Favicons/apple-touch-icon.png" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="preload" href="/assets/fonts/lato-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/lato-700.woff2" as="font" type="font/woff2" crossorigin />
 
   <link rel="stylesheet" href="/brand/laara-brand-tokens.css" />
   <link rel="stylesheet" href="/assets/css/style.css" />
@@ -38,8 +47,9 @@
     "name": "Laara Digital",
     "url": "https://laaradigital.co.uk/",
     "image": "https://laaradigital.co.uk/brand_assets/00_Upload_Ready/06_Web_Assets/og-image.png",
-    "logo": "https://laaradigital.co.uk/brand_assets/00_Upload_Ready/06_Web_Assets/og-image.png",
+    "logo": "https://laaradigital.co.uk/brand_assets/00_Upload_Ready/01_Logos/laara-primary.png",
     "email": "hello@laaradigital.co.uk",
+    "telephone": "+447896352996",
     "description": "Fast, mobile-ready websites for UK trades, salons, restaurants and local service businesses, with fixed pricing from £797 and ongoing local SEO support.",
     "areaServed": {
       "@type": "Country",
@@ -90,7 +100,7 @@
         "name": "Will my website work properly on mobile?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes - every site is built mobile-first, since that's where most customers will find you."
+          "text": "Yes, every site is built mobile-first, since that's where most of your customers will find you."
         }
       },
       {
@@ -106,7 +116,7 @@
         "name": "Can you help my business appear on Google?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes - every package includes SEO fundamentals, and the Local SEO service goes further with Google Business Profile setup and ongoing visibility work."
+          "text": "Yes, every package includes SEO fundamentals, and our Local SEO service goes further with Google Business Profile setup and ongoing visibility work."
         }
       },
       {
@@ -114,7 +124,7 @@
         "name": "Do you work with businesses outside London?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, we work with trades and local businesses UK-wide - everything is handled remotely by call, WhatsApp and email."
+          "text": "Yes, we work with trades and local businesses UK-wide. Everything is handled remotely by call, WhatsApp and email."
         }
       }
     ]
@@ -194,7 +204,7 @@
           <span class="hero-pill">11+ years in digital marketing</span>
         </div>
         <h1 class="laara-display reveal">Websites that get you found. And bring you more enquiries.</h1>
-        <p class="hero-sub reveal">Fast, mobile-ready websites for trades, salons, restaurants and service businesses across the UK — live in as little as 7&ndash;10 days.</p>
+        <p class="hero-sub reveal">Fast, mobile-ready websites for trades, salons, restaurants and service businesses across the UK. Live in as little as 7&ndash;10 days.</p>
         <div class="hero-actions reveal">
           <a class="laara-btn laara-btn--primary" href="/contact.html">Get your free quote</a>
           <a class="laara-btn laara-btn--secondary" href="#work">See our work</a>
@@ -204,7 +214,7 @@
     </section>
 
     <!-- 2. TRUST STRIP -->
-    <section class="trust-strip" id="sectors">
+    <section class="trust-strip reveal" id="sectors">
       <div class="marquee" role="region" aria-label="Sectors we work with">
         <ul class="marquee-track">
           <li><a href="/sectors/trades.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>Trades</span></a></li>
@@ -231,7 +241,7 @@
         <div class="section-head">
           <p class="laara-label section-eyebrow reveal">What we do</p>
           <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Everything you need to get found and get booked</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-          <p class="reveal-support">Five outcome-led services — no jargon, no line-item soup.</p>
+          <p class="reveal-support">Five outcome-led services, no jargon, no line-item soup.</p>
         </div>
 
         <div class="card-grid card-grid--5">
@@ -246,7 +256,7 @@
               </svg>
             </span>
             <h3>Website design &amp; build</h3>
-            <p>A mobile-first site that makes your phone ring — live in 7&ndash;10 days. Our flagship service, and where every engagement starts.</p>
+            <p>A mobile-first site that makes your phone ring, live in 7&ndash;10 days. Our flagship service, and where every engagement starts.</p>
             <span class="card-link">See packages →</span>
           </a>
           <a class="laara-card service-card glow-card reveal" href="/services/local-seo.html">
@@ -322,12 +332,15 @@
                 <span class="work-pill work-pill--ghost">Real client</span>
               </div>
               <div class="work-media">
-                <img src="/assets/img/work-ooh-la-la.png" alt="Homepage of Ooh La La Brasserie, a café and brasserie website built by Laara Digital" width="1280" height="900" loading="lazy" />
+                <picture>
+                  <source type="image/webp" srcset="/assets/img/work-ooh-la-la.webp" />
+                  <img src="/assets/img/work-ooh-la-la.png" alt="Homepage of Ooh La La Brasserie, a café and brasserie website built by Laara Digital" width="1280" height="900" loading="lazy" />
+                </picture>
               </div>
               <div class="work-body">
                 <span class="work-index">01</span>
                 <h3>Ooh La La Brasserie</h3>
-                <p>Café &amp; brasserie website · Enfield, North London — menu-led, built for walk-ins and bookings.</p>
+                <p>Café &amp; brasserie website · Enfield, North London. Menu-led, built for walk-ins and bookings.</p>
                 <span class="work-cta">Visit site →</span>
               </div>
             </a>
@@ -337,12 +350,15 @@
                 <span class="work-pill work-pill--ghost">Real client</span>
               </div>
               <div class="work-media">
-                <img src="/assets/img/work-n10-academy.png" alt="Homepage of N10 Academy, a youth football academy website built by Laara Digital" width="1280" height="900" loading="lazy" />
+                <picture>
+                  <source type="image/webp" srcset="/assets/img/work-n10-academy.webp" />
+                  <img src="/assets/img/work-n10-academy.png" alt="Homepage of N10 Academy, a youth football academy website built by Laara Digital" width="1280" height="900" loading="lazy" />
+                </picture>
               </div>
               <div class="work-body">
                 <span class="work-index">02</span>
                 <h3>N10 Academy</h3>
-                <p>Youth football academy website · Edmonton, North London — built around sign-ups and session information.</p>
+                <p>Youth football academy website · Edmonton, North London. Built around sign-ups and session information.</p>
                 <span class="work-cta">Visit site →</span>
               </div>
             </a>
@@ -352,12 +368,15 @@
                 <span class="work-pill work-pill--ghost">Real client</span>
               </div>
               <div class="work-media">
-                <img src="/assets/img/work-olympic-cafe.png" alt="Homepage of Olympic Cafe, a neighbourhood café website built by Laara Digital" width="1280" height="900" loading="lazy" />
+                <picture>
+                  <source type="image/webp" srcset="/assets/img/work-olympic-cafe.webp" />
+                  <img src="/assets/img/work-olympic-cafe.png" alt="Homepage of Olympic Cafe, a neighbourhood café website built by Laara Digital" width="1280" height="900" loading="lazy" />
+                </picture>
               </div>
               <div class="work-body">
                 <span class="work-index">03</span>
                 <h3>Olympic Cafe</h3>
-                <p>Café website · Waltham Cross, Hertfordshire — menu and opening hours front and centre for people deciding where to eat.</p>
+                <p>Café website · Waltham Cross, Hertfordshire. Menu and opening hours front and centre for people deciding where to eat.</p>
                 <span class="work-cta">Visit site →</span>
               </div>
             </a>
@@ -367,12 +386,15 @@
                 <span class="work-pill work-pill--ghost">Concept demo</span>
               </div>
               <div class="work-media">
-                <img src="/assets/img/work-ember.png" alt="Homepage of Ember Fitness, a concept demo website for a boutique fitness studio" width="1280" height="900" loading="lazy" />
+                <picture>
+                  <source type="image/webp" srcset="/assets/img/work-ember.webp" />
+                  <img src="/assets/img/work-ember.png" alt="Homepage of Ember Fitness, a concept demo website for a boutique fitness studio" width="1280" height="900" loading="lazy" />
+                </picture>
               </div>
               <div class="work-body">
                 <span class="work-index">04</span>
                 <h3>Ember Fitness</h3>
-                <p>Boutique fitness studio concept · Shoreditch, London — membership tiers and class booking made simple.</p>
+                <p>Boutique fitness studio concept · Shoreditch, London. Membership tiers and class booking made simple.</p>
                 <span class="work-cta">Visit demo →</span>
               </div>
             </a>
@@ -449,7 +471,7 @@
                   </svg>
                 </span>
                 <h3>Marketing-led design</h3>
-                <p>Built on 11+ years of CRM and customer-marketing experience &mdash; not just design taste.</p>
+                <p>Built on 11+ years of CRM and customer-marketing experience, not just design taste.</p>
               </div>
             </div>
             <div class="laara-card laara-card--plain glow-card reveal why-laara-row">
@@ -463,7 +485,7 @@
                   </svg>
                 </span>
                 <h3>Talk to the person building it</h3>
-                <p>No account managers, no handoffs &mdash; you deal directly with the person doing the work.</p>
+                <p>No account managers, no handoffs. You deal directly with the person doing the work.</p>
               </div>
             </div>
           </div>
@@ -477,7 +499,7 @@
         <div class="section-head">
           <p class="laara-label section-eyebrow reveal">How we compare</p>
           <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Laara Digital vs a traditional agency</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-          <p class="reveal-support">The practical differences &mdash; not a knock on anyone, just what small businesses tell us matters most.</p>
+          <p class="reveal-support">The practical differences, not a knock on anyone, just what small businesses tell us matters most.</p>
         </div>
 
         <p class="vs-scroll-hint reveal">Swipe to compare &rarr;</p>
@@ -500,12 +522,12 @@
               <tr>
                 <th scope="row">Support after launch</th>
                 <td>Sometimes</td>
-                <td class="vs-col--laara">Yes &mdash; ongoing care plans</td>
+                <td class="vs-col--laara">Yes, ongoing care plans</td>
               </tr>
               <tr>
                 <th scope="row">Industry expertise</th>
                 <td>Generic web design</td>
-                <td class="vs-col--laara">Yes &mdash; trades, salons, restaurants, gyms</td>
+                <td class="vs-col--laara">Yes, trades, salons, restaurants, gyms</td>
               </tr>
               <tr>
                 <th scope="row">Price</th>
@@ -523,7 +545,7 @@
       <div class="laara-container">
         <div class="section-head">
           <p class="laara-label section-eyebrow reveal">Pricing</p>
-          <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Clear, fixed pricing — no surprises</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
+          <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Clear, fixed pricing, no surprises</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
           <p class="reveal-support">Three packages, scoped up front. Every price below is exactly what's on our pricing page.</p>
         </div>
 
@@ -625,7 +647,7 @@
             <li class="process-step reveal">
               <span class="process-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></span>
               <h3>3. Launch</h3>
-              <p>Your site goes live, live in as little as 7&ndash;10 days, with support that continues afterwards.</p>
+              <p>Your site goes live in as little as 7&ndash;10 days, with support that continues afterwards.</p>
             </li>
           </ol>
         </div>
@@ -652,7 +674,7 @@
           </details>
           <details class="faq-item reveal">
             <summary>Will my website work properly on mobile?</summary>
-            <p>Yes &mdash; every site is built mobile-first, since that's where most of your customers will find you.</p>
+            <p>Yes, every site is built mobile-first, since that's where most of your customers will find you.</p>
           </details>
           <details class="faq-item reveal">
             <summary>Do I have to pay monthly fees?</summary>
@@ -660,11 +682,11 @@
           </details>
           <details class="faq-item reveal">
             <summary>Can you help my business appear on Google?</summary>
-            <p>Yes &mdash; every package includes SEO fundamentals, and our <a href="/services/local-seo.html">Local SEO service</a> goes further with Google Business Profile setup and ongoing visibility work.</p>
+            <p>Yes, every package includes SEO fundamentals, and our <a href="/services/local-seo.html">Local SEO service</a> goes further with Google Business Profile setup and ongoing visibility work.</p>
           </details>
           <details class="faq-item reveal">
             <summary>Do you work with businesses outside London?</summary>
-            <p>Yes, we work with trades and local businesses UK-wide &mdash; everything is handled remotely by call, WhatsApp and email.</p>
+            <p>Yes, we work with trades and local businesses UK-wide. Everything is handled remotely by call, WhatsApp and email.</p>
           </details>
         </div>
       </div>
@@ -674,7 +696,7 @@
     <section class="laara-section laara-inverse final-cta">
       <div class="laara-container">
         <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Ready to get more enquiries?</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-        <p class="reveal-support">Tell us about your business and we'll recommend the right package — no pressure, no jargon.</p>
+        <p class="reveal-support">Tell us about your business and we'll recommend the right package. No pressure, no jargon.</p>
         <div class="final-cta-actions reveal">
           <a class="laara-btn laara-btn--primary" href="/contact.html">Get your free quote</a>
           <a class="laara-btn laara-btn--secondary" href="tel:+447896352996">Call us</a>

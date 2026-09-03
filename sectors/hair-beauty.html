@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Sets .js before the stylesheets so the CSS reveal primitives know a
+       script environment exists. No JS => class never set => the page renders
+       fully visible instead of blank. Must stay ABOVE the <link rel=stylesheet>
+       tags: an inline script placed after them blocks on the CSSOM. -->
+  <script>document.documentElement.classList.add('js');</script>
   <title>Websites for hair &amp; beauty — Laara Digital</title>
-  <meta name="description" content="Websites for salons, barbers and beauty studios — online booking, live in 7–10 days, fixed pricing from £797." />
+  <meta name="description" content="Websites for salons, barbers and beauty studios across the UK. Online booking, live in 7–10 days, fixed pricing from £797." />
+  <!-- Pre-launch staging: the site is served from GitHub Pages while
+       laaradigital.co.uk is not yet connected. The canonical below already
+       points at the future production URL, so this stops search engines
+       indexing the github.io copy against it. Remove at go-live. -->
+  <meta name="robots" content="noindex,nofollow" />
   <link rel="canonical" href="https://laaradigital.co.uk/sectors/hair-beauty.html" />
-  <meta property="og:title" content="Websites for hair & beauty — Laara Digital" />
+  <meta property="og:title" content="Websites for hair &amp; beauty — Laara Digital" />
   <meta property="og:description" content="A professional online booking system. Attract new clients." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://laaradigital.co.uk/sectors/hair-beauty.html" />
@@ -15,7 +25,7 @@
   <meta property="og:site_name" content="Laara Digital" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Websites for hair & beauty — Laara Digital" />
+  <meta name="twitter:title" content="Websites for hair &amp; beauty — Laara Digital" />
   <meta name="twitter:description" content="A professional online booking system. Attract new clients." />
   <meta name="twitter:image" content="https://laaradigital.co.uk/brand_assets/00_Upload_Ready/06_Web_Assets/og-image.png" />
 
@@ -24,9 +34,8 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/brand_assets/00_Upload_Ready/04_Favicons/favicon-16.png" />
   <link rel="apple-touch-icon" href="/brand_assets/00_Upload_Ready/04_Favicons/apple-touch-icon.png" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="preload" href="/assets/fonts/lato-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/lato-700.woff2" as="font" type="font/woff2" crossorigin />
 
   <link rel="stylesheet" href="/brand/laara-brand-tokens.css" />
   <link rel="stylesheet" href="/assets/css/style.css" />
@@ -129,12 +138,15 @@
       <div class="laara-container">
         <div class="case-study reveal">
           <div class="case-study-media">
-            <img src="/assets/img/sector-hair-beauty.png" alt="A stylist cutting a client's hair in a small independent UK salon" width="1536" height="1024" loading="lazy" />
+            <picture>
+              <source type="image/webp" srcset="/assets/img/sector-hair-beauty.webp" />
+              <img src="/assets/img/sector-hair-beauty.png" alt="A stylist cutting a client's hair in a small independent UK salon" width="1536" height="1024" loading="lazy" />
+            </picture>
           </div>
           <div class="case-study-body">
             <p class="laara-label section-eyebrow reveal">Built for hair &amp; beauty</p>
             <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Salons, barbers and beauty studios</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-            <p>Clients expect to book online, day or night. A site that makes booking effortless — and shows your work off properly — brings in clients that a phone-only booking book never reaches. Our <a href="/services/booking-systems.html">booking system</a> add-on lets clients book a slot themselves, any time.</p>
+            <p>Clients expect to book online, day or night. A site that makes booking effortless, and shows your work off properly, brings in clients that a phone-only booking book never reaches. Our <a href="/services/booking-systems.html">booking system</a> add-on lets clients book a slot themselves, any time.</p>
             <ul class="laara-list">
               <li>No easy way for new clients to book outside opening hours</li>
               <li>A gallery that doesn't do the work justice</li>
@@ -157,7 +169,10 @@
         <div class="work-grid">
           <a class="work-card reveal" href="/work.html#fade-and-co">
             <div class="work-media">
-              <img src="/assets/img/work-fade-and-co.png" alt="Homepage of Fade & Co, a concept demo website for a barbershop" width="1280" height="900" loading="lazy" />
+              <picture>
+                <source type="image/webp" srcset="/assets/img/work-fade-and-co.webp" />
+                <img src="/assets/img/work-fade-and-co.png" alt="Homepage of Fade & Co, a concept demo website for a barbershop" width="1280" height="900" loading="lazy" />
+              </picture>
               <div class="work-overlay">
                 <div class="work-tags">
                   <span class="work-pill">Hair &amp; beauty</span>
@@ -173,7 +188,10 @@
           </a>
           <a class="work-card reveal" href="/work.html#bloom">
             <div class="work-media">
-              <img src="/assets/img/work-bloom.png" alt="Homepage of Bloom Hair & Beauty, a concept demo website for a hair and beauty salon" width="1280" height="900" loading="lazy" />
+              <picture>
+                <source type="image/webp" srcset="/assets/img/work-bloom.webp" />
+                <img src="/assets/img/work-bloom.png" alt="Homepage of Bloom Hair & Beauty, a concept demo website for a hair and beauty salon" width="1280" height="900" loading="lazy" />
+              </picture>
               <div class="work-overlay">
                 <div class="work-tags">
                   <span class="work-pill">Hair &amp; beauty</span>
@@ -196,8 +214,8 @@
       <div class="laara-container">
         <div class="section-head">
           <p class="laara-label section-eyebrow reveal">Pricing</p>
-          <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Clear, fixed pricing — no surprises</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-          <p class="reveal-support">Three packages, scoped up front. Every price below is exactly what's on our pricing page.</p>
+          <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Clear, fixed pricing, no surprises</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
+          <p class="reveal-support">Every project starts with <a href="/services/website-design.html">website design &amp; build</a>, scoped up front for salons and studios like yours.</p>
         </div>
 
         <div class="pricing-grid">
@@ -251,7 +269,7 @@
           <li class="process-step reveal">
             <span class="process-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
             <h3>1. Call</h3>
-            <p>A short 20-minute conversation about your business and what's not working now.</p>
+            <p>A short 20-minute conversation about your salon or studio and what's not working now.</p>
           </li>
           <li class="process-step reveal">
             <span class="process-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
@@ -261,7 +279,7 @@
           <li class="process-step reveal">
             <span class="process-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></span>
             <h3>3. Launch</h3>
-            <p>Your site goes live, live in as little as 7&ndash;10 days, with support that continues afterwards.</p>
+            <p>Your site goes live in as little as 7&ndash;10 days, with support that continues afterwards.</p>
           </li>
         </ol>
       </div>
@@ -271,7 +289,7 @@
     <section class="laara-section laara-inverse final-cta">
       <div class="laara-container">
         <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Ready to get more enquiries?</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-        <p class="reveal-support">Tell us about your business and we'll recommend the right package — no pressure, no jargon.</p>
+        <p class="reveal-support">Tell us about your salon or barbershop and we'll recommend the right package. No pressure, no jargon.</p>
         <div class="final-cta-actions reveal">
           <a class="laara-btn laara-btn--primary" href="/contact.html">Get your free quote</a>
           <a class="laara-btn laara-btn--secondary" href="tel:+447896352996">Call us</a>

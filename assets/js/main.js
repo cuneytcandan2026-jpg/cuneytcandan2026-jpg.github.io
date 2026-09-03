@@ -126,9 +126,36 @@
   /* ---------- Animated typography: split hero headline into words ----------
      Scoped to h1.laara-display only — .laara-display is also used on the
      homepage stat band, which has live [data-counter] spans nested inside
-     that must not be destroyed by a textContent rebuild. */
+     that must not be destroyed by a textContent rebuild.
+     About's hero heading is two lines (<span class="hero-line">) so the
+     accent colour on line two survives; each line is split independently,
+     with the word-delay counter carrying on across both lines. Every other
+     page's plain-text h1.laara-display falls through to the original
+     single-blob split unchanged. */
   if (!prefersReducedMotion) {
     document.querySelectorAll('h1.laara-display').forEach(el => {
+      const lines = Array.from(el.querySelectorAll(':scope > .hero-line'));
+      if (lines.length) {
+        el.setAttribute('aria-label', el.textContent.trim());
+        let wordIndex = 0;
+        lines.forEach(line => {
+          const text = line.textContent.trim();
+          if (!text) return;
+          const words = text.split(/\s+/).filter(Boolean);
+          line.textContent = '';
+          words.forEach((word, i) => {
+            const span = document.createElement('span');
+            span.className = 'word-split';
+            span.textContent = word;
+            span.style.transitionDelay = `${Math.min(wordIndex, 10) * 35}ms`;
+            wordIndex += 1;
+            line.appendChild(span);
+            if (i < words.length - 1) line.appendChild(document.createTextNode(' '));
+          });
+        });
+        el.classList.add('word-split-parent');
+        return;
+      }
       const text = el.textContent.trim();
       if (!text) return;
       el.setAttribute('aria-label', text);
@@ -157,6 +184,13 @@
      viewport) — a scale+opacity reveal gets the same "creative reveal"
      read using the exact mechanism already proven everywhere else. */
   document.querySelectorAll('.work-media, .case-study-media, .case-frame-media').forEach(el => {
+    /* work.html's Client work / Concept lab grids opt out — they get a GSAP
+       ScrollTrigger scrub reveal instead (assets/js/work-scroll.js), scoped
+       via [data-scroll-scrub] set directly on those elements in work.html.
+       Every other .case-frame-media/.work-media/.case-study-media on the
+       site (including this same page's Featured Project card) is
+       unaffected and keeps this one-shot reveal-zoom. */
+    if (el.hasAttribute('data-scroll-scrub')) return;
     el.classList.add('reveal-zoom');
   });
 

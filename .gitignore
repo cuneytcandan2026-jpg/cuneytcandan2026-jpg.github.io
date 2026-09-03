@@ -2,3 +2,43 @@ node_modules/
 temporary-screenshots/
 .env
 *.mp4
+
+# ==========================================================
+# NOT ON THE DEPLOY BRANCH
+#
+# This repo IS the deployment: GitHub Pages serves master's root
+# directly, so anything committed here is a public URL. The files
+# below are internal build/strategy material that was being served
+# and indexed — docs/pricing.md carries price-floor and margin
+# notes, Insparation/ is competitor screenshots, CLAUDE.md is the
+# internal brief. They stay on disk for local work; they just
+# don't ship.
+#
+# Removed from tracking with `git rm --cached` (files kept on disk).
+# Earlier commits still contain them, so nothing is lost — but from
+# now on changes to these files are NOT version-controlled. If that
+# becomes a problem the fix is a separate private repo or an Actions
+# build that publishes a subdirectory, not re-adding them here.
+#
+# Deliberately still tracked: serve.mjs and screenshot.mjs (no
+# secrets, and the deploy-verification worktree needs serve.mjs),
+# .nojekyll, brand_assets/00_Upload_Ready/ (favicons, OG image and
+# logos referenced by every page head) and brand/laara-brand-tokens.css
+# (a live stylesheet — only the .json twin is internal).
+# ==========================================================
+CLAUDE.md
+docs/
+Insparation/
+brand/laara-brand-tokens.json
+
+# Dev-only scripts. generate-image.mjs reads the OpenAI key from .env.
+_qa_sweep.mjs
+_verify_heroes.mjs
+_verify_nav_dropdown.mjs
+_verify_work_scrub.mjs
+generate-image.mjs
+
+# Node manifests — nothing on a static Pages deploy consumes these,
+# and they advertise the toolchain and its versions.
+package.json
+package-lock.json

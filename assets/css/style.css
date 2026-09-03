@@ -568,16 +568,16 @@ img { max-width: 100%; display: block; }
 .marquee-track {
   display: flex;
   align-items: center;
-  gap: var(--laara-space-16);
+  gap: var(--laara-space-6);
   list-style: none;
   padding: 0;
   margin: 0;
   width: max-content;
   animation: marquee 32s linear infinite;
 }
-.marquee-track + .marquee-track { margin-left: var(--laara-space-16); }
+.marquee-track + .marquee-track { margin-left: var(--laara-space-6); }
 @keyframes marquee {
-  to { transform: translateX(calc(-100% - var(--laara-space-16))); }
+  to { transform: translateX(calc(-100% - var(--laara-space-6))); }
 }
 .marquee:hover .marquee-track,
 .marquee:focus-within .marquee-track { animation-play-state: paused; }
@@ -591,12 +591,25 @@ img { max-width: 100%; display: block; }
   align-items: center;
   gap: var(--laara-space-3);
   text-decoration: none;
-  padding: var(--laara-space-2) 0;
-  transition: color var(--laara-dur-micro) var(--laara-ease-in-out);
+  padding: var(--laara-space-3) var(--laara-space-4);
+  background: var(--laara-white);
+  border: 1.5px solid var(--laara-border);
+  border-radius: var(--laara-radius);
+  box-shadow: var(--laara-shadow-sm);
+  transition: color var(--laara-dur-micro) var(--laara-ease-in-out),
+              border-color var(--laara-dur-micro) var(--laara-ease-in-out),
+              transform var(--laara-dur-micro) var(--laara-ease-out),
+              box-shadow var(--laara-dur-micro) var(--laara-ease-out);
 }
 .marquee-track li a:hover,
-.marquee-track li a:focus-visible { color: var(--laara-green-text); }
-.marquee-track li a:focus-visible { outline: 2px solid var(--laara-ink); outline-offset: 2px; border-radius: var(--laara-radius-sm); }
+.marquee-track li a:focus-visible {
+  color: var(--laara-green-text);
+  border-color: var(--laara-green);
+  box-shadow: var(--laara-shadow);
+  transform: translateY(-2px);
+}
+.marquee-track li a:active { transform: translateY(0); box-shadow: var(--laara-shadow-sm); }
+.marquee-track li a:focus-visible { outline: 2px solid var(--laara-ink); outline-offset: 2px; }
 .marquee-track svg { width: 26px; height: 26px; color: var(--laara-green-deep); flex-shrink: 0; }
 .marquee-track span { font-size: var(--laara-fs-body-lg); font-weight: var(--laara-fw-semibold); color: var(--laara-text); }
 .marquee-track li a:hover span,
@@ -1808,6 +1821,19 @@ img { max-width: 100%; display: block; }
 @media (min-width: 900px) { .tier-grid { grid-template-columns: repeat(3, 1fr); } }
 
 .pricing-card--featured { border-color: var(--laara-ink); border-width: 2px; position: relative; }
+
+/* pricing.html-only depth fix — .pricing-card is shared with index.html's
+   homepage teaser, so this is scoped by ID rather than editing the shared
+   class or its base rule in brand/laara-brand-tokens.css. */
+#packages .pricing-card,
+#care-plans .pricing-card {
+  box-shadow: var(--laara-shadow);
+  transition: background var(--laara-dur-micro) var(--laara-ease-in-out),
+              transform var(--laara-dur-micro) var(--laara-ease-out),
+              box-shadow var(--laara-dur-micro) var(--laara-ease-out),
+              border-color var(--laara-dur-micro) var(--laara-ease-in-out);
+}
+#packages .pricing-card--featured { box-shadow: var(--laara-shadow-lg); }
 .pricing-card-badge {
   align-self: flex-start;
   background: var(--laara-accent);
@@ -2376,9 +2402,25 @@ img { max-width: 100%; display: block; }
 
 /* ============================================================
    SCROLL REVEAL
+
+   NO-JS / SCRIPT-FAILURE GATE — read before editing.
+   Every reveal primitive in this file starts hidden (opacity:0
+   or a closed clip-path) and is only made visible by main.js
+   adding .is-visible. If main.js never runs — a thrown error, a
+   blocked script, a mangling mobile proxy — an ungated hidden
+   state renders a permanently blank page. That is the worst
+   possible failure for this audience (older users on mid-range
+   phones and flaky connections) and it is silent.
+
+   So every hidden state is scoped to `.js`, set by a one-line
+   inline script that is the FIRST element in every <head>,
+   before the stylesheets. No JS at all => no `.js` class =>
+   the page renders fully visible and unanimated. Keep the
+   prefers-reduced-motion overrides below `.js`-scoped too, or
+   they lose the specificity race against these rules.
    ============================================================ */
 
-.reveal {
+.js .reveal {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity var(--laara-dur-reveal) var(--laara-ease-out),
@@ -2387,7 +2429,7 @@ img { max-width: 100%; display: block; }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
 /* ---------- Zoom-reveal (portfolio/case-study imagery) ---------- */
-.reveal-zoom {
+.js .reveal-zoom {
   opacity: 0;
   transform: scale(1.08);
   transition: opacity var(--laara-dur-section) var(--laara-ease-out),
@@ -2396,8 +2438,8 @@ img { max-width: 100%; display: block; }
 .reveal-zoom.is-visible { opacity: 1; transform: scale(1); }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-  .reveal-zoom { opacity: 1; transform: none; transition: none; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  .js .reveal-zoom { opacity: 1; transform: none; transition: none; }
 }
 
 /* ============================================================
@@ -2425,14 +2467,18 @@ img { max-width: 100%; display: block; }
   padding-block: 0.3em;
   margin-block: -0.3em;
 }
-.reveal-heading__text {
+.js .reveal-heading__text {
   display: inline-block;
   clip-path: inset(-0.3em 100% -0.3em -0.3em);
   transform: translateX(-18px);
   transition: clip-path var(--laara-dur-heading) var(--laara-ease-out) 90ms,
               transform var(--laara-dur-heading) var(--laara-ease-out) 90ms;
 }
-.reveal-heading__sweep {
+/* No-JS: the sweep block never appears, so it can't park over the
+   first quarter of a heading that will never be revealed. */
+.reveal-heading__sweep { display: none; }
+.js .reveal-heading__sweep {
+  display: block;
   position: absolute;
   inset: -0.3em auto -0.3em 0;
   width: 24%;
@@ -2450,7 +2496,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* ---------- Supporting copy under a reveal-heading ---------- */
-.reveal-support {
+.js .reveal-support {
   opacity: 0;
   transform: translateY(8px);
   transition: opacity var(--laara-dur-reveal) var(--laara-ease-out) 300ms,
@@ -2459,13 +2505,13 @@ img { max-width: 100%; display: block; }
 .reveal-support.is-visible { opacity: 1; transform: translateY(0); }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal-heading__text {
+  .js .reveal-heading__text {
     clip-path: none;
     transform: none;
     transition: none;
   }
-  .reveal-heading__sweep { display: none; }
-  .reveal-support { opacity: 1; transform: none; transition: none; }
+  .js .reveal-heading__sweep { display: none; }
+  .js .reveal-support { opacity: 1; transform: none; transition: none; }
 }
 
 /* ============================================================
@@ -3144,6 +3190,13 @@ img { max-width: 100%; display: block; }
 @media (min-width: 780px) {
   .approach-grid { grid-template-columns: repeat(2, 1fr); }
 }
+.approach-item {
+  background: var(--laara-white);
+  border: 1.5px solid var(--laara-border);
+  border-radius: var(--laara-radius-card);
+  padding: var(--laara-space-8);
+  box-shadow: var(--laara-shadow);
+}
 .approach-number {
   font-family: var(--laara-font);
   font-weight: var(--laara-fw-black);
@@ -3159,4 +3212,170 @@ img { max-width: 100%; display: block; }
 @media (max-width: 480px) {
   .final-cta-actions { flex-direction: column; }
   .final-cta-actions .laara-btn { width: 100%; }
+}
+
+/* ============================================================
+   ABOUT PAGE — REDESIGN
+   Everything below is additive/scoped to about.html. Reuses
+   .reveal*/.reveal-heading/.laara-inverse/.tag-pill/.marquee
+   patterns defined above rather than introducing a second
+   visual system. Does not touch .case-study (shared with
+   work.html/sector pages, see note near line 1512).
+   ============================================================ */
+
+/* ---------- Hero: asymmetric editorial layout override ----------
+   .page-hero.page-hero--fluid > .laara-container (defined earlier)
+   centers a single narrow column for the other fluid-hero pages.
+   Same specificity (3 classes) as that rule, so this wins on
+   source order for the about-page hero only — same technique
+   already used for .page-hero--work above. */
+.page-hero--about.page-hero--fluid > .laara-container {
+  text-align: left;
+  max-width: var(--laara-content-max);
+  margin-inline: auto;
+}
+.about-hero-content { padding-block: var(--laara-space-6) var(--laara-space-2); }
+.about-hero-kicker {
+  display: block;
+  font-weight: var(--laara-fw-bold);
+  font-size: var(--laara-fs-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--laara-text-secondary);
+  margin: 0 0 var(--laara-space-6);
+}
+.about-hero-heading { margin: 0 0 var(--laara-space-6); }
+.about-hero-heading .hero-line { display: block; }
+.about-hero-heading .hero-line--accent {
+  color: var(--laara-green-text);
+  margin-left: clamp(0rem, -2rem + 8vw, 3.5rem);
+}
+.about-hero-sub {
+  font-size: var(--laara-fs-body-lg);
+  color: var(--laara-text-secondary);
+  max-width: 30rem;
+  margin: 0;
+}
+@media (min-width: 560px) {
+  .about-hero-sub { margin-left: auto; text-align: right; }
+}
+
+/* Sector ticker at the foot of the hero, above the fluid canvas/type layers */
+.about-hero-ticker {
+  position: relative;
+  z-index: 1;
+  margin-top: var(--laara-space-10);
+  border-top: 1.5px solid var(--laara-border);
+}
+
+/* ---------- Founder: sticky editorial composition ---------- */
+.founder-story-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--laara-space-8);
+}
+@media (min-width: 1024px) {
+  .founder-story-grid { grid-template-columns: 0.85fr 1.15fr; gap: var(--laara-space-16); align-items: start; }
+  .founder-story-media { position: sticky; top: calc(var(--laara-header-h-desktop) + var(--laara-space-10)); }
+  .founder-story-body { padding-block: var(--laara-space-10); }
+}
+.founder-story-frame { border-radius: var(--laara-radius-lg); overflow: hidden; box-shadow: var(--laara-shadow-lg); }
+.founder-story-frame img { width: 100%; height: auto; display: block; }
+.founder-story-tags { display: flex; flex-wrap: wrap; gap: var(--laara-space-2); margin-top: var(--laara-space-4); }
+.founder-story-body h2 { margin: 0 0 var(--laara-space-6); }
+.founder-story-body p { max-width: var(--laara-measure); }
+.founder-story-callout {
+  font-weight: var(--laara-fw-bold);
+  color: var(--laara-text);
+  margin: var(--laara-space-6) 0 0;
+  padding-left: var(--laara-space-5);
+  border-left: 3px solid var(--laara-green);
+}
+
+/* ---------- What we believe: alternating manifesto list ---------- */
+.about-beliefs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--laara-space-8); }
+.about-belief {
+  display: flex;
+  align-items: baseline;
+  gap: var(--laara-space-5);
+  border-top: 1.5px solid var(--laara-border);
+  padding-top: var(--laara-space-8);
+  max-width: 42rem;
+}
+.about-belief-number {
+  font-weight: var(--laara-fw-black);
+  font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+  color: var(--laara-border);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.about-belief p { margin: 0; font-size: var(--laara-fs-h3); font-weight: var(--laara-fw-bold); line-height: var(--laara-lh-heading); color: var(--laara-text); }
+@media (min-width: 900px) {
+  .about-belief--right { margin-left: auto; text-align: right; flex-direction: row-reverse; }
+}
+
+/* ---------- Small studio advantage: dark contrast pairs ---------- */
+.about-compare-list { list-style: none; margin: 0; padding: 0; }
+.about-compare-pair {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--laara-space-2);
+  padding-block: var(--laara-space-6);
+  border-top: 1.5px solid rgba(250, 250, 249, 0.14);
+}
+.about-compare-pair:last-child { border-bottom: 1.5px solid rgba(250, 250, 249, 0.14); }
+.about-compare-them {
+  color: var(--laara-on-dark-subtle);
+  font-size: var(--laara-fs-body-lg);
+  text-decoration: line-through;
+  text-decoration-color: rgba(250, 250, 249, 0.3);
+}
+.about-compare-arrow { display: none; }
+.about-compare-us { color: var(--laara-paper); font-size: var(--laara-fs-h3); font-weight: var(--laara-fw-bold); }
+@media (min-width: 780px) {
+  .about-compare-pair { grid-template-columns: 1fr auto 1.2fr; align-items: center; gap: var(--laara-space-6); }
+  .about-compare-arrow { display: block; color: var(--laara-green); font-size: var(--laara-fs-h3); }
+}
+
+/* ---------- Who we work with: scroll-snap sector strip on mobile/tablet,
+   static wrapped row on desktop (no drag affordance needed for 6 links) ---------- */
+.about-sectors {
+  display: flex;
+  gap: var(--laara-space-5);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--laara-page-x);
+  padding-inline: var(--laara-page-x);
+  padding-block: var(--laara-space-2) var(--laara-space-4);
+  scrollbar-width: none;
+}
+.about-sectors::-webkit-scrollbar { display: none; }
+.about-sector-tile {
+  scroll-snap-align: start;
+  flex: 0 0 74%;
+  background: var(--laara-white);
+  border: 1.5px solid var(--laara-border);
+  border-radius: var(--laara-radius-card);
+  padding: var(--laara-space-6);
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--laara-dur-micro) var(--laara-ease-out),
+              box-shadow var(--laara-dur-micro) var(--laara-ease-out),
+              border-color var(--laara-dur-micro) var(--laara-ease-in-out);
+}
+.about-sector-tile:hover, .about-sector-tile:focus-visible {
+  border-color: var(--laara-ink);
+  box-shadow: var(--laara-shadow-lg);
+  transform: translateY(-4px);
+}
+.about-sector-tile:focus-visible { outline: 2px solid var(--laara-ink); outline-offset: 2px; }
+.about-sector-tile-name { display: block; font-weight: var(--laara-fw-black); font-size: var(--laara-fs-h3); margin-bottom: var(--laara-space-2); }
+.about-sector-tile-pitch { display: block; color: var(--laara-text-secondary); font-size: var(--laara-fs-body); }
+@media (min-width: 640px) { .about-sector-tile { flex-basis: 46%; } }
+@media (min-width: 1024px) {
+  .about-sectors { scroll-snap-type: none; overflow-x: visible; flex-wrap: wrap; }
+  .about-sector-tile { flex-basis: calc(33.333% - var(--laara-space-5) * 2 / 3); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-sectors { scroll-behavior: auto; }
 }

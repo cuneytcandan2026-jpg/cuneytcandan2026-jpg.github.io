@@ -1,13 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Sets .js before the stylesheets so the CSS reveal primitives know a
+       script environment exists. No JS => class never set => the page renders
+       fully visible instead of blank. Must stay ABOVE the <link rel=stylesheet>
+       tags: an inline script placed after them blocks on the CSSOM. -->
+  <script>document.documentElement.classList.add('js');</script>
   <title>Website design &amp; build — Laara Digital</title>
-  <meta name="description" content="Mobile-first websites for UK trades and local businesses, live in 7–10 days. Fixed pricing from £797." />
+  <meta name="description" content="Website design for UK trades and local businesses. Mobile-first, live in 7–10 days, fixed pricing from £797, no hidden costs." />
+  <!-- Pre-launch staging: the site is served from GitHub Pages while
+       laaradigital.co.uk is not yet connected. The canonical below already
+       points at the future production URL, so this stops search engines
+       indexing the github.io copy against it. Remove at go-live. -->
+  <meta name="robots" content="noindex,nofollow" />
   <link rel="canonical" href="https://laaradigital.co.uk/services/website-design.html" />
-  <meta property="og:title" content="Website design & build — Laara Digital" />
-  <meta property="og:description" content="Mobile-first websites for UK trades and local businesses, live in 7–10 days. Fixed pricing from £797." />
+  <meta property="og:title" content="Website design &amp; build — Laara Digital" />
+  <meta property="og:description" content="Website design for UK trades and local businesses. Mobile-first, live in 7–10 days, fixed pricing from £797, no hidden costs." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://laaradigital.co.uk/services/website-design.html" />
   <meta property="og:image" content="https://laaradigital.co.uk/brand_assets/00_Upload_Ready/06_Web_Assets/og-image.png" />
@@ -15,8 +25,8 @@
   <meta property="og:site_name" content="Laara Digital" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Website design & build — Laara Digital" />
-  <meta name="twitter:description" content="Mobile-first websites for UK trades and local businesses, live in 7–10 days. Fixed pricing from £797." />
+  <meta name="twitter:title" content="Website design &amp; build — Laara Digital" />
+  <meta name="twitter:description" content="Website design for UK trades and local businesses. Mobile-first, live in 7–10 days, fixed pricing from £797, no hidden costs." />
   <meta name="twitter:image" content="https://laaradigital.co.uk/brand_assets/00_Upload_Ready/06_Web_Assets/og-image.png" />
 
   <link rel="icon" href="/brand_assets/00_Upload_Ready/04_Favicons/favicon.ico" sizes="any" />
@@ -24,9 +34,8 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/brand_assets/00_Upload_Ready/04_Favicons/favicon-16.png" />
   <link rel="apple-touch-icon" href="/brand_assets/00_Upload_Ready/04_Favicons/apple-touch-icon.png" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="preload" href="/assets/fonts/lato-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/lato-700.woff2" as="font" type="font/woff2" crossorigin />
 
   <link rel="stylesheet" href="/brand/laara-brand-tokens.css" />
   <link rel="stylesheet" href="/assets/css/style.css" />
@@ -44,12 +53,6 @@
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "Services",
-        "item": "https://laaradigital.co.uk/services/website-design.html"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
         "name": "Website design & build",
         "item": "https://laaradigital.co.uk/services/website-design.html"
       }
@@ -142,7 +145,7 @@
       <div class="hero-type" aria-hidden="true"><span>Get built</span></div>
       <div class="laara-container">
         <h1 class="laara-display reveal">Websites built to make your phone ring</h1>
-        <p class="reveal">Mobile-first, live in 7&ndash;10 days, fixed pricing from £797 — no jargon, no surprises.</p>
+        <p class="reveal">Mobile-first, live in 7&ndash;10 days, fixed pricing from £797. No jargon, no surprises.</p>
         <div class="hero-actions reveal">
           <a class="laara-btn laara-btn--primary" href="/contact.html">Get your free quote</a>
         </div>
@@ -195,7 +198,7 @@
         <div class="section-head">
           <p class="laara-label section-eyebrow reveal">Where it fits in your plan</p>
           <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Three fixed-price packages</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-          <p class="reveal-support">Every price below is exactly what's on our <a href="/pricing.html">pricing page</a> — nothing added here.</p>
+          <p class="reveal-support">Every price below is exactly what's on our <a href="/pricing.html">pricing page</a>, nothing added here.</p>
         </div>
 
         <div class="tier-grid">
@@ -246,7 +249,7 @@
             <li class="process-step reveal">
               <span class="process-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></span>
               <h3>3. Launch</h3>
-              <p>Your site goes live, live in as little as 7&ndash;10 days, with support that continues afterwards.</p>
+              <p>Your site goes live in as little as 7&ndash;10 days, with support that continues afterwards.</p>
             </li>
           </ol>
         </div>
@@ -259,7 +262,7 @@
         <div class="section-head">
           <p class="laara-label section-eyebrow reveal">Who it's for</p>
           <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Built for how your customers actually search</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-          <p class="reveal-support">Every sector searches and books differently — see the page built for yours.</p>
+          <p class="reveal-support">Every sector searches and books differently. See the page built for yours.</p>
         </div>
 
         <div class="sector-chip-grid reveal">
@@ -295,7 +298,7 @@
     <section class="laara-section laara-inverse final-cta">
       <div class="laara-container">
         <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Ready to get more enquiries?</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-        <p class="reveal-support">Tell us about your business and we'll recommend the right package — no pressure, no jargon.</p>
+        <p class="reveal-support">Tell us about your business and we'll recommend the right package. No pressure, no jargon.</p>
         <div class="final-cta-actions reveal">
           <a class="laara-btn laara-btn--primary" href="/contact.html">Get your free quote</a>
           <a class="laara-btn laara-btn--secondary" href="tel:+447896352996">Call us</a>
