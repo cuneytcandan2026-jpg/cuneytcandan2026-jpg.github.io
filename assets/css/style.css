@@ -3374,7 +3374,7 @@ img { max-width: 100%; display: block; }
 /* ============================================================
    ABOUT PAGE — REDESIGN
    Everything below is additive/scoped to about.html. Reuses
-   .reveal*/.reveal-heading/.laara-inverse/.tag-pill/.marquee
+   .reveal / .reveal-heading / .laara-inverse / .tag-pill / .marquee
    patterns defined above rather than introducing a second
    visual system. Does not touch .case-study (shared with
    work.html/sector pages, see note near line 1512).
