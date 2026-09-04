@@ -1246,19 +1246,6 @@ img { max-width: 100%; display: block; }
   color: var(--laara-on-dark-muted);
 }
 
-/* Disclaimer under the comparison table: the "typical agency" column quotes
-   indicative ranges, not a specific company, and has to say so. */
-.vs-table-note {
-  margin: var(--laara-space-4) 0 0;
-  /* Body size, not --laara-fs-small: this is the disclaimer that makes the
-     table honest, so it has to be as readable as the claims above it, and
-     the 16px body-text minimum applies. */
-  font-size: var(--laara-fs-body);
-  color: var(--laara-on-dark-muted);
-  max-width: 44rem;
-}
-.vs-table-note a { color: var(--laara-link-on-dark); }
-
 /* ============================================================
    WORK
    ============================================================ */
