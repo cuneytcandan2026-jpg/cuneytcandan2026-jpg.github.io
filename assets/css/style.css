@@ -223,6 +223,7 @@ img { max-width: 100%; display: block; }
   cursor: pointer;
   color: var(--laara-ink);
 }
+.nav-toggle svg { width: 24px; height: 24px; flex-shrink: 0; }
 
 .header-cta { display: none; }
 
