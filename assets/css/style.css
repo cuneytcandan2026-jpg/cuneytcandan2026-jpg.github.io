@@ -1108,12 +1108,23 @@ img { max-width: 100%; display: block; }
   }
 }
 
-/* Token-coloured placeholder — stands in for the single Higgsfield
-   asset (Phase 10) so this section's layout/copy isn't blocked on
-   that generation. The gradient stays as the image's load-in backdrop
-   (same brand tones, no flash of empty ink while the file arrives)
-   rather than being deleted now that the real asset is wired in. */
-.why-laara-visual {
+/* Two nodes on purpose, mirroring .founder-story-media/-frame on
+   about.html: the OUTER .why-laara-visual is the sticky wrapper and
+   carries no sizing or transform, the INNER -frame carries the box
+   and the .reveal-zoom entrance transform. Keeping the transform off
+   the sticky element is the whole reason for the split — it is the
+   combination the founder pattern already proves works. */
+@media (min-width: 1080px) {
+  .why-laara-visual {
+    position: sticky;
+    top: calc(var(--laara-header-h-desktop) + var(--laara-space-10));
+  }
+}
+
+/* The gradient is the image's load-in backdrop (same brand tones, so
+   there is no flash of empty ink while the file arrives) rather than
+   a placeholder to delete now that the real asset is wired in. */
+.why-laara-visual-frame {
   position: relative;
   border-radius: var(--laara-radius-card);
   overflow: hidden;
@@ -1125,9 +1136,9 @@ img { max-width: 100%; display: block; }
   box-shadow: var(--laara-shadow-lg);
 }
 @media (min-width: 1080px) {
-  .why-laara-visual { aspect-ratio: 3 / 4; }
+  .why-laara-visual-frame { aspect-ratio: 3 / 4; }
 }
-.why-laara-visual img {
+.why-laara-visual-frame img {
   display: block;
   width: 100%;
   height: 100%;
@@ -1164,7 +1175,12 @@ img { max-width: 100%; display: block; }
   .why-laara-num { width: 5rem; }
 }
 
-.why-laara-row-body { min-width: 0; }
+/* flex-grow is load-bearing, not tidying. Without it the body shrinks
+   to its own text width, and on the row-reverse rows (02, 04) that
+   leaves it floating in the middle of the row instead of flush left —
+   the exact opposite of what the comment above promises. Growing it
+   makes every row's text column the same width in both directions. */
+.why-laara-row-body { min-width: 0; flex-grow: 1; }
 
 /* ============================================================
    VS TABLE — Laara vs traditional agency (homepage only)

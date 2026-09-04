@@ -431,15 +431,22 @@
         </div>
 
         <div class="why-laara-layout">
-          <div class="why-laara-visual reveal-zoom" aria-hidden="true">
-            <!-- This shipped WebP-only, so a client without WebP support got a
-                 broken image rather than a fallback. Now matches the <picture>
-                 pattern every other image on the site uses. The JPEG is q75
-                 because this is decorative and only ever the fallback path. -->
-            <picture>
-              <source type="image/webp" srcset="/assets/img/why-laara-visual.webp" />
-              <img src="/assets/img/why-laara-visual.jpg" alt="" width="1080" height="1440" loading="lazy" decoding="async" />
-            </picture>
+          <!-- Outer div is the sticky wrapper (desktop only), inner is the
+               framed box that carries the reveal transform — same split as
+               .founder-story-media/-frame on about.html. Don't collapse them:
+               a transform on the sticky element is the combination this
+               pattern exists to avoid. -->
+          <div class="why-laara-visual" aria-hidden="true">
+            <div class="why-laara-visual-frame reveal-zoom">
+              <!-- This shipped WebP-only, so a client without WebP support got a
+                   broken image rather than a fallback. Now matches the <picture>
+                   pattern every other image on the site uses. The JPEG is q75
+                   because this is decorative and only ever the fallback path. -->
+              <picture>
+                <source type="image/webp" srcset="/assets/img/why-laara-visual.webp" />
+                <img src="/assets/img/why-laara-visual.jpg" alt="" width="1080" height="1440" loading="lazy" decoding="async" />
+              </picture>
+            </div>
           </div>
 
           <div class="why-laara-list">
