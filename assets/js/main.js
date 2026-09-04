@@ -2,6 +2,54 @@
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
+  /* ---------- Help Me Choose: the one scoring function ----------
+     This ran twice before — once here for the homepage helper and once in
+     pricing.js for the fuller tool on pricing.html — with the same maps
+     copied into both. They had already drifted: pricing.js guarded its
+     lookups, this file did not, and pricing.html offers a fourth "not sure"
+     answer to the pages question that the homepage does not. Two copies of a
+     rule that must trace to docs/pricing.md is one copy too many.
+
+     Lives in main.js because main.js is the only script on both pages
+     (pricing-data.js is pricing.html-only) and it is deferred, so it has
+     already run by the time pricing.js executes.
+
+     The rule, straight from the comparison table in docs/pricing.md: one
+     point for the page count, one for the stated goal, and online booking
+     pushes to Professional or Growth. A tie resolves to Professional, which
+     is a sales choice from pricing.md ("land most clients on Professional or
+     above"), not a fact about the customer — the only judgement call here. */
+  const PACKAGE_ORDER = ['essential', 'professional', 'growth'];
+  const PACKAGE_LABELS = { essential: 'Essential', professional: 'Professional', growth: 'Growth' };
+  const PAGES_TO_PACKAGE = { '4-5': 'essential', '6-8': 'professional', '8-12': 'growth' };
+  const GOAL_TO_PACKAGE = { fast: 'essential', visibility: 'professional', competitors: 'growth' };
+
+  window.LaaraPricing = {
+    order: PACKAGE_ORDER,
+    labels: PACKAGE_LABELS,
+    /* Returns a package id, or null while any answer is still missing. */
+    recommend({ pages, goal, booking }) {
+      if (!pages || !goal || !booking) return null;
+
+      const scores = { essential: 0, professional: 0, growth: 0 };
+      /* Guarded on purpose: pricing.html's "not sure" page-count answer maps
+         to nothing, so it scores nothing and leaves the other two answers to
+         decide. An unguarded lookup would write a scores[undefined] key. */
+      if (PAGES_TO_PACKAGE[pages]) scores[PAGES_TO_PACKAGE[pages]] += 1;
+      if (GOAL_TO_PACKAGE[goal]) scores[GOAL_TO_PACKAGE[goal]] += 1;
+      if (booking === 'yes') {
+        scores.professional += 1;
+        scores.growth += 1;
+      } else if (booking === 'no') {
+        scores.essential += 1;
+      }
+
+      const max = Math.max(...PACKAGE_ORDER.map((id) => scores[id]));
+      const tied = PACKAGE_ORDER.filter((id) => scores[id] === max);
+      return tied.includes('professional') ? 'professional' : tied[0];
+    },
+  };
+
   /* ---------- Cross-service pill nav: keep the current page's pill in view ----------
      .service-pill-nav sits inside the hero's 40rem-wide centered container, so all
      5 pills together overflow it — without this, the active pill (the one telling
@@ -390,31 +438,18 @@
   if (pricingHelper) {
     const helperResult = pricingHelper.querySelector('[data-pricing-helper-result]');
     const helperCards = Array.from(document.querySelectorAll('.pricing-grid .pricing-card[data-package]'));
-    const helperPagesToPackage = { '4-5': 'essential', '6-8': 'professional', '8-12': 'growth' };
-    const helperGoalToPackage = { fast: 'essential', visibility: 'professional', competitors: 'growth' };
-    const helperOrder = ['essential', 'professional', 'growth'];
-    const helperNames = { essential: 'Essential', professional: 'Professional', growth: 'Growth' };
     const helperState = { pages: null, goal: null, booking: null };
 
     function computeHelperResult() {
       helperCards.forEach((card) => card.classList.remove('is-recommended'));
-      if (!helperState.pages || !helperState.goal || !helperState.booking) {
+      const winner = window.LaaraPricing.recommend(helperState);
+      if (!winner) {
         helperResult.textContent = 'Answer all three and we’ll highlight your best match above.';
         return;
       }
-      const scores = { essential: 0, professional: 0, growth: 0 };
-      scores[helperPagesToPackage[helperState.pages]] += 1;
-      scores[helperGoalToPackage[helperState.goal]] += 1;
-      if (helperState.booking === 'yes') { scores.professional += 1; scores.growth += 1; }
-      else { scores.essential += 1; }
-
-      const max = Math.max(scores.essential, scores.professional, scores.growth);
-      const tied = helperOrder.filter((id) => scores[id] === max);
-      const winner = tied.includes('professional') ? 'professional' : tied[0];
-
       const winnerCard = helperCards.find((card) => card.dataset.package === winner);
       if (winnerCard) winnerCard.classList.add('is-recommended');
-      helperResult.textContent = `${helperNames[winner]} looks like your best starting point — highlighted above.`;
+      helperResult.textContent = `${window.LaaraPricing.labels[winner]} looks like your best starting point — highlighted above.`;
     }
 
     pricingHelper.querySelectorAll('.pill-toggle-btn[data-radio]').forEach((btn) => {
@@ -533,9 +568,10 @@
 
     /* ---------- Work page hero: pointer-tracked collage parallax ----------
        Writes --px/--py once on the collage container; each .work-hero-frame
-       reads them back through its own --depth (set inline per frame in the
-       HTML) via calc(), so one write per pointermove drives every frame at
-       a different depth — no per-frame listeners needed. */
+       reads them back through its own --depth (set per frame in style.css on
+       the .work-hero-frame--1/2/3 classes) via calc(), so one write per
+       pointermove drives every frame at a different depth — no per-frame
+       listeners needed. */
     const heroCollage = document.querySelector('.work-hero-collage');
     if (heroCollage) {
       let collageRect = null;

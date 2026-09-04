@@ -88,9 +88,21 @@
     modeButtons.forEach(btn => {
       btn.addEventListener('click', () => setMode(btn.dataset.mode));
     });
+
+    /* moveIndicatorTo reads offsetLeft/offsetWidth, which forces a synchronous
+       layout. Bound straight to resize, that fired on every tick of a window
+       drag and on the address-bar show/hide that counts as a resize on mobile
+       — a forced reflow each time. Coalesced into one read per frame via rAF:
+       the indicator still tracks the resize, but repeated events collapse into
+       a single measurement instead of one apiece. */
+    let resizeFrame = null;
     window.addEventListener('resize', () => {
-      const active = modeButtons.find(b => b.classList.contains('is-active'));
-      if (active) moveIndicatorTo(active);
+      if (resizeFrame !== null) return;
+      resizeFrame = requestAnimationFrame(() => {
+        resizeFrame = null;
+        const active = modeButtons.find(b => b.classList.contains('is-active'));
+        if (active) moveIndicatorTo(active);
+      });
     });
   }
 

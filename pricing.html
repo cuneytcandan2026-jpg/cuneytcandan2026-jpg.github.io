@@ -517,6 +517,14 @@
           </div>
         </div>
 
+        <!-- The result panel is display:none until pricing.js fills it, so its
+             empty heading and link never reach the accessibility tree. What it
+             cannot do is answer the question without JavaScript, so say that
+             plainly and point at the two routes that always work. -->
+        <noscript>
+          <p class="choose-noscript">This picker needs JavaScript to work. The three packages are compared in full in the table above, or <a href="/contact.html">tell us about your business</a> and we'll recommend one.</p>
+        </noscript>
+
         <div class="laara-card laara-card--wash choose-result" aria-live="polite">
           <p class="laara-label choose-result-eyebrow">Recommended for you</p>
           <h3 class="choose-result-name"></h3>

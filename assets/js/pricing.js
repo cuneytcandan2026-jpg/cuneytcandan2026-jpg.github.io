@@ -1,17 +1,16 @@
 (() => {
   /* ---------- Help Me Choose ----------
-     Scoring is a simple point-tally derived directly from the same facts
-     shown in the comparison table above (page count, positioning, booking
-     inclusion) — no logic here that isn't traceable to docs/pricing.md.
-     Ties default to Professional, matching pricing.md's own stated sales
-     goal ("land most clients on Professional or above") — a design
-     choice, not a sourced fact. */
+     The scoring itself lives in main.js as window.LaaraPricing.recommend, so
+     this tool and the homepage helper cannot drift apart — they used to hold
+     separate copies of the same rule. This file owns only the presentation:
+     the full result panel with the package's own description from
+     pricing-data.js. main.js is deferred and loads first, so LaaraPricing is
+     always defined by the time this runs; the guard below is belt-and-braces
+     for a future load-order change. */
   const chooseQuestions = document.querySelector('.choose-questions');
   const resultPanel = document.querySelector('.choose-result');
-  if (chooseQuestions && resultPanel && window.LaaraPricingData) {
+  if (chooseQuestions && resultPanel && window.LaaraPricingData && window.LaaraPricing) {
     const packages = window.LaaraPricingData.packages;
-    const pagesToPackage = { '4-5': 'essential', '6-8': 'professional', '8-12': 'growth' };
-    const goalToPackage = { fast: 'essential', visibility: 'professional', competitors: 'growth' };
 
     function getAnswer(name) {
       const checked = chooseQuestions.querySelector(`input[name="${name}"]:checked`);
@@ -19,25 +18,12 @@
     }
 
     function computeResult() {
-      const pages = getAnswer('choose-pages');
-      const goal = getAnswer('choose-goal');
-      const booking = getAnswer('choose-booking');
-      if (!pages || !goal || !booking) return;
-
-      const scores = { essential: 0, professional: 0, growth: 0 };
-      if (pagesToPackage[pages]) scores[pagesToPackage[pages]] += 1;
-      if (goalToPackage[goal]) scores[goalToPackage[goal]] += 1;
-      if (booking === 'yes') {
-        scores.professional += 1;
-        scores.growth += 1;
-      } else if (booking === 'no') {
-        scores.essential += 1;
-      }
-
-      const maxScore = Math.max(scores.essential, scores.professional, scores.growth);
-      const tied = ['essential', 'professional', 'growth'].filter((id) => scores[id] === maxScore);
-      const winnerId = tied.includes('professional') ? 'professional' : tied[0];
-
+      const winnerId = window.LaaraPricing.recommend({
+        pages: getAnswer('choose-pages'),
+        goal: getAnswer('choose-goal'),
+        booking: getAnswer('choose-booking'),
+      });
+      if (!winnerId) return;
       showResult(winnerId);
     }
 

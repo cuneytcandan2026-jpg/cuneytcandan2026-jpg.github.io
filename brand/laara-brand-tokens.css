@@ -98,12 +98,11 @@
   --laara-white:            #FFFFFF;
 
   /* Same three colours as raw channels, for translucency.
-     A var() cannot be interpolated into rgba(), so anything needing an
-     alpha had to hardcode the channels — which is how ~35 literal
-     rgba(18,183,106,...) / rgba(16,17,20,...) / rgba(250,250,249,...)
-     values ended up scattered through style.css, each one an
-     independent copy of a brand colour that no longer tracks the
-     token above it.
+     A var() cannot be interpolated into the legacy comma form, so anything
+     needing an alpha used to hardcode the channels — which is how ~35
+     literal translucent copies of the three brand colours ended up
+     scattered through style.css, none of them tracking the token above.
+     Phase 7 replaced all of them with the tokens below.
 
      Use: rgb(var(--laara-green-rgb) / 0.12)
 
@@ -134,8 +133,15 @@
   --laara-muted-grey:       #8A8F98;   /* 3.25:1 — LARGE TEXT / non-text only  */
   --laara-border:           #E4E4E1;
   --laara-surface:          #F3F3F1;
-  --laara-on-dark-muted:    rgba(250, 250, 249, 0.70);
-  --laara-on-dark-subtle:   rgba(250, 250, 249, 0.55);
+  --laara-ink-raised:       #1b1c20;   /* one step above ink: the fake browser
+                                          chrome bar on case-study frames      */
+
+  /* ---------- Status ---------- */
+  --laara-error:            #B3261E;   /* form + field errors — 6.54:1 on white,
+                                          AA. Pair with an icon or text label,
+                                          never colour alone.                  */
+  --laara-on-dark-muted:    rgb(var(--laara-paper-rgb) / 0.70);
+  --laara-on-dark-subtle:   rgb(var(--laara-paper-rgb) / 0.55);
 
   /* ---------- Semantic tokens (prefer these) ---------- */
   --laara-bg:               var(--laara-paper);
@@ -150,6 +156,21 @@
 
   --laara-accent:           var(--laara-green);
   --laara-on-accent:        var(--laara-ink);        /* 7.20:1 — NEVER white */
+
+  /* ---------- Hero glow accents ----------
+     One hue per page-hero, used ONLY as a low-alpha radial gradient behind
+     the fluid canvas (0.10-0.16), so they never carry text and never need a
+     contrast rating. They were previously five loose "R, G, B" triples in
+     style.css that the token system did not define at all; named here so the
+     palette is inventoried in one place.
+
+     Space-separated to match --laara-*-rgb, because they are consumed the
+     same way: rgb(var(--hero-glow) / 0.16). */
+  --laara-hero-blue:        91 124 224;
+  --laara-hero-amber:       214 158 46;
+  --laara-hero-teal:        39 168 158;
+  --laara-hero-coral:       214 100 74;
+  --laara-hero-pink:        216 88 143;   /* homepage default */
 
   --heading-reveal-color:   var(--laara-green);      /* section-heading sweep block */
 
@@ -178,6 +199,12 @@
   --laara-fs-body-lg:       clamp(1.0625rem, 1.02rem + 0.2vw, 1.25rem); /* 17 -> 20 */
   --laara-fs-body:          1rem;                                        /* 16 min  */
   --laara-fs-small:         0.875rem;                                    /* 14      */
+  /* 11px. ORNAMENT ONLY — count chips and circular numerals, where the
+     text is a one- or two-character label sitting next to a full-size
+     one. Never body copy, never a standalone label: 16px is the floor
+     for anything a visitor has to actually read. Kept as a token so
+     these two uses are inventoried rather than invisible. */
+  --laara-fs-badge:         0.6875rem;                                   /* 11      */
 
   --laara-lh-display:       1.02;
   --laara-lh-heading:       1.15;
@@ -215,9 +242,9 @@
   --laara-radius-lg:        16px;   /* feature cards */
 
   /* ---------- Elevation ---------- */
-  --laara-shadow-sm:        0 1px 2px rgba(16, 17, 20, 0.06);
-  --laara-shadow:           0 4px 16px rgba(16, 17, 20, 0.08);
-  --laara-shadow-lg:        0 12px 32px rgba(16, 17, 20, 0.12);
+  --laara-shadow-sm:        0 1px 2px rgb(var(--laara-ink-rgb) / 0.06);
+  --laara-shadow:           0 4px 16px rgb(var(--laara-ink-rgb) / 0.08);
+  --laara-shadow-lg:        0 12px 32px rgb(var(--laara-ink-rgb) / 0.12);
 
   /* ---------- Motion ---------- */
   --laara-dur-micro:        180ms;

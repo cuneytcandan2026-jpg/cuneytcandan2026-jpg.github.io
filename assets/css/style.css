@@ -268,7 +268,7 @@ img { max-width: 100%; display: block; }
     min-height: var(--laara-touch-min);
     padding: var(--laara-space-2) var(--laara-space-4);
     border-radius: 999px;
-    color: #fff;
+    color: var(--laara-white);
     mix-blend-mode: difference;
   }
   .main-nav > a:hover,
@@ -276,7 +276,7 @@ img { max-width: 100%; display: block; }
   .main-nav .nav-dropdown-toggle:hover,
   .main-nav .nav-dropdown-toggle:focus-visible,
   .main-nav .nav-dropdown.is-open .nav-dropdown-toggle {
-    color: #fff;
+    color: var(--laara-white);
   }
 }
 
@@ -296,7 +296,7 @@ img { max-width: 100%; display: block; }
   border: none;
   padding: 0;
   font-family: var(--laara-font);
-  font-size: 1rem;
+  font-size: var(--laara-fs-body);
   color: var(--laara-text);
   font-weight: var(--laara-fw-semibold);
   cursor: pointer;
@@ -420,11 +420,11 @@ img { max-width: 100%; display: block; }
   height: 100%;
   display: block;
   /* Base gradient shows instantly and stays as the fallback if WebGL never
-     initialises (reduced motion, no WebGL, save-data). --hero-glow is an
-     "R, G, B" triple set per page (see page-hero accent classes below);
-     unset on the homepage, so it falls back to the original pink. */
-  background: radial-gradient(120% 90% at 78% 12%, rgba(var(--hero-glow, 216, 88, 143), 0.16) 0%, transparent 60%),
-              radial-gradient(100% 80% at 15% 85%, rgba(var(--hero-glow, 216, 88, 143), 0.10) 0%, transparent 65%),
+     initialises (reduced motion, no WebGL, save-data). --hero-glow is a
+     space-separated "R G B" triple set per page (see page-hero accent
+     classes below); unset on the homepage, so it falls back to pink. */
+  background: radial-gradient(120% 90% at 78% 12%, rgb(var(--hero-glow, var(--laara-hero-pink)) / 0.16) 0%, transparent 60%),
+              radial-gradient(100% 80% at 15% 85%, rgb(var(--hero-glow, var(--laara-hero-pink)) / 0.10) 0%, transparent 65%),
               var(--laara-bg);
 }
 .hero-content {
@@ -454,11 +454,11 @@ img { max-width: 100%; display: block; }
 }
 .page-hero.page-hero--fluid .hero-actions { justify-content: center; }
 
-.page-hero--services { --hero-glow: 91, 124, 224; }  /* blue */
-.page-hero--work { --hero-glow: 214, 158, 46; }       /* amber */
-.page-hero--pricing { --hero-glow: 39, 168, 158; }    /* teal */
-.page-hero--about { --hero-glow: 214, 100, 74; }      /* coral */
-.page-hero--contact { --hero-glow: 18, 183, 106; }    /* brand green */
+.page-hero--services { --hero-glow: var(--laara-hero-blue); }
+.page-hero--work { --hero-glow: var(--laara-hero-amber); }
+.page-hero--pricing { --hero-glow: var(--laara-hero-teal); }
+.page-hero--about { --hero-glow: var(--laara-hero-coral); }
+.page-hero--contact { --hero-glow: var(--laara-green-rgb); }  /* the brand green itself */
 
 /* ---------- Oversized fluid-revealed background typography ----------
    Sits above the fluid canvas, below the hero content, coloured the same
@@ -543,8 +543,8 @@ img { max-width: 100%; display: block; }
   gap: var(--laara-space-2);
   padding: var(--laara-space-2) var(--laara-space-4);
   border-radius: 999px;
-  background: rgba(16, 17, 20, 0.05);
-  border: 1.5px solid rgba(16, 17, 20, 0.12);
+  background: rgb(var(--laara-ink-rgb) / 0.05);
+  border: 1.5px solid rgb(var(--laara-ink-rgb) / 0.12);
   color: var(--laara-ink);
   font-size: var(--laara-fs-small);
   font-weight: var(--laara-fw-semibold);
@@ -703,12 +703,12 @@ img { max-width: 100%; display: block; }
     grid-column: span 2;
     grid-row: span 2;
     background: var(--laara-ink);
-    border-color: rgba(250, 250, 249, 0.12);
+    border-color: rgb(var(--laara-paper-rgb) / 0.12);
   }
   .card-grid--5 .service-card--flagship h3 { color: var(--laara-paper); }
   .card-grid--5 .service-card--flagship p { color: var(--laara-on-dark-muted); }
   .card-grid--5 .service-card--flagship .card-link { color: var(--laara-link-on-dark); }
-  .card-grid--5 .service-card--flagship .laara-dot { background: rgba(250, 250, 249, 0.1); }
+  .card-grid--5 .service-card--flagship .laara-dot { background: rgb(var(--laara-paper-rgb) / 0.1); }
 }
 @media (hover: hover) and (pointer: fine) and (min-width: 1080px) {
   .card-grid--5 .service-card--flagship:hover h3,
@@ -761,7 +761,7 @@ img { max-width: 100%; display: block; }
   inset: 0;
   z-index: 0;
   background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%),
-              rgba(18, 183, 106, 0.11), transparent 60%);
+              rgb(var(--laara-green-rgb) / 0.11), transparent 60%);
   opacity: 0;
   transition: opacity var(--laara-dur-section) var(--laara-ease-out);
   pointer-events: none;
@@ -772,8 +772,8 @@ img { max-width: 100%; display: block; }
   .glow-card:hover,
   .glow-card:focus-within {
     transform: translateY(-2px);
-    border-color: rgba(18, 183, 106, 0.4);
-    box-shadow: var(--laara-shadow), 0 20px 44px -26px rgba(18, 183, 106, 0.45);
+    border-color: rgb(var(--laara-green-rgb) / 0.4);
+    box-shadow: var(--laara-shadow), 0 20px 44px -26px rgb(var(--laara-green-rgb) / 0.45);
     text-decoration: none;
   }
   .glow-card:hover::before,
@@ -798,7 +798,7 @@ img { max-width: 100%; display: block; }
   .glow-card:focus-within .laara-dot,
   .glow-card:hover .contact-method-icon,
   .glow-card:focus-within .contact-method-icon {
-    box-shadow: 0 0 0 6px rgba(18, 183, 106, 0.10);
+    box-shadow: 0 0 0 6px rgb(var(--laara-green-rgb) / 0.10);
     transform: translateY(-1px);
   }
 }
@@ -807,7 +807,7 @@ img { max-width: 100%; display: block; }
 @media (hover: none) {
   .glow-card:active {
     transform: scale(0.99);
-    border-color: rgba(18, 183, 106, 0.35);
+    border-color: rgb(var(--laara-green-rgb) / 0.35);
     transition-duration: var(--laara-dur-micro);
   }
 }
@@ -839,7 +839,7 @@ img { max-width: 100%; display: block; }
   stroke-dashoffset: 1;
   transition: stroke-dashoffset 600ms var(--laara-ease-out);
 }
-.icon-build-line--2 { transition-delay: 90ms; }
+.icon-build-line--2 { transition-delay: var(--laara-delay-stagger); }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .glow-card:hover .icon-build-line,
   .glow-card:focus-within .icon-build-line {
@@ -852,7 +852,7 @@ img { max-width: 100%; display: block; }
   transform-origin: 12px 10px;
   transform: scale(0.7);
   opacity: 0;
-  transition: transform 700ms var(--laara-ease-out), opacity 700ms var(--laara-ease-out);
+  transition: transform var(--laara-dur-draw) var(--laara-ease-out), opacity var(--laara-dur-draw) var(--laara-ease-out);
 }
 .icon-ping-2 { transition-delay: 140ms; }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
@@ -882,7 +882,7 @@ img { max-width: 100%; display: block; }
   stroke-dashoffset: 1;
   transition: stroke-dashoffset 620ms var(--laara-ease-out) 80ms;
 }
-.icon-ring { transition: transform 400ms var(--laara-ease-out); }
+.icon-ring { transition: transform var(--laara-dur-icon) var(--laara-ease-out); }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .glow-card:hover .icon-check,
   .glow-card:focus-within .icon-check {
@@ -898,11 +898,11 @@ img { max-width: 100%; display: block; }
 .icon-pulse {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  transition: stroke-dashoffset 700ms var(--laara-ease-out) 60ms;
+  transition: stroke-dashoffset var(--laara-dur-draw) var(--laara-ease-out) 60ms;
 }
 .icon-shield-shape {
   transform-origin: 12px 12px;
-  transition: transform 550ms var(--laara-ease-out);
+  transition: transform var(--laara-dur-icon-slow) var(--laara-ease-out);
 }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .glow-card:hover .icon-pulse,
@@ -924,7 +924,7 @@ img { max-width: 100%; display: block; }
   transform: scale(0.3);
   transform-box: fill-box;
   transform-origin: center;
-  transition: transform 400ms var(--laara-ease-out), opacity 400ms var(--laara-ease-out);
+  transition: transform var(--laara-dur-icon) var(--laara-ease-out), opacity var(--laara-dur-icon) var(--laara-ease-out);
 }
 .icon-trend-dot-1 { transition-delay: 100ms; }
 .icon-trend-dot-2 { transition-delay: 280ms; }
@@ -953,9 +953,9 @@ img { max-width: 100%; display: block; }
   transform: scale(0.3);
   transform-box: fill-box;
   transform-origin: center;
-  transition: transform 450ms var(--laara-ease-out), opacity 450ms var(--laara-ease-out);
+  transition: transform var(--laara-dur-icon-mid) var(--laara-ease-out), opacity var(--laara-dur-icon-mid) var(--laara-ease-out);
 }
-.icon-bolt-shape { transition: transform 400ms var(--laara-ease-out); }
+.icon-bolt-shape { transition: transform var(--laara-dur-icon) var(--laara-ease-out); }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .glow-card:hover .icon-spark,
   .glow-card:focus-within .icon-spark {
@@ -973,7 +973,7 @@ img { max-width: 100%; display: block; }
 .icon-clock-hand {
   transform-box: fill-box;
   transform-origin: 50% 100%;
-  transition: transform 550ms var(--laara-ease-out);
+  transition: transform var(--laara-dur-icon-slow) var(--laara-ease-out);
 }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .glow-card:hover .icon-clock-hand,
@@ -988,7 +988,7 @@ img { max-width: 100%; display: block; }
   transform: scale(0.4);
   transform-box: fill-box;
   transform-origin: center;
-  transition: transform 450ms var(--laara-ease-out), opacity 450ms var(--laara-ease-out);
+  transition: transform var(--laara-dur-icon-mid) var(--laara-ease-out), opacity var(--laara-dur-icon-mid) var(--laara-ease-out);
 }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .glow-card:hover .icon-presence,
@@ -1009,7 +1009,7 @@ img { max-width: 100%; display: block; }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .glow-card:hover .icon-phone-shape,
   .glow-card:focus-within .icon-phone-shape {
-    animation: icon-phone-ring 550ms var(--laara-ease-out) 1;
+    animation: icon-phone-ring var(--laara-dur-icon-slow) var(--laara-ease-out) 1;
   }
 }
 
@@ -1019,7 +1019,7 @@ img { max-width: 100%; display: block; }
   transform: scale(0.4);
   transform-box: fill-box;
   transform-origin: center;
-  transition: transform 400ms var(--laara-ease-out), opacity 400ms var(--laara-ease-out);
+  transition: transform var(--laara-dur-icon) var(--laara-ease-out), opacity var(--laara-dur-icon) var(--laara-ease-out);
 }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .glow-card:hover .icon-chat-dot,
@@ -1034,13 +1034,13 @@ img { max-width: 100%; display: block; }
 .icon-mail-flap {
   transform-box: fill-box;
   transform-origin: 50% 0%;
-  transition: transform 400ms var(--laara-ease-out);
+  transition: transform var(--laara-dur-icon) var(--laara-ease-out);
 }
 .icon-mail-tick {
   opacity: 0;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  transition: stroke-dashoffset 450ms var(--laara-ease-out) 200ms,
+  transition: stroke-dashoffset var(--laara-dur-icon-mid) var(--laara-ease-out) 200ms,
               opacity 1ms linear 200ms;
 }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
@@ -1055,12 +1055,12 @@ img { max-width: 100%; display: block; }
 .icon-tag-shape {
   transform-box: fill-box;
   transform-origin: 30% 70%;
-  transition: transform 400ms var(--laara-ease-out);
+  transition: transform var(--laara-dur-icon) var(--laara-ease-out);
 }
 .icon-tag-check {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  transition: stroke-dashoffset 550ms var(--laara-ease-out) 120ms;
+  transition: stroke-dashoffset var(--laara-dur-icon-slow) var(--laara-ease-out) 120ms;
 }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .glow-card:hover .icon-tag-shape,
@@ -1109,8 +1109,8 @@ img { max-width: 100%; display: block; }
   overflow: hidden;
   aspect-ratio: 16 / 10;
   background:
-    radial-gradient(120% 140% at 12% 0%, rgba(18, 183, 106, 0.38), transparent 55%),
-    radial-gradient(90% 110% at 100% 100%, rgba(18, 183, 106, 0.16), transparent 60%),
+    radial-gradient(120% 140% at 12% 0%, rgb(var(--laara-green-rgb) / 0.38), transparent 55%),
+    radial-gradient(90% 110% at 100% 100%, rgb(var(--laara-green-rgb) / 0.16), transparent 60%),
     var(--laara-ink);
   box-shadow: var(--laara-shadow-lg);
 }
@@ -1182,7 +1182,7 @@ img { max-width: 100%; display: block; }
 .vs-table-wrap {
   overflow-x: auto;
   border-radius: var(--laara-radius-card);
-  border: 1px solid rgba(250, 250, 249, 0.14);
+  border: 1px solid rgb(var(--laara-paper-rgb) / 0.14);
 }
 .vs-table {
   width: 100%;
@@ -1207,7 +1207,7 @@ img { max-width: 100%; display: block; }
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--laara-on-dark-muted);
-  border-bottom: 1px solid rgba(250, 250, 249, 0.14);
+  border-bottom: 1px solid rgb(var(--laara-paper-rgb) / 0.14);
 }
 .vs-table tbody th {
   font-weight: var(--laara-fw-bold);
@@ -1217,11 +1217,11 @@ img { max-width: 100%; display: block; }
 .vs-table tbody td { color: var(--laara-on-dark-muted); }
 .vs-table tbody tr + tr th,
 .vs-table tbody tr + tr td {
-  border-top: 1px solid rgba(250, 250, 249, 0.10);
+  border-top: 1px solid rgb(var(--laara-paper-rgb) / 0.10);
 }
 .vs-table td.vs-col--laara,
 .vs-table th.vs-col--laara {
-  background: rgba(18, 183, 106, 0.12);
+  background: rgb(var(--laara-green-rgb) / 0.12);
 }
 .vs-table tbody td.vs-col--laara {
   color: var(--laara-paper);
@@ -1328,9 +1328,9 @@ img { max-width: 100%; display: block; }
   font-weight: var(--laara-fw-bold);
 }
 .work-pill--ghost {
-  background: rgba(16, 17, 20, 0.55);
+  background: rgb(var(--laara-ink-rgb) / 0.55);
   color: var(--laara-paper);
-  border: 1.5px solid rgba(250, 250, 249, 0.4);
+  border: 1.5px solid rgb(var(--laara-paper-rgb) / 0.4);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
 }
@@ -1602,7 +1602,7 @@ img { max-width: 100%; display: block; }
   transition: background var(--laara-dur-micro) var(--laara-ease-in-out),
               color var(--laara-dur-micro) var(--laara-ease-in-out);
 }
-.filter-pill:hover:not(.is-active) { background: rgba(16, 17, 20, 0.06); color: var(--laara-ink); }
+.filter-pill:hover:not(.is-active) { background: rgb(var(--laara-ink-rgb) / 0.06); color: var(--laara-ink); }
 .filter-pill.is-active { background: var(--laara-green); color: var(--laara-ink); font-weight: var(--laara-fw-bold); }
 @media (hover: none) {
   .filter-pill:active { transform: scale(0.97); }
@@ -1616,12 +1616,12 @@ img { max-width: 100%; display: block; }
   padding: 0 6px;
   margin-left: var(--laara-space-2);
   border-radius: 999px;
-  background: rgba(16, 17, 20, 0.08);
+  background: rgb(var(--laara-ink-rgb) / 0.08);
   color: inherit;
-  font-size: 0.6875rem;
+  font-size: var(--laara-fs-badge);
   font-weight: var(--laara-fw-bold);
 }
-.filter-pill.is-active .filter-count { background: rgba(16, 17, 20, 0.14); }
+.filter-pill.is-active .filter-count { background: rgb(var(--laara-ink-rgb) / 0.14); }
 
 /* Sliding capsule behind the active pill — ink text (set on .filter-pill.is-active
    above) stays readable against both the plain track and this green capsule, so
@@ -1674,7 +1674,7 @@ img { max-width: 100%; display: block; }
 .case-card:hover .case-frame,
 .case-card:focus-within .case-frame {
   transform: translateY(-4px);
-  box-shadow: var(--laara-shadow-lg), 0 20px 44px -26px rgba(16, 17, 20, 0.35);
+  box-shadow: var(--laara-shadow-lg), 0 20px 44px -26px rgb(var(--laara-ink-rgb) / 0.35);
 }
 .case-card--real:hover .case-frame,
 .case-card--real:focus-within .case-frame { border-top-color: var(--laara-green-deep); }
@@ -1690,20 +1690,20 @@ img { max-width: 100%; display: block; }
   align-items: center;
   gap: 6px;
   padding: var(--laara-space-3) var(--laara-space-4);
-  background: #1b1c20;
+  background: var(--laara-ink-raised);
 }
 .case-frame-bar span:not(.case-frame-url) {
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: rgba(250, 250, 249, 0.22);
+  background: rgb(var(--laara-paper-rgb) / 0.22);
   flex-shrink: 0;
 }
 .case-frame-url {
   margin-left: var(--laara-space-3);
   padding: 3px var(--laara-space-3);
   border-radius: 999px;
-  background: rgba(250, 250, 249, 0.08);
+  background: rgb(var(--laara-paper-rgb) / 0.08);
   color: var(--laara-on-dark-subtle);
   font-size: 0.75rem;
   font-family: var(--laara-font);
@@ -1790,6 +1790,10 @@ img { max-width: 100%; display: block; }
 }
 .status-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--laara-green); flex-shrink: 0; }
 .status-badge--client {
+  /* Fallback first for engines without color-mix() (older Android WebViews):
+     they drop the line below and keep this. Value IS the mix, precomputed —
+     14% #12B76A over #FFFFFF. Recompute if the green ever changes. */
+  background: rgb(222 245 234);
   background: color-mix(in srgb, var(--laara-green) 14%, var(--laara-white));
   color: var(--laara-green-deep);
 }
@@ -1803,6 +1807,7 @@ img { max-width: 100%; display: block; }
 .status-badge-tooltip { position: relative; display: inline-flex; }
 .status-badge-tooltip summary {
   list-style: none;
+  position: relative;
   width: 20px;
   height: 20px;
   display: inline-flex;
@@ -1810,10 +1815,24 @@ img { max-width: 100%; display: block; }
   justify-content: center;
   border-radius: 50%;
   border: 1.5px solid currentColor;
-  font-size: 0.6875rem;
+  font-size: var(--laara-fs-badge);
   font-weight: var(--laara-fw-bold);
   color: inherit;
   cursor: pointer;
+}
+/* The visible dot is 20px, which is under both the WCAG 2.2 2.5.8 minimum
+   (24px) and this project's own 44px rule. Growing the circle would unbalance
+   the badge row it sits in, so the HIT AREA is expanded instead: a transparent
+   ::before centred on the control, 44x44. The target is compliant; the
+   ornament stays 20px. Do not remove this thinking it is decorative. */
+.status-badge-tooltip summary::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--laara-touch-min);
+  height: var(--laara-touch-min);
+  transform: translate(-50%, -50%);
 }
 .status-badge-tooltip summary::-webkit-details-marker { display: none; }
 .status-badge-tooltip summary:focus-visible { outline: 3px solid var(--laara-focus-ring); outline-offset: 2px; }
@@ -1932,7 +1951,7 @@ img { max-width: 100%; display: block; }
 
 .pricing-card.is-recommended {
   border-color: var(--laara-green);
-  box-shadow: 0 0 0 3px rgba(18, 183, 106, 0.25), var(--laara-shadow-lg);
+  box-shadow: 0 0 0 3px rgb(var(--laara-green-rgb) / 0.25), var(--laara-shadow-lg);
 }
 
 /* ============================================================
@@ -2013,6 +2032,8 @@ img { max-width: 100%; display: block; }
 .compare-table[data-active="essential"] [data-package="essential"],
 .compare-table[data-active="professional"] [data-package="professional"],
 .compare-table[data-active="growth"] [data-package="growth"] {
+  /* Fallback first — see the note on .status-badge--client. 8% #12B76A over #FFFFFF. */
+  background: rgb(236 249 243);
   background: color-mix(in srgb, var(--laara-green) 8%, var(--laara-white));
 }
 .compare-table[data-active="essential"] td[data-package="essential"],
@@ -2057,6 +2078,16 @@ img { max-width: 100%; display: block; }
 .choose-result.is-shown { opacity: 1; transform: translateY(0); }
 @media (prefers-reduced-motion: reduce) {
   .choose-result { transition: none; }
+}
+/* Shown only inside <noscript>, where the picker above cannot function. */
+.choose-noscript {
+  margin: 0;
+  padding: var(--laara-space-5);
+  border: 1.5px solid var(--laara-border);
+  border-radius: var(--laara-radius-card);
+  background: var(--laara-white);
+  color: var(--laara-text-secondary);
+  font-size: var(--laara-fs-body);
 }
 .choose-result-eyebrow { margin-bottom: var(--laara-space-2); }
 .choose-result h3 { margin: 0 0 var(--laara-space-2); }
@@ -2337,24 +2368,39 @@ img { max-width: 100%; display: block; }
   margin-top: var(--laara-space-5);
   padding: var(--laara-space-2) var(--laara-space-4);
   border-radius: 999px;
-  border: 1.5px solid rgba(250, 250, 249, 0.16);
+  border: 1.5px solid rgb(var(--laara-paper-rgb) / 0.16);
   color: var(--laara-on-dark-muted);
   font-size: var(--laara-fs-small);
   font-weight: var(--laara-fw-semibold);
 }
+/* The availability dot's pulse runs infinitely in the footer of every page.
+   It used to animate box-shadow, which is a paint-and-composite property:
+   the browser repainted the dot every frame, forever, on all 17 routes.
+   Now the ring is a pseudo-element and only transform + opacity animate,
+   both of which run on the compositor and cost no repaint. Visually the
+   same expanding ring; the difference is only in what it costs to draw. */
 .footer-status-dot {
+  position: relative;
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: var(--laara-green);
   flex-shrink: 0;
 }
+.footer-status-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgb(var(--laara-green-rgb) / 0.5);
+  opacity: 0;
+}
 @media (prefers-reduced-motion: no-preference) {
-  .footer-status-dot { animation: footer-status-pulse 2.4s ease-in-out infinite; }
+  .footer-status-dot::after { animation: footer-status-pulse 2.4s ease-in-out infinite; }
 }
 @keyframes footer-status-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(18, 183, 106, 0.5); }
-  50% { box-shadow: 0 0 0 4px rgba(18, 183, 106, 0); }
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(2); opacity: 0; }
 }
 .footer-col h3 {
   font-size: var(--laara-fs-small);
@@ -2371,7 +2417,7 @@ img { max-width: 100%; display: block; }
   flex-wrap: wrap;
   gap: var(--laara-space-4);
   justify-content: space-between;
-  border-top: 1px solid rgba(250, 250, 249, 0.15);
+  border-top: 1px solid rgb(var(--laara-paper-rgb) / 0.15);
   padding-top: var(--laara-space-6);
   font-size: var(--laara-fs-small);
   color: var(--laara-on-dark-subtle);
@@ -2395,7 +2441,7 @@ img { max-width: 100%; display: block; }
 .form-hint { font-size: var(--laara-fs-small); color: var(--laara-text-secondary); margin-top: var(--laara-space-2); }
 .form-status { margin-top: var(--laara-space-4); font-weight: var(--laara-fw-semibold); }
 .form-status[data-state="success"] { color: var(--laara-green-deep); }
-.form-status[data-state="error"] { color: #B3261E; }
+.form-status[data-state="error"] { color: var(--laara-error); }
 
 .contact-side { display: flex; flex-direction: column; gap: var(--laara-space-6); }
 .contact-method {
@@ -2440,6 +2486,25 @@ img { max-width: 100%; display: block; }
 .page-hero h1 { color: var(--laara-paper); margin: 0 0 var(--laara-space-4); }
 .page-hero p { color: var(--laara-on-dark-muted); max-width: 38rem; margin: 0; font-size: var(--laara-fs-body-lg); }
 .page-hero > .laara-container { position: relative; z-index: 1; }
+
+/* .page-hero is a dark surface but does NOT carry .laara-inverse, so the
+   inverse button overrides in the tokens file never reached it: a secondary
+   button here rendered ink-on-ink, i.e. invisible. That is why 404.html ships
+   with a single CTA. Mirrors the .laara-inverse pairing rather than adding the
+   class to the markup, which would also repaint links, labels and secondary
+   text across all 17 heroes.
+
+   Excludes --fluid: that modifier flips the hero to a LIGHT surface, where the
+   default dark-on-light secondary button is already correct. */
+.page-hero:not(.page-hero--fluid) .laara-btn--secondary {
+  color: var(--laara-paper);
+  border-color: var(--laara-paper);
+}
+.page-hero:not(.page-hero--fluid) .laara-btn--secondary:hover {
+  background: var(--laara-paper);
+  color: var(--laara-ink);
+}
+.page-hero:not(.page-hero--fluid) :focus-visible { outline-color: var(--laara-focus-ring-dark); }
 
 /* Dark-band containers get relative/overflow so ambient blobs stay clipped and behind content */
 .laara-inverse { position: relative; overflow: hidden; }
@@ -2516,8 +2581,8 @@ img { max-width: 100%; display: block; }
   display: inline-block;
   clip-path: inset(-0.3em 100% -0.3em -0.3em);
   transform: translateX(-18px);
-  transition: clip-path var(--laara-dur-heading) var(--laara-ease-out) 90ms,
-              transform var(--laara-dur-heading) var(--laara-ease-out) 90ms;
+  transition: clip-path var(--laara-dur-heading) var(--laara-ease-out) var(--laara-delay-stagger),
+              transform var(--laara-dur-heading) var(--laara-ease-out) var(--laara-delay-stagger);
 }
 /* No-JS: the sweep block never appears, so it can't park over the
    first quarter of a heading that will never be revealed. */
@@ -2529,7 +2594,7 @@ img { max-width: 100%; display: block; }
   width: 24%;
   background: var(--heading-reveal-color, var(--laara-green));
   transform: translateX(0%);
-  transition: transform var(--laara-dur-heading) var(--laara-ease-out) 90ms;
+  transition: transform var(--laara-dur-heading) var(--laara-ease-out) var(--laara-delay-stagger);
   pointer-events: none;
 }
 .reveal-heading.is-visible .reveal-heading__text {
@@ -2865,6 +2930,8 @@ img { max-width: 100%; display: block; }
 .option-card.is-selected,
 .option-card:has(.option-card-input:checked) {
   border-color: var(--laara-green);
+  /* Fallback first — see the note on .status-badge--client. 8% #12B76A over #FFFFFF. */
+  background: rgb(236 249 243);
   background: color-mix(in srgb, var(--laara-green) 8%, var(--laara-white));
   box-shadow: var(--laara-shadow);
 }
@@ -2956,12 +3023,12 @@ img { max-width: 100%; display: block; }
 
 /* ---------- Field errors ---------- */
 .wizard-field-error {
-  color: #B3261E;
+  color: var(--laara-error);
   font-size: var(--laara-fs-small);
   font-weight: var(--laara-fw-semibold);
   margin-top: var(--laara-space-2);
 }
-.laara-input[aria-invalid="true"] { border-color: #B3261E; }
+.laara-input[aria-invalid="true"] { border-color: var(--laara-error); }
 
 /* ---------- Wizard controls ---------- */
 .wizard-controls {
@@ -3134,6 +3201,14 @@ img { max-width: 100%; display: block; }
   aspect-ratio: 16 / 10;
   transform: translate(calc(var(--px, 0px) * var(--depth, 1)), calc(var(--py, 0px) * var(--depth, 1)));
 }
+/* Parallax depth per frame. main.js writes --px/--py once on the collage
+   container and each frame multiplies them by its own --depth, so one write
+   per pointermove drives all three at different rates. These used to be
+   inline style="--depth: …" attributes; they live here now because the
+   frames already have modifier classes to hang them on. */
+.work-hero-frame--1 { --depth: 0.6; }
+.work-hero-frame--2 { --depth: 1.2; }
+.work-hero-frame--3 { --depth: 1.6; }
 .work-hero-frame--2, .work-hero-frame--3 { display: none; }
 .work-hero-frame-inner {
   position: absolute;
@@ -3144,7 +3219,7 @@ img { max-width: 100%; display: block; }
   box-shadow: var(--laara-shadow-lg);
 }
 .work-hero-frame-inner img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-.work-hero-frame--2 .work-hero-frame-inner { transition-delay: 90ms; }
+.work-hero-frame--2 .work-hero-frame-inner { transition-delay: var(--laara-delay-stagger); }
 .work-hero-frame--3 .work-hero-frame-inner { transition-delay: 160ms; }
 @media (min-width: 1024px) {
   .work-hero-collage { height: 420px; }
@@ -3209,20 +3284,20 @@ img { max-width: 100%; display: block; }
   .concept-grid { grid-template-columns: repeat(2, 1fr); }
 }
 .concept-grid > .case-card { min-width: 0; }
-.concept-lab .case-card--concept .case-frame { border-top-color: rgba(250, 250, 249, 0.25); }
+.concept-lab .case-card--concept .case-frame { border-top-color: rgb(var(--laara-paper-rgb) / 0.25); }
 .concept-lab .case-number { color: var(--laara-on-dark-subtle); }
 .concept-lab .case-card-body h3 { color: var(--laara-text-inverse); }
 .concept-lab .case-card:hover .case-card-body h3,
 .concept-lab .case-card:focus-within .case-card-body h3 { color: var(--laara-green); }
 .concept-lab .case-card-location,
 .concept-lab .case-card-excerpt { color: var(--laara-on-dark-muted); }
-.concept-lab .tag-pill { border-color: rgba(250, 250, 249, 0.25); color: var(--laara-on-dark-muted); }
+.concept-lab .tag-pill { border-color: rgb(var(--laara-paper-rgb) / 0.25); color: var(--laara-on-dark-muted); }
 .concept-lab .case-card-link { color: var(--laara-paper); }
 .concept-lab .case-card-link:hover, .concept-lab .case-card-link:focus-visible { color: var(--laara-green); }
 .concept-lab .status-badge--concept {
-  background: rgba(250, 250, 249, 0.08);
+  background: rgb(var(--laara-paper-rgb) / 0.08);
   color: var(--laara-on-dark-muted);
-  border-color: rgba(250, 250, 249, 0.25);
+  border-color: rgb(var(--laara-paper-rgb) / 0.25);
 }
 .concept-lab .status-badge-tooltip[open] summary { background: var(--laara-paper); color: var(--laara-ink); border-color: var(--laara-paper); }
 
@@ -3366,14 +3441,14 @@ img { max-width: 100%; display: block; }
   grid-template-columns: 1fr;
   gap: var(--laara-space-2);
   padding-block: var(--laara-space-6);
-  border-top: 1.5px solid rgba(250, 250, 249, 0.14);
+  border-top: 1.5px solid rgb(var(--laara-paper-rgb) / 0.14);
 }
-.about-compare-pair:last-child { border-bottom: 1.5px solid rgba(250, 250, 249, 0.14); }
+.about-compare-pair:last-child { border-bottom: 1.5px solid rgb(var(--laara-paper-rgb) / 0.14); }
 .about-compare-them {
   color: var(--laara-on-dark-subtle);
   font-size: var(--laara-fs-body-lg);
   text-decoration: line-through;
-  text-decoration-color: rgba(250, 250, 249, 0.3);
+  text-decoration-color: rgb(var(--laara-paper-rgb) / 0.3);
 }
 .about-compare-arrow { display: none; }
 .about-compare-us { color: var(--laara-paper); font-size: var(--laara-fs-h3); font-weight: var(--laara-fw-bold); }
