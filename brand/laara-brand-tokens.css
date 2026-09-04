@@ -416,6 +416,11 @@ a:hover { text-decoration: underline; }
 }
 .laara-inverse a { color: var(--laara-link-on-dark); }   /* 7.20:1 on ink */
 .laara-inverse .laara-text-secondary { color: var(--laara-on-dark-muted); }
+/* .reveal-support is a section's supporting line and defaults to
+   --laara-text-grey, which is validated against LIGHT backgrounds only —
+   on ink it lands at 4.01:1, under AA. Inside a dark section it needs the
+   on-dark pairing like any other secondary text. */
+.laara-inverse .reveal-support { color: var(--laara-on-dark-muted); }
 .laara-inverse .laara-label { color: var(--laara-on-dark-muted); }
 /* .laara-btn--primary is an <a> — without this override, the rule
    above wins on specificity and replaces its ink text with green,

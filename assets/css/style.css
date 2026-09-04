@@ -159,6 +159,16 @@ img { max-width: 100%; display: block; }
 }
 .site-header.header--hidden { transform: translateY(-100%); }
 
+/* The logo link wraps an <img> capped at 40px tall, so the anchor itself was
+   a 40px target — 4px under the 44px minimum, on every page. Grow the link's
+   hit area, not the mark: the logo keeps its tier-2 sizing and the extra
+   height is padding around it. */
+.site-header .laara-container > a:first-child {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--laara-touch-min);
+}
+
 .site-header .laara-container {
   display: flex;
   align-items: center;
@@ -1372,6 +1382,46 @@ img { max-width: 100%; display: block; }
 }
 .work-body h3 { color: var(--laara-ink); margin: 0 0 var(--laara-space-1); font-size: var(--laara-fs-h3); }
 .work-body p { color: var(--laara-text-secondary); margin: 0 0 var(--laara-space-4); font-size: var(--laara-fs-small); }
+/* ---------- Overlay-on-image work card (sector pages) ----------
+   BUG FIX. .work-overlay and .work-caption were referenced in the markup on
+   trades / food / fitness / hair-beauty but had no rules anywhere, so the
+   caption laid out in normal flow after the image, inside .work-media —
+   which is aspect-ratio 4/3 with overflow:hidden. The title, description and
+   "Read case study" CTA were pushed past the bottom edge and clipped away
+   entirely: those cards rendered as a bare screenshot with two pills. The
+   card stayed clickable and screen readers still read the text, so nothing
+   errored — it was simply invisible to sighted users.
+
+   The scrim is what makes paper text legible over an arbitrary screenshot;
+   .work-tags stays absolutely positioned by its own rule above. */
+.work-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--laara-space-5);
+  background: linear-gradient(to top,
+              rgb(var(--laara-ink-rgb) / 0.92) 0%,
+              rgb(var(--laara-ink-rgb) / 0.72) 38%,
+              rgb(var(--laara-ink-rgb) / 0.15) 100%);
+  color: var(--laara-paper);
+}
+.work-caption { display: flex; flex-direction: column; }
+.work-caption h3 {
+  color: var(--laara-paper);
+  margin: 0 0 var(--laara-space-2);
+  font-size: var(--laara-fs-h3);
+}
+.work-caption p {
+  color: var(--laara-on-dark-muted);
+  margin: 0 0 var(--laara-space-3);
+  font-size: var(--laara-fs-body);
+}
+/* --laara-link is the on-light green (#0D844D) and only reaches 3.98:1 on
+   ink. On this dark scrim the on-dark green is the correct pairing. */
+.work-overlay .work-cta { color: var(--laara-link-on-dark); }
+
 .work-cta {
   display: inline-flex;
   align-items: center;
