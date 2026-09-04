@@ -4034,3 +4034,27 @@ img { max-width: 100%; display: block; }
   }
 }
 
+/* ============================================================
+   Legal / policy pages — plain sequential prose, not a card
+   or grid component, so it gets its own narrow measure and
+   heading rhythm rather than reusing a component class.
+   ============================================================ */
+.laara-container.laara-container--narrow { max-width: 40rem; }
+
+.legal-content { padding-block: var(--laara-space-6) var(--laara-space-4); }
+.legal-content h2 { margin-top: var(--laara-space-10); margin-bottom: var(--laara-space-3); }
+.legal-content h2:first-child { margin-top: 0; }
+.legal-content p, .legal-content ul { margin-bottom: var(--laara-space-4); max-width: none; }
+.legal-content ul { padding-left: var(--laara-space-6); }
+.legal-content li { margin-bottom: var(--laara-space-2); }
+.legal-content a { text-decoration: underline; }
+
+/* Sits under a form's submit button — reuses the wizard hint colour
+   rather than --laara-text-grey, which fails AA on --laara-surface. */
+.form-privacy-note {
+  font-size: var(--laara-fs-small);
+  color: var(--laara-text-secondary);
+  margin-top: var(--laara-space-3);
+}
+.form-privacy-note a { color: inherit; }
+
