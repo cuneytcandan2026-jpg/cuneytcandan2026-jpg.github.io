@@ -10,9 +10,11 @@
      answer to the pages question that the homepage does not. Two copies of a
      rule that must trace to docs/pricing.md is one copy too many.
 
-     Lives in main.js because main.js is the only script on both pages
-     (pricing-data.js is pricing.html-only) and it is deferred, so it has
-     already run by the time pricing.js executes.
+     Lives in main.js because main.js loads on both pages and is deferred, so
+     it has already run by the time pricing.js executes. (pricing-data.js was
+     pricing.html-only when this was written; the homepage now loads it too,
+     for the result panel's package copy — defer keeps document order, so it
+     is likewise defined before anything here reads it.)
 
      The rule, straight from the comparison table in docs/pricing.md: one
      point for the page count, one for the stated goal, and online booking
@@ -243,17 +245,21 @@
   });
 
   /* ---------- Scroll reveals (staggered/cascading) ---------- */
-  const revealEls = Array.from(document.querySelectorAll('.reveal, .reveal-zoom, .reveal-heading, .reveal-support'));
+  const revealEls = Array.from(document.querySelectorAll('.reveal, .reveal-zoom, .reveal-heading, .reveal-support, .vs-row-reveal'));
   if (prefersReducedMotion || !('IntersectionObserver' in window)) {
     revealEls.forEach(el => el.classList.add('is-visible'));
   } else {
     const siblingIndex = new Map();
     revealEls.forEach(el => {
-      /* .reveal-heading/.reveal-support carry their own baked-in CSS
-         transition-delay (eyebrow -> heading -> support copy sequencing) —
-         skip them here so the auto-stagger doesn't clobber it with an
-         inline style. */
-      if (el.classList.contains('reveal-heading') || el.classList.contains('reveal-support')) return;
+      /* These carry their own baked-in CSS transition-delay — skip them so the
+         auto-stagger doesn't clobber it with an inline style.
+         .reveal-heading/.reveal-support: eyebrow -> heading -> support copy.
+         .vs-row-reveal: staggered above 768px only, because below that the
+         comparison section is taller than a phone viewport, so its rows cross
+         the threshold one at a time and an inline delay would just lag a row
+         that is already on screen. */
+      if (el.classList.contains('reveal-heading') || el.classList.contains('reveal-support')
+          || el.classList.contains('vs-row-reveal')) return;
       const parent = el.parentElement;
       const idx = siblingIndex.get(parent) || 0;
       siblingIndex.set(parent, idx + 1);
@@ -424,42 +430,107 @@
     }
   }
 
-  /* ---------- Pricing helper (homepage-only compact "help me choose") ----------
-     pricing.html keeps its own full 3-question tool with a dedicated
-     result panel (pricing.js/pricing-data.js, separate scripts not
-     loaded on this page). This is a smaller, self-contained version
-     scoped to the homepage teaser: same scoring facts and tie-break
-     rule (ties default to Professional, matching pricing.md's stated
-     sales goal), but the "result" is shown by highlighting the
-     matching card already on screen rather than duplicating a result
-     panel. Reuses .pill-toggle-btn's existing role="radio" pattern
-     verbatim — same component the contact wizard uses. */
+  /* ---------- Pricing helper (homepage "help me choose") ----------
+     Scoring comes from window.LaaraPricing.recommend above; the package
+     copy comes from window.LaaraPricingData (pricing-data.js, now loaded
+     on this page too — see index.html). Neither is duplicated here, so
+     this tool and pricing.html's fuller one cannot drift on the rule or
+     the wording.
+
+     It still highlights the matching card in .pricing-grid, but that is
+     no longer the only feedback: the card is usually already off-screen
+     on a phone by the time the third answer lands, so a result panel
+     beside the questions fills in with name, price, fit and a CTA. Uses
+     the same two-step reveal as pricing.js's own panel (.is-visible ->
+     rAF -> .is-shown) so both tools animate identically. */
   const pricingHelper = document.querySelector('[data-pricing-helper]');
-  if (pricingHelper) {
-    const helperResult = pricingHelper.querySelector('[data-pricing-helper-result]');
+  if (pricingHelper && window.LaaraPricingData) {
+    const packages = window.LaaraPricingData.packages;
     const helperCards = Array.from(document.querySelectorAll('.pricing-grid .pricing-card[data-package]'));
+    const resultPanel = pricingHelper.querySelector('[data-pricing-helper-result]');
+    const statusEl = pricingHelper.querySelector('[data-pricing-helper-status]');
+    const answerEl = pricingHelper.querySelector('[data-pricing-helper-answer]');
+    const progressSegs = Array.from(pricingHelper.querySelectorAll('[data-progress-seg]'));
     const helperState = { pages: null, goal: null, booking: null };
 
-    function computeHelperResult() {
-      helperCards.forEach((card) => card.classList.remove('is-recommended'));
-      const winner = window.LaaraPricing.recommend(helperState);
-      if (!winner) {
-        helperResult.textContent = 'Answer all three and we’ll highlight your best match above.';
-        return;
+    function showAnswer(id) {
+      const pkg = packages.find((p) => p.id === id);
+      if (!pkg) return;
+
+      helperCards.forEach((card) => card.classList.toggle('is-recommended', card.dataset.package === id));
+
+      answerEl.querySelector('[data-pricing-helper-answer-name]').textContent = pkg.label;
+      answerEl.querySelector('[data-pricing-helper-answer-price]').textContent = pkg.price;
+      answerEl.querySelector('[data-pricing-helper-answer-desc]').textContent = pkg.bestFor;
+      const cta = answerEl.querySelector('[data-pricing-helper-answer-cta]');
+      cta.href = `/contact.html?package=${pkg.id}`;
+      /* NBSP before the arrow so it wraps with the package name instead of
+         orphaning onto a line of its own at 390px. */
+      cta.textContent = `Start with ${pkg.label} →`;
+
+      /* The live region carries the price as well as the name: the panel's
+         own name/price nodes sit outside it, so a screen-reader user would
+         otherwise get the recommendation without the number. */
+      statusEl.textContent = `${pkg.label} looks like your best starting point, ${pkg.price}.`;
+      resultPanel.classList.add('is-answered');
+
+      /* Only on first reveal — re-scrolling on every later answer change
+         would yank the page while the user is still adjusting pills. */
+      if (!answerEl.classList.contains('is-visible')) {
+        answerEl.classList.add('is-visible');
+        requestAnimationFrame(() => answerEl.classList.add('is-shown'));
+        resultPanel.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'nearest' });
       }
-      const winnerCard = helperCards.find((card) => card.dataset.package === winner);
-      if (winnerCard) winnerCard.classList.add('is-recommended');
-      helperResult.textContent = `${window.LaaraPricing.labels[winner]} looks like your best starting point — highlighted above.`;
     }
 
-    pricingHelper.querySelectorAll('.pill-toggle-btn[data-radio]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const key = btn.dataset.radio;
-        const group = btn.closest('.pill-toggle');
-        group.querySelectorAll('.pill-toggle-btn').forEach((b) => b.setAttribute('aria-checked', 'false'));
+    function computeHelperResult() {
+      const count = Object.values(helperState).filter(Boolean).length;
+      progressSegs.forEach((seg, i) => seg.classList.toggle('is-filled', i < count));
+
+      const winner = window.LaaraPricing.recommend(helperState);
+      if (!winner) {
+        statusEl.textContent = `${count} of 3 answered`;
+        return;
+      }
+      showAnswer(winner);
+    }
+
+    pricingHelper.querySelectorAll('.pill-toggle[role="radiogroup"]').forEach((group) => {
+      const pills = Array.from(group.querySelectorAll('.pill-toggle-btn[data-radio]'));
+
+      /* Roving tabindex, set here and never in the HTML: if JS doesn't run, no
+         tabindex attribute is ever added and every pill keeps its natural place
+         in the tab order. This is additive, not a replacement for that. */
+      pills.forEach((b, i) => { b.tabIndex = i === 0 ? 0 : -1; });
+
+      function selectPill(btn) {
+        pills.forEach((b) => { b.setAttribute('aria-checked', 'false'); b.tabIndex = -1; });
         btn.setAttribute('aria-checked', 'true');
-        helperState[key] = btn.dataset.value;
+        btn.tabIndex = 0;
+        helperState[btn.dataset.radio] = btn.dataset.value;
         computeHelperResult();
+      }
+
+      pills.forEach((btn, i) => {
+        btn.addEventListener('click', () => selectPill(btn));
+
+        /* Arrow-key roving focus. The markup claims the ARIA radiogroup
+           pattern (role="radiogroup"/"radio"), which expects this and didn't
+           have it. Scoped to [data-pricing-helper] by the gate above, so
+           contact.html's and pricing.html's pill groups are untouched — they
+           have the same gap, worth a separate sitewide pass. */
+        btn.addEventListener('keydown', (e) => {
+          const keys = ['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp', 'Home', 'End'];
+          if (!keys.includes(e.key)) return;
+          e.preventDefault();
+          let next;
+          if (e.key === 'Home') next = 0;
+          else if (e.key === 'End') next = pills.length - 1;
+          else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % pills.length;
+          else next = (i - 1 + pills.length) % pills.length;
+          pills[next].focus();
+          selectPill(pills[next]);
+        });
       });
     });
   }

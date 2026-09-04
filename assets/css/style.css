@@ -1196,10 +1196,12 @@ img { max-width: 100%; display: block; }
   vertical-align: top;
   font-size: var(--laara-fs-body);
 }
+/* 38% for four one-or-two-word labels was dead space that squeezed the two
+   columns actually carrying the argument. 26/37/37 gives it back. */
 .vs-table th:first-child,
-.vs-table td:first-child { width: 38%; }
+.vs-table td:first-child { width: 26%; }
 .vs-table th:not(:first-child),
-.vs-table td:not(:first-child) { width: 31%; }
+.vs-table td:not(:first-child) { width: 37%; }
 .vs-table thead th {
   font-size: var(--laara-fs-small);
   font-weight: var(--laara-fw-semibold);
@@ -1208,25 +1210,78 @@ img { max-width: 100%; display: block; }
   color: var(--laara-on-dark-muted);
   border-bottom: 1px solid rgb(var(--laara-paper-rgb) / 0.14);
 }
+/* No white-space: nowrap. At 26% "Support after launch" has to be allowed to
+   wrap, and it costs nothing: row height already tracks the tallest cell (the
+   Laara column's two-line notes), and mobile overrides nowrap to normal anyway. */
 .vs-table tbody th {
   font-weight: var(--laara-fw-bold);
   color: var(--laara-paper);
-  white-space: nowrap;
 }
 .vs-table tbody td { color: var(--laara-on-dark-muted); }
 .vs-table tbody tr + tr th,
 .vs-table tbody tr + tr td {
   border-top: 1px solid rgb(var(--laara-paper-rgb) / 0.10);
 }
+/* 0.12 read as an accident rather than an answer. 0.18 plus a solid green
+   left edge makes the column a panel you notice before you read it. The wash
+   is still almost entirely ink underneath, so paper text on it stays ~13.8:1. */
 .vs-table td.vs-col--laara,
 .vs-table th.vs-col--laara {
-  background: rgb(var(--laara-green-rgb) / 0.12);
+  background: rgb(var(--laara-green-rgb) / 0.18);
+  box-shadow: inset 3px 0 0 var(--laara-green);
 }
 .vs-table tbody td.vs-col--laara {
   color: var(--laara-paper);
   font-weight: var(--laara-fw-semibold);
 }
 .vs-table thead th.vs-col--laara { color: var(--laara-green); }
+
+/* The typical-agency column reads as superseded rather than merely different,
+   borrowing .about-compare-them's exact recipe instead of inventing a second
+   one. Strictly presentational: no cell text changes, and no number is added
+   to this column — see the honesty comment under the table in index.html. */
+.vs-table td.vs-col--them {
+  color: var(--laara-on-dark-subtle);
+  text-decoration: line-through;
+  text-decoration-color: rgb(var(--laara-paper-rgb) / 0.3);
+}
+/* text-decoration inherits into descendants, and below 768px this cell also
+   contains its column NAME. Striking through "Typical agency" reads as the
+   column being cancelled rather than the value it holds. Desktop hides the
+   label so this only ever showed on mobile. */
+.vs-table td.vs-col--them .vs-cell-label { text-decoration: none; }
+
+/* Decorative. aria-hidden in the markup, because the cell text already states
+   the claim in full — this must not alter any accessible name. Green on ink
+   is 7.20:1, the pairing this file uses everywhere on dark. */
+.vs-mark {
+  margin-right: var(--laara-space-2);
+  color: var(--laara-green);
+  font-weight: var(--laara-fw-bold);
+}
+
+/* Price is the strongest sourced claim on the page, so it's the one row that
+   gets extra weight. Weight only, never size: the mobile note below measured
+   "£797–£2,497" breaking onto two lines at 360px when the column narrows, and
+   900 vs 700 adds almost no width where a size step would. */
+.vs-row--price .vs-price { font-weight: var(--laara-fw-black); }
+
+/* Desktop only: drop the Laara column's internal dividers so it reads as one
+   continuous panel rather than four separately-tinted cells. Left alone below
+   768px, where the restack moves the divider onto the row itself.
+
+   NOT 'transparent' — that was tried and renders a dark line. Under
+   border-collapse: collapse the collapsed border paints over the TABLE
+   background, not the cell's own background, so a transparent border reveals
+   the ink beneath rather than the green wash. Repeating the wash as the border
+   colour composites to exactly the same value over that ink, so the seam
+   disappears without hardcoding the composited hex. */
+@media (min-width: 768px) {
+  .vs-table tbody tr + tr td.vs-col--laara,
+  .vs-table tbody tr + tr th.vs-col--laara {
+    border-top-color: rgb(var(--laara-green-rgb) / 0.18);
+  }
+}
 .vs-note {
   display: block;
   margin-top: var(--laara-space-1);
@@ -1250,6 +1305,48 @@ img { max-width: 100%; display: block; }
   color: var(--laara-on-dark-muted);
 }
 .vs-col--laara .vs-cell-label { color: var(--laara-green); }
+
+/* ---------- Row-by-row reveal ----------
+   Rides the shared IntersectionObserver in main.js, which already staggers
+   siblings by parent at Math.min(idx,4)*70ms. The four rows share one <tbody>,
+   so they get 0/70/140/210ms for free — the only JS change needed was adding
+   this class to that observer's selector.
+
+   Not just .reveal, because of the transform. Per the CSS Transforms spec a
+   display:table-row box IS transformable — only table-column and
+   table-column-group are excluded — but WebKit has shipped versions that drop
+   transform (and position) on <tr> regardless, and this audience is on older
+   phones. So above 768px, where rows are still display:table-row, this fades
+   with opacity alone; below it the restack has already made each <tr> a grid
+   container, where the slide is an ordinary box transform and safe. Opacity is
+   unaffected by that bug at any display value, so rows always fade somewhere.
+
+   .js-scoped like every other reveal primitive: no JS, no class, rows render
+   fully visible. */
+.js .vs-row-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--laara-dur-reveal) var(--laara-ease-out),
+              transform var(--laara-dur-reveal) var(--laara-ease-out);
+}
+.vs-row-reveal.is-visible { opacity: 1; transform: translateY(0); }
+@media (min-width: 768px) {
+  .js .vs-row-reveal,
+  .vs-row-reveal.is-visible { transform: none; }
+  /* Baked-in stagger, desktop only — which is why .vs-row-reveal is on the
+     auto-stagger's skip list in main.js, alongside .reveal-heading and
+     .reveal-support. The shared observer's inline delay is wrong here below
+     768px: the section is taller than a phone viewport, so rows cross the
+     threshold one at a time and a 210ms delay on the last row is not stagger,
+     it is just lag before a row that is already on screen. Above 768px the
+     whole table is in view at once and the delays do what they say. */
+  .vs-row-reveal:nth-child(2) { transition-delay: 70ms; }
+  .vs-row-reveal:nth-child(3) { transition-delay: 140ms; }
+  .vs-row-reveal:nth-child(4) { transition-delay: 210ms; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .vs-row-reveal { opacity: 1; transform: none; transition: none; }
+}
 
 /* Below 768px three columns cannot fit. The row-label column alone took 182px
    of the 325px a 390px phone actually has (38% of a fixed 480px min-width,
@@ -1300,6 +1397,12 @@ img { max-width: 100%; display: block; }
   .vs-table tbody tr + tr th,
   .vs-table tbody tr + tr td { border-top: 0; }
   .vs-cell-label { display: block; }
+  /* The tick is a desktop column-scanning aid and costs 20px of inline space
+     (12px glyph + 8px margin). In the restacked cell that is exactly enough to
+     break "£797–£2,497" onto two lines at 360px — measured — which is the case
+     the block comment above was written to prevent. Each cell already names its
+     column via .vs-cell-label here, so the tick has no job on mobile. */
+  .vs-mark { display: none; }
 }
 
 /* ============================================================
@@ -2024,22 +2127,117 @@ img { max-width: 100%; display: block; }
    result panel. Reuses .pill-toggle/.pill-toggle-btn verbatim (same
    component the contact wizard uses) rather than inventing a new
    input style. */
+/* A card, not three label+pill rows floating under a hairline — it has to read
+   as a tool rather than leftover form fields. The white background is also the
+   contrast fix: --laara-text-secondary (#6E747D) is 4.24:1 on this section's
+   --laara-surface (#F3F3F1) and FAILS AA, but 4.71:1 on --laara-white. The
+   result copy is the most important text in the component and was the least
+   readable. Fixed by moving the surface, not by editing a brand token —
+   brand/laara-brand-tokens.css is a synced copy needing sign-off. */
 .pricing-helper {
   margin-top: var(--laara-space-10);
-  padding-top: var(--laara-space-10);
-  border-top: 1px solid var(--laara-border);
+  padding: var(--laara-space-8);
+  background: var(--laara-white);
+  border: 1.5px solid var(--laara-border);
+  border-radius: var(--laara-radius-card);
 }
 .pricing-helper-label {
   font-weight: var(--laara-fw-bold);
   font-size: var(--laara-fs-body-lg);
   margin: 0 0 var(--laara-space-6);
 }
+.pricing-helper-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--laara-space-8);
+}
+@media (min-width: 900px) {
+  .pricing-helper-grid { grid-template-columns: 1.1fr 1fr; align-items: start; }
+}
 .pricing-helper-q { margin-bottom: var(--laara-space-5); }
+.pricing-helper-q:last-child { margin-bottom: 0; }
 .pricing-helper-q .laara-field-label { margin: 0 0 var(--laara-space-2); }
+
+/* 48px to match --laara-control-h, this project's own floor for controls.
+   Scoped to the helper on purpose: the shared .pill-toggle-btn rule stays at
+   the 44px --laara-touch-min because contact.html's wizard and pricing.html
+   both use it, and raising those is a sitewide call, not an index.html one. */
+[data-pricing-helper] .pill-toggle-btn { min-height: var(--laara-control-h); }
+
 .pricing-helper-result {
-  margin: var(--laara-space-2) 0 0;
+  padding-top: var(--laara-space-8);
+  border-top: 1.5px solid var(--laara-border);
+}
+@media (min-width: 900px) {
+  .pricing-helper-result {
+    padding-top: 0;
+    padding-left: var(--laara-space-8);
+    border-top: 0;
+    border-left: 1.5px solid var(--laara-border);
+  }
+}
+
+.pricing-helper-progress {
+  display: flex;
+  gap: var(--laara-space-2);
+  margin-bottom: var(--laara-space-3);
+}
+.pricing-helper-progress-seg {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--laara-border);
+  transition: background var(--laara-dur-section) var(--laara-ease-out);
+}
+/* green-deep (7.35:1), not green (2.62:1). This fill is the one place in the
+   component where colour alone carries a UI state, so it owes WCAG 1.4.11's
+   3:1 non-text minimum against the unfilled track — plain brand green misses. */
+.pricing-helper-progress-seg.is-filled { background: var(--laara-green-deep); }
+
+.pricing-helper-status {
+  margin: 0 0 var(--laara-space-4);
+  font-size: var(--laara-fs-small);
   font-weight: var(--laara-fw-semibold);
   color: var(--laara-text-secondary);
+}
+.pricing-helper-placeholder { margin: 0; color: var(--laara-text-secondary); }
+.pricing-helper-result.is-answered .pricing-helper-placeholder { display: none; }
+
+/* Follows .choose-result's pattern (pricing.js), not the .js-scoped .reveal
+   pattern: unconditional display:none, revealed by .is-visible then .is-shown
+   on the next frame. A recommendation that was never computed has no honest
+   "visible but unanimated" state — the <noscript> message is the no-JS answer,
+   not an empty panel.
+
+   Deliberately NOT .laara-card--wash, even though .choose-result is: that
+   variant inverts the whole card to green on hover, and on a panel that
+   repopulates under the cursor it reads as a false success animation. */
+.pricing-helper-answer {
+  display: none;
+  opacity: 0;
+  transform: translateY(10px);
+  border-left: 3px solid var(--laara-green);
+  padding-left: var(--laara-space-5);
+  transition: opacity var(--laara-dur-reveal) var(--laara-ease-out),
+              transform var(--laara-dur-reveal) var(--laara-ease-out);
+}
+.pricing-helper-answer.is-visible { display: block; }
+.pricing-helper-answer.is-shown { opacity: 1; transform: translateY(0); }
+.pricing-helper-answer-name { margin: 0 0 var(--laara-space-1); font-size: var(--laara-fs-h3); }
+.pricing-helper-answer-price {
+  margin: 0 0 var(--laara-space-2);
+  font-weight: var(--laara-fw-bold);
+  color: var(--laara-text);
+}
+.pricing-helper-answer-desc { margin: 0 0 var(--laara-space-5); color: var(--laara-text-secondary); }
+.pricing-helper-answer-ctas { display: flex; flex-wrap: wrap; gap: var(--laara-space-3); }
+@media (max-width: 480px) {
+  .pricing-helper-answer-ctas { flex-direction: column; align-items: stretch; }
+  .pricing-helper-answer-ctas .laara-btn { justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pricing-helper-answer,
+  .pricing-helper-progress-seg { transition: none; }
 }
 
 .pricing-card.is-recommended {

@@ -513,14 +513,22 @@
           <p class="reveal-support">The practical differences, not a knock on anyone, just what small businesses tell us matters most.</p>
         </div>
 
-        <div class="vs-table-wrap reveal">
+        <div class="vs-table-wrap">
           <!-- Below 768px this restacks: <thead> hides, the row label spans the
                full width and the two columns sit side by side beneath it. That
                is why every cell carries its own .vs-cell-label — it replaces the
                hidden column header, on screen and in the accessible name. Keep
                the two in step if a column is ever renamed. The explicit ARIA
                roles are there because the CSS overrides `display` on the table
-               elements; don't strip them as redundant. See style.css. -->
+               elements; don't strip them as redundant. See style.css.
+
+               The reveal lives on each <tr> as .vs-row-reveal, not on this
+               wrapper. Two nested opacity fades compound — opacity multiplies
+               down the render tree — which mutes the row stagger into a single
+               blur. Same reason .pricing-card is individually .reveal rather
+               than .pricing-grid. The .vs-mark ticks are aria-hidden: the cell
+               text already carries every claim, so they must not change any
+               accessible name. -->
           <table class="vs-table" role="table">
             <caption class="sr-only">Laara Digital compared with a typical agency. The typical agency column describes how agencies commonly work; it makes no claim about any specific company.</caption>
             <thead>
@@ -531,25 +539,25 @@
               </tr>
             </thead>
             <tbody role="rowgroup">
-              <tr role="row">
+              <tr role="row" class="vs-row-reveal">
                 <th scope="row" role="rowheader">Speed</th>
-                <td role="cell"><span class="vs-cell-label">Typical agency</span>Timeline agreed case by case</td>
-                <td role="cell" class="vs-col--laara"><span class="vs-cell-label">Laara Digital</span>7&ndash;10 days<span class="vs-note">Up to 3 weeks for a full Growth site</span></td>
+                <td role="cell" class="vs-col--them"><span class="vs-cell-label">Typical agency</span>Timeline agreed case by case</td>
+                <td role="cell" class="vs-col--laara"><span class="vs-cell-label">Laara Digital</span><span class="vs-mark" aria-hidden="true">&#10003;</span>7&ndash;10 days<span class="vs-note">Up to 3 weeks for a full Growth site</span></td>
               </tr>
-              <tr role="row">
+              <tr role="row" class="vs-row-reveal">
                 <th scope="row" role="rowheader">Support after launch</th>
-                <td role="cell"><span class="vs-cell-label">Typical agency</span>Sometimes</td>
-                <td role="cell" class="vs-col--laara"><span class="vs-cell-label">Laara Digital</span>Yes, ongoing care plans</td>
+                <td role="cell" class="vs-col--them"><span class="vs-cell-label">Typical agency</span>Sometimes</td>
+                <td role="cell" class="vs-col--laara"><span class="vs-cell-label">Laara Digital</span><span class="vs-mark" aria-hidden="true">&#10003;</span>Yes, ongoing care plans</td>
               </tr>
-              <tr role="row">
+              <tr role="row" class="vs-row-reveal">
                 <th scope="row" role="rowheader">Industry expertise</th>
-                <td role="cell"><span class="vs-cell-label">Typical agency</span>Generic web design</td>
-                <td role="cell" class="vs-col--laara"><span class="vs-cell-label">Laara Digital</span>Yes, trades, salons, restaurants, gyms</td>
+                <td role="cell" class="vs-col--them"><span class="vs-cell-label">Typical agency</span>Generic web design</td>
+                <td role="cell" class="vs-col--laara"><span class="vs-cell-label">Laara Digital</span><span class="vs-mark" aria-hidden="true">&#10003;</span>Yes, trades, salons, restaurants, gyms</td>
               </tr>
-              <tr role="row">
+              <tr role="row" class="vs-row-reveal vs-row--price">
                 <th scope="row" role="rowheader">Price</th>
-                <td role="cell"><span class="vs-cell-label">Typical agency</span>Quoted on enquiry</td>
-                <td role="cell" class="vs-col--laara"><span class="vs-cell-label">Laara Digital</span>£797&ndash;£2,497<span class="vs-note">Published up front, fixed before we start</span></td>
+                <td role="cell" class="vs-col--them"><span class="vs-cell-label">Typical agency</span>Quoted on enquiry</td>
+                <td role="cell" class="vs-col--laara"><span class="vs-cell-label">Laara Digital</span><span class="vs-mark" aria-hidden="true">&#10003;</span><span class="vs-price">£797&ndash;£2,497</span><span class="vs-note">Published up front, fixed before we start</span></td>
               </tr>
             </tbody>
           </table>
@@ -614,36 +622,74 @@
           </div>
         </div>
 
+        <!-- The result panel sits beside the questions (stacked beneath them
+             below 900px) because the highlighted card above is usually already
+             off-screen on a phone by the time the third answer lands — the
+             payoff has to appear where the user is actually looking. The card
+             highlight stays, it just isn't the only feedback any more.
+
+             aria-live is on .pricing-helper-status ONLY, and that sentence
+             carries the package name AND its price, because the panel's own
+             name/price/fit nodes are not in a live region — a screen-reader
+             user would otherwise hear the recommendation without the number.
+             Don't move aria-live up onto the container: its children are
+             repopulated wholesale, which double-announces. -->
         <div class="pricing-helper reveal" data-pricing-helper>
-          <p class="pricing-helper-label">Not sure which one? Answer 3 quick questions.</p>
+          <h3 class="pricing-helper-label">Not sure which one? Answer 3 quick questions.</h3>
 
-          <div class="pricing-helper-q">
-            <p class="laara-field-label" id="mini-pages-label">Pages needed</p>
-            <div class="pill-toggle pill-toggle--single" role="radiogroup" aria-labelledby="mini-pages-label">
-              <button type="button" class="pill-toggle-btn" role="radio" data-radio="pages" data-value="4-5" aria-checked="false">4&ndash;5</button>
-              <button type="button" class="pill-toggle-btn" role="radio" data-radio="pages" data-value="6-8" aria-checked="false">6&ndash;8</button>
-              <button type="button" class="pill-toggle-btn" role="radio" data-radio="pages" data-value="8-12" aria-checked="false">8&ndash;12</button>
+          <div class="pricing-helper-grid">
+            <div class="pricing-helper-questions">
+              <div class="pricing-helper-q">
+                <p class="laara-field-label" id="mini-pages-label">Pages needed</p>
+                <div class="pill-toggle pill-toggle--single" role="radiogroup" aria-labelledby="mini-pages-label">
+                  <button type="button" class="pill-toggle-btn" role="radio" data-radio="pages" data-value="4-5" aria-checked="false">4&ndash;5</button>
+                  <button type="button" class="pill-toggle-btn" role="radio" data-radio="pages" data-value="6-8" aria-checked="false">6&ndash;8</button>
+                  <button type="button" class="pill-toggle-btn" role="radio" data-radio="pages" data-value="8-12" aria-checked="false">8&ndash;12</button>
+                </div>
+              </div>
+
+              <div class="pricing-helper-q">
+                <p class="laara-field-label" id="mini-goal-label">Main goal</p>
+                <div class="pill-toggle pill-toggle--single" role="radiogroup" aria-labelledby="mini-goal-label">
+                  <button type="button" class="pill-toggle-btn" role="radio" data-radio="goal" data-value="fast" aria-checked="false">Get online fast</button>
+                  <button type="button" class="pill-toggle-btn" role="radio" data-radio="goal" data-value="visibility" aria-checked="false">More visibility</button>
+                  <button type="button" class="pill-toggle-btn" role="radio" data-radio="goal" data-value="competitors" aria-checked="false">Win back lost work</button>
+                </div>
+              </div>
+
+              <div class="pricing-helper-q">
+                <p class="laara-field-label" id="mini-booking-label">Need online booking?</p>
+                <div class="pill-toggle pill-toggle--single" role="radiogroup" aria-labelledby="mini-booking-label">
+                  <button type="button" class="pill-toggle-btn" role="radio" data-radio="booking" data-value="yes" aria-checked="false">Yes</button>
+                  <button type="button" class="pill-toggle-btn" role="radio" data-radio="booking" data-value="no" aria-checked="false">No</button>
+                </div>
+              </div>
+
+              <noscript>
+                <p class="choose-noscript">This picker needs JavaScript to work. The three packages are compared in full above, or <a href="/contact.html">tell us about your business</a> and we&rsquo;ll recommend one.</p>
+              </noscript>
+            </div>
+
+            <div class="pricing-helper-result" data-pricing-helper-result>
+              <div class="pricing-helper-progress" aria-hidden="true">
+                <span class="pricing-helper-progress-seg" data-progress-seg></span>
+                <span class="pricing-helper-progress-seg" data-progress-seg></span>
+                <span class="pricing-helper-progress-seg" data-progress-seg></span>
+              </div>
+              <p class="pricing-helper-status" data-pricing-helper-status aria-live="polite">0 of 3 answered</p>
+              <p class="pricing-helper-placeholder" data-pricing-helper-placeholder>Answer all three and we&rsquo;ll show your best-fit package here, with a starting price and a clear next step.</p>
+
+              <div class="pricing-helper-answer" data-pricing-helper-answer>
+                <h4 class="pricing-helper-answer-name" data-pricing-helper-answer-name></h4>
+                <p class="pricing-helper-answer-price" data-pricing-helper-answer-price></p>
+                <p class="pricing-helper-answer-desc" data-pricing-helper-answer-desc></p>
+                <div class="pricing-helper-answer-ctas">
+                  <a class="laara-btn laara-btn--primary" data-pricing-helper-answer-cta href="/contact.html"></a>
+                  <a class="laara-btn laara-btn--secondary" href="/pricing.html">See full details</a>
+                </div>
+              </div>
             </div>
           </div>
-
-          <div class="pricing-helper-q">
-            <p class="laara-field-label" id="mini-goal-label">Main goal</p>
-            <div class="pill-toggle pill-toggle--single" role="radiogroup" aria-labelledby="mini-goal-label">
-              <button type="button" class="pill-toggle-btn" role="radio" data-radio="goal" data-value="fast" aria-checked="false">Get online fast</button>
-              <button type="button" class="pill-toggle-btn" role="radio" data-radio="goal" data-value="visibility" aria-checked="false">More visibility</button>
-              <button type="button" class="pill-toggle-btn" role="radio" data-radio="goal" data-value="competitors" aria-checked="false">Win back lost work</button>
-            </div>
-          </div>
-
-          <div class="pricing-helper-q">
-            <p class="laara-field-label" id="mini-booking-label">Need online booking?</p>
-            <div class="pill-toggle pill-toggle--single" role="radiogroup" aria-labelledby="mini-booking-label">
-              <button type="button" class="pill-toggle-btn" role="radio" data-radio="booking" data-value="yes" aria-checked="false">Yes</button>
-              <button type="button" class="pill-toggle-btn" role="radio" data-radio="booking" data-value="no" aria-checked="false">No</button>
-            </div>
-          </div>
-
-          <p class="pricing-helper-result" data-pricing-helper-result aria-live="polite">Answer all three and we&rsquo;ll highlight your best match above.</p>
         </div>
       </div>
     </section>
@@ -778,6 +824,13 @@
   </footer>
 
   <script src="/assets/js/fluid-hero.js" defer></script>
+  <!-- pricing-data.js must come BEFORE main.js: defer preserves document order,
+       and the pricing helper block inside main.js reads window.LaaraPricingData.
+       It's here rather than the copy being inlined because its bestFor strings
+       are the same sentences as the three pricing cards above — duplicating them
+       would add a third place every price change has to land in step with
+       docs/pricing.md. Same reasoning that de-duplicated the scorer. -->
+  <script src="/assets/js/pricing-data.js" defer></script>
   <script src="/assets/js/main.js" defer></script>
 </body>
 </html>
