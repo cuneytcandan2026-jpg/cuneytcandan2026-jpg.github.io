@@ -513,9 +513,15 @@
           <p class="reveal-support">The practical differences, not a knock on anyone, just what small businesses tell us matters most.</p>
         </div>
 
-        <p class="vs-scroll-hint reveal">Swipe to compare &rarr;</p>
         <div class="vs-table-wrap reveal">
-          <table class="vs-table">
+          <!-- Below 768px this restacks: <thead> hides, the row label spans the
+               full width and the two columns sit side by side beneath it. That
+               is why every cell carries its own .vs-cell-label — it replaces the
+               hidden column header, on screen and in the accessible name. Keep
+               the two in step if a column is ever renamed. The explicit ARIA
+               roles are there because the CSS overrides `display` on the table
+               elements; don't strip them as redundant. See style.css. -->
+          <table class="vs-table" role="table">
             <caption class="sr-only">Laara Digital compared with a typical agency. The typical agency column describes how agencies commonly work; it makes no claim about any specific company.</caption>
             <thead>
               <tr>
@@ -524,26 +530,26 @@
                 <th scope="col" class="vs-col--laara">Laara Digital</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Speed</th>
-                <td>Timeline agreed case by case</td>
-                <td class="vs-col--laara">7&ndash;10 days<span class="vs-note">Up to 3 weeks for a full Growth site</span></td>
+            <tbody role="rowgroup">
+              <tr role="row">
+                <th scope="row" role="rowheader">Speed</th>
+                <td role="cell"><span class="vs-cell-label">Typical agency</span>Timeline agreed case by case</td>
+                <td role="cell" class="vs-col--laara"><span class="vs-cell-label">Laara Digital</span>7&ndash;10 days<span class="vs-note">Up to 3 weeks for a full Growth site</span></td>
               </tr>
-              <tr>
-                <th scope="row">Support after launch</th>
-                <td>Sometimes</td>
-                <td class="vs-col--laara">Yes, ongoing care plans</td>
+              <tr role="row">
+                <th scope="row" role="rowheader">Support after launch</th>
+                <td role="cell"><span class="vs-cell-label">Typical agency</span>Sometimes</td>
+                <td role="cell" class="vs-col--laara"><span class="vs-cell-label">Laara Digital</span>Yes, ongoing care plans</td>
               </tr>
-              <tr>
-                <th scope="row">Industry expertise</th>
-                <td>Generic web design</td>
-                <td class="vs-col--laara">Yes, trades, salons, restaurants, gyms</td>
+              <tr role="row">
+                <th scope="row" role="rowheader">Industry expertise</th>
+                <td role="cell"><span class="vs-cell-label">Typical agency</span>Generic web design</td>
+                <td role="cell" class="vs-col--laara"><span class="vs-cell-label">Laara Digital</span>Yes, trades, salons, restaurants, gyms</td>
               </tr>
-              <tr>
-                <th scope="row">Price</th>
-                <td>Quoted on enquiry</td>
-                <td class="vs-col--laara">£797&ndash;£2,497<span class="vs-note">Published up front, fixed before we start</span></td>
+              <tr role="row">
+                <th scope="row" role="rowheader">Price</th>
+                <td role="cell"><span class="vs-cell-label">Typical agency</span>Quoted on enquiry</td>
+                <td role="cell" class="vs-col--laara"><span class="vs-cell-label">Laara Digital</span>£797&ndash;£2,497<span class="vs-note">Published up front, fixed before we start</span></td>
               </tr>
             </tbody>
           </table>

@@ -1178,17 +1178,6 @@ img { max-width: 100%; display: block; }
    column gets a quiet green wash to read as the "win" without ever
    pairing green with white text.
    ============================================================ */
-.vs-scroll-hint {
-  display: none;
-  margin: 0 0 var(--laara-space-3);
-  color: var(--laara-on-dark-muted);
-  font-size: var(--laara-fs-small);
-  font-weight: var(--laara-fw-semibold);
-}
-@media (max-width: 767px) {
-  .vs-scroll-hint { display: block; }
-}
-
 .vs-table-wrap {
   overflow-x: auto;
   border-radius: var(--laara-radius-card);
@@ -1244,6 +1233,73 @@ img { max-width: 100%; display: block; }
   font-size: var(--laara-fs-small);
   font-weight: var(--laara-fw-regular);
   color: var(--laara-on-dark-muted);
+}
+
+/* The column name, carried inside each cell. Hidden on desktop, where <thead>
+   already does this job; shown below 768px, where <thead> is hidden and the
+   rows restack. It is real DOM text rather than a ::before with attr(), so
+   screen readers announce it dependably — it folds into the cell's accessible
+   name, giving "Laara Digital, 7-10 days, up to 3 weeks...". */
+.vs-cell-label {
+  display: none;
+  margin-bottom: var(--laara-space-1);
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--laara-on-dark-muted);
+}
+.vs-col--laara .vs-cell-label { color: var(--laara-green); }
+
+/* Below 768px three columns cannot fit. The row-label column alone took 182px
+   of the 325px a 390px phone actually has (38% of a fixed 480px min-width,
+   held wide by white-space: nowrap), which pushed the whole Laara Digital
+   column off-screen — measured 0% visible at both 360px and 390px, behind a
+   horizontal swipe. Worse, rows are sized by their tallest cell, so the
+   visible column sat under unexplained gaps left by the invisible one.
+
+   So each row restacks instead: the row label spans the full width and the
+   two columns sit side by side beneath it. No horizontal scroll, both columns
+   always visible, body text stays at 16px. Shrinking the columns to fit three
+   across was tried first and rejected — it breaks "£797-£2,497" onto two
+   lines at 360px, and only avoids that by dropping below the 16px floor.
+
+   Overriding display drops <tbody>'s rowgroup role, so the table carries
+   explicit ARIA roles in index.html. Chrome keeps table/row/rowheader/cell
+   through this; the roles are insurance for the browsers that may not. */
+@media (max-width: 767px) {
+  .vs-table { display: block; min-width: 0; }
+  .vs-table thead { display: none; }
+  .vs-table tbody { display: block; }
+  .vs-table tbody tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  /* These mirror the fixed-layout width rules above selector for selector so
+     they actually win: `.vs-table th:not(:first-child)` is (0,2,1), and a
+     shorter selector here would lose regardless of source order. */
+  .vs-table th:first-child,
+  .vs-table td:first-child { width: auto; }
+  .vs-table th:not(:first-child),
+  .vs-table td:not(:first-child) { width: auto; }
+  .vs-table th,
+  .vs-table td {
+    display: block;
+    padding: var(--laara-space-4);
+  }
+  .vs-table tbody th {
+    grid-column: 1 / -1;
+    padding-bottom: 0;
+    white-space: normal;
+  }
+  /* The divider moves onto the row itself: with the label on its own line, a
+     border on the cells would draw under the label rather than between rows. */
+  .vs-table tbody tr + tr {
+    border-top: 1px solid rgb(var(--laara-paper-rgb) / 0.10);
+  }
+  .vs-table tbody tr + tr th,
+  .vs-table tbody tr + tr td { border-top: 0; }
+  .vs-cell-label { display: block; }
 }
 
 /* ============================================================
