@@ -730,11 +730,48 @@ img { max-width: 100%; display: block; }
   }
 }
 
-.service-card .laara-dot { margin-bottom: var(--laara-space-4); width: 2.5rem; height: 2.5rem; border-radius: var(--laara-radius); display: flex; align-items: center; justify-content: center; background: var(--laara-ink); }
-.service-card .laara-dot svg { width: 22px; height: 22px; color: var(--laara-green); }
-.service-card h3 { margin: 0 0 var(--laara-space-2); }
-.service-card p { color: var(--laara-text-secondary); margin: 0 0 var(--laara-space-4); font-size: var(--laara-fs-body); flex-grow: 1; }
-.service-card .card-link { color: var(--laara-link); font-weight: var(--laara-fw-semibold); font-size: var(--laara-fs-small); }
+.service-card .laara-dot,
+.sector-card .laara-dot { margin-bottom: var(--laara-space-4); width: 2.5rem; height: 2.5rem; border-radius: var(--laara-radius); display: flex; align-items: center; justify-content: center; background: var(--laara-ink); }
+.service-card .laara-dot svg,
+.sector-card .laara-dot svg { width: 22px; height: 22px; color: var(--laara-green); }
+.service-card h3,
+.sector-card h3 { margin: 0 0 var(--laara-space-2); }
+.service-card p,
+.sector-card p { color: var(--laara-text-secondary); margin: 0 0 var(--laara-space-4); font-size: var(--laara-fs-body); flex-grow: 1; }
+.service-card .card-link,
+.sector-card .card-link { color: var(--laara-link); font-weight: var(--laara-fw-semibold); font-size: var(--laara-fs-small); }
+
+/* ---------- Sector cards (About: "Who we work with") ----------
+   Deliberately the same component as the services grid rather than a
+   second card system: .laara-card + .glow-card means the hover lift,
+   pointer-tracked glow, heading colour shift, icon-tile ring and
+   card-link nudge all come from the shared rules above, and the icon
+   tile shares one definition with .service-card. Only two things are
+   new — the three-across desktop grid, and the "who this covers"
+   line, which is pushed to the bottom of the card above a hairline so
+   it reads as a footnote rather than a second identical paragraph.
+   The pitch keeps flex-grow: 1 from .sector-card p, so that hairline
+   and the link land on the same baseline across every card in a row. */
+@media (min-width: 1024px) {
+  .card-grid--3 { grid-template-columns: repeat(3, 1fr); }
+}
+.sector-card .sector-card-who {
+  flex-grow: 0;
+  margin: 0 0 var(--laara-space-4);
+  padding-top: var(--laara-space-4);
+  border-top: 1.5px solid var(--laara-border);
+  color: var(--laara-text-secondary);
+}
+/* Two columns up, the trade lists wrap to different line counts, which put
+   the hairline at a different height on each card in a row even though the
+   links below them lined up. Reserving two lines pins every hairline to the
+   same baseline. Measured, not guessed: the longest list wraps to two lines
+   at the narrowest multi-column card width (293px at 1024). */
+@media (min-width: 640px) {
+  /* Box-sizing is border-box, so the reserved height has to include this
+     element's own padding and rule, or it only buys 1.3 lines of text. */
+  .sector-card .sector-card-who { min-height: calc(2em * var(--laara-lh-body) + var(--laara-space-4) + 1.5px); }
+}
 
 /* ============================================================
    GLOW CARDS — cursor-reactive glow + icon micro-interactions
@@ -753,6 +790,14 @@ img { max-width: 100%; display: block; }
    keep the default card look plus a light tap state.
    ============================================================ */
 
+/* The three transform rules below are written .glow-card.glow-card on
+   purpose, for the same reason .laara-card--wash is doubled at the top of
+   this file: these cards are almost always .reveal too, and
+   `.reveal.is-visible { transform: translateY(0) }` further down is (0,2,0).
+   A single-class .glow-card:hover ties it and loses on source order, so the
+   lift silently stopped working on every revealed card while the glow and
+   border tint carried on — invisible in a screenshot at rest. Don't
+   "simplify" it back. */
 .glow-card {
   position: relative;
   overflow: hidden;
@@ -779,8 +824,8 @@ img { max-width: 100%; display: block; }
 .glow-card > * { position: relative; z-index: 1; }
 
 @media (hover: hover) and (pointer: fine) {
-  .glow-card:hover,
-  .glow-card:focus-within {
+  .glow-card.glow-card:hover,
+  .glow-card.glow-card:focus-within {
     transform: translateY(-2px);
     border-color: rgb(var(--laara-green-rgb) / 0.4);
     box-shadow: var(--laara-shadow), 0 20px 44px -26px rgb(var(--laara-green-rgb) / 0.45);
@@ -815,7 +860,7 @@ img { max-width: 100%; display: block; }
 
 /* Light, honest tap feedback on touch — no lingering fake hover. */
 @media (hover: none) {
-  .glow-card:active {
+  .glow-card.glow-card:active {
     transform: scale(0.99);
     border-color: rgb(var(--laara-green-rgb) / 0.35);
     transition-duration: var(--laara-dur-micro);
@@ -823,8 +868,8 @@ img { max-width: 100%; display: block; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .glow-card:hover,
-  .glow-card:focus-within {
+  .glow-card.glow-card:hover,
+  .glow-card.glow-card:focus-within {
     transform: none;
   }
   .glow-card .laara-dot,
@@ -1085,8 +1130,16 @@ img { max-width: 100%; display: block; }
 
 /* ---------- Generic/differentiator cards (no CTA) ---------- */
 .laara-card--plain { gap: var(--laara-space-2); }
-.laara-card--plain .laara-dot { margin-bottom: var(--laara-space-4); width: 2.5rem; height: 2.5rem; border-radius: var(--laara-radius); display: flex; align-items: center; justify-content: center; background: var(--laara-ink); }
-.laara-card--plain .laara-dot svg { width: 22px; height: 22px; color: var(--laara-green); }
+/* The site's icon tile — an ink square holding the accent-coloured icon.
+   about.html's founder credential cards share it by selector rather than
+   by copying the numbers, so the tile keeps one definition. The stacking
+   margin stays on the plain cards only: .founder-cred spaces its own
+   children with gap, because it flips between a row and a column. */
+.laara-card--plain .laara-dot,
+.founder-cred .laara-dot { width: 2.5rem; height: 2.5rem; border-radius: var(--laara-radius); display: flex; align-items: center; justify-content: center; background: var(--laara-ink); }
+.laara-card--plain .laara-dot { margin-bottom: var(--laara-space-4); }
+.laara-card--plain .laara-dot svg,
+.founder-cred .laara-dot svg { width: 22px; height: 22px; color: var(--laara-green); }
 .laara-card--plain h3 { margin: 0 0 var(--laara-space-2); }
 .laara-card--plain p { margin: 0; color: var(--laara-text-secondary); }
 
@@ -1108,7 +1161,7 @@ img { max-width: 100%; display: block; }
   }
 }
 
-/* Two nodes on purpose, mirroring .founder-story-media/-frame on
+/* Two nodes on purpose, mirroring .founder-media/.founder-portrait-frame on
    about.html: the OUTER .why-laara-visual is the sticky wrapper and
    carries no sizing or transform, the INNER -frame carries the box
    and the .reveal-zoom entrance transform. Keeping the transform off
@@ -3695,28 +3748,211 @@ img { max-width: 100%; display: block; }
   border-top: 1.5px solid var(--laara-border);
 }
 
-/* ---------- Founder: sticky editorial composition ---------- */
-.founder-story-grid {
+/* ---------- Meet the founder ----------
+   Photo left, story right on tablet and up (story track wider), then a
+   full-width credential band underneath, separated from the biography by
+   its own hairline. Nothing here introduces a second visual system: the
+   credential cards ARE .laara-card + .glow-card, so their surface,
+   border, radius, -2px hover lift, focus-within state, touch tap state
+   and reduced-motion path all come from the shared components. Entrance
+   uses the existing .reveal / .reveal-zoom / .reveal-heading primitives,
+   which means the section still renders fully with JS off. */
+.founder-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--laara-space-8);
 }
-@media (min-width: 1024px) {
-  .founder-story-grid { grid-template-columns: 0.85fr 1.15fr; gap: var(--laara-space-16); align-items: start; }
-  .founder-story-media { position: sticky; top: calc(var(--laara-header-h-desktop) + var(--laara-space-10)); }
-  .founder-story-body { padding-block: var(--laara-space-10); }
+@media (min-width: 768px) {
+  .founder-grid {
+    /* minmax(0, …) rather than a bare fr: an fr track's automatic minimum
+       is min-content, so one long unbreakable word would push the track
+       past its share and widen the whole grid. */
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    column-gap: var(--laara-space-10);
+    align-items: start;
+  }
 }
-.founder-story-frame { border-radius: var(--laara-radius-lg); overflow: hidden; box-shadow: var(--laara-shadow-lg); }
-.founder-story-frame img { width: 100%; height: auto; display: block; }
-.founder-story-tags { display: flex; flex-wrap: wrap; gap: var(--laara-space-2); margin-top: var(--laara-space-4); }
-.founder-story-body h2 { margin: 0 0 var(--laara-space-6); }
-.founder-story-body p { max-width: var(--laara-measure); }
-.founder-story-callout {
-  font-weight: var(--laara-fw-bold);
+/* No position: sticky on the media column, unlike the version of this
+   section it replaces. Measured at 1440px the two columns now come out at
+   693px and 557px, and at 1024px at 557px and 615px — there is no height
+   difference left for a sticky photo to travel through, so it would be a
+   scroll effect that never visibly does anything.
+
+   Related, if it is ever reintroduced: the credential band is a SIBLING of
+   .founder-grid, not a full-width row inside it. A sticky grid item is
+   confined by the grid container's content box rather than by its own grid
+   area, so with the band inside the grid a sticky photo travels down over
+   the cards. And sticky would have to sit on .founder-media, never on
+   .founder-portrait-frame — the frame carries .reveal-zoom's scale, and a
+   transform on a sticky box makes it its own containing block, which
+   silently kills the stickiness. */
+@media (min-width: 1024px) {
+  .founder-grid { column-gap: var(--laara-space-16); }
+}
+
+/* ---------- Portrait ---------- */
+.founder-portrait { position: relative; }
+.founder-portrait-frame {
+  /* 4/5 is exactly the source file's 640x800, so object-fit: cover crops
+     nothing — and the ratio reserves the full box before the image
+     arrives, so neither the lazy load nor the reveal shifts the page. */
+  aspect-ratio: 4 / 5;
+  border-radius: var(--laara-radius-lg);
+  border: 1.5px solid var(--laara-border);
+  overflow: hidden;
+  box-shadow: var(--laara-shadow);
+  background: var(--laara-surface);
+}
+.founder-portrait-frame picture { display: block; height: 100%; }
+.founder-portrait-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+.founder-portrait-badge {
+  position: absolute;
+  left: var(--laara-space-4);
+  bottom: var(--laara-space-4);
+  /* Never wider than the frame it sits in, down to 320px. */
+  max-width: calc(100% - var(--laara-space-8));
+  margin: 0;
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--laara-space-2);
+  padding: var(--laara-space-2) var(--laara-space-4);
+  border-radius: var(--laara-radius);
+  background: var(--laara-white);
+  border: 1.5px solid var(--laara-border);
+  box-shadow: var(--laara-shadow-sm);
   color: var(--laara-text);
-  margin: var(--laara-space-6) 0 0;
-  padding-left: var(--laara-space-5);
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-bold);
+  line-height: 1.2;
+}
+.founder-portrait-badge-num {
+  color: var(--laara-green-text);   /* 4.75:1 on the white chip — never --laara-green */
+  font-size: var(--laara-fs-body-lg);
+  font-weight: var(--laara-fw-black);
+  line-height: 1;
+}
+
+/* ---------- Identity row ----------
+   Three lines rather than one wrapping row: at 320px the role and the
+   location cannot share a line, and a separator stranded at the end of a
+   wrapped line reads as a mistake. */
+.founder-identity { margin-top: var(--laara-space-5); }
+.founder-identity-name {
+  margin: 0;
+  font-size: var(--laara-fs-h3);
+  font-weight: var(--laara-fw-black);
+  line-height: var(--laara-lh-tight);
+  letter-spacing: -0.01em;
+}
+/* The brand's green full stop, set as the name's terminating mark. */
+.founder-identity-name .laara-dot { margin-left: 0.14em; }
+.founder-identity-role,
+.founder-identity-place {
+  margin: var(--laara-space-1) 0 0;
+  color: var(--laara-text-secondary);
+  font-size: var(--laara-fs-body);
+  line-height: var(--laara-lh-tight);
+}
+.founder-identity-place {
+  display: flex;
+  align-items: center;
+  gap: var(--laara-space-2);
+}
+.founder-identity-place svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+/* ---------- Story column ---------- */
+/* --laara-muted-grey is 3.25:1 and documented large-text-only, but
+   .laara-label renders at 14px. Scoped to this section only — the token
+   itself is a brand value with an open decision against it (see
+   docs/BUILD-PROMPT.md Decision 5), so it is not edited here. */
+.founder .laara-label { color: var(--laara-text-secondary); }
+.founder-body > h2 { margin: 0 0 var(--laara-space-4); }
+.founder-lede {
+  margin: 0 0 var(--laara-space-6);
+  font-size: var(--laara-fs-body-lg);
+  color: var(--laara-text-secondary);
+}
+.founder-copy { margin: 0 0 var(--laara-space-5); }
+.founder-copy:last-of-type { margin-bottom: 0; }
+
+.founder-quote {
+  margin: var(--laara-space-8) 0 0;
+  padding-left: var(--laara-space-6);
   border-left: 3px solid var(--laara-green);
+}
+.founder-quote p {
+  margin: 0;
+  max-width: 34rem;
+  font-size: var(--laara-fs-h3);
+  font-weight: var(--laara-fw-bold);
+  line-height: var(--laara-lh-tight);
+  color: var(--laara-text);
+}
+
+/* ---------- Credential band ---------- */
+.founder-creds-band {
+  margin-top: var(--laara-space-12);
+  padding-top: var(--laara-space-10);
+  border-top: 1.5px solid var(--laara-border);
+}
+.founder-creds-title { margin: 0 0 var(--laara-space-6); }
+.founder-creds {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--laara-space-4);
+}
+@media (min-width: 560px) {
+  .founder-creds { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .founder-creds { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--laara-space-5); }
+}
+
+/* Overrides .laara-card's own padding/flex-direction — same specificity
+   (0,1,0), later in the file, so source order decides. */
+.founder-cred {
+  padding: var(--laara-space-5);
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--laara-space-4);
+}
+.founder-cred .laara-dot { flex-shrink: 0; }
+
+/* The -2px hover lift, its reduced-motion path and the touch tap state all
+   come from .glow-card. That rule needs its doubled .glow-card.glow-card
+   selector to beat .reveal.is-visible — see the note above the .glow-card
+   block; these cards are .reveal too, so it applies here. */
+.founder-cred-text { display: flex; flex-direction: column; gap: var(--laara-space-1); min-width: 0; }
+.founder-cred-term {
+  font-size: var(--laara-fs-body-lg);
+  font-weight: var(--laara-fw-black);
+  line-height: var(--laara-lh-tight);
+  letter-spacing: -0.01em;
+  color: var(--laara-text);
+}
+.founder-cred-desc {
+  font-size: var(--laara-fs-body);
+  line-height: var(--laara-lh-body);
+  color: var(--laara-text-secondary);   /* 4.71:1 on the card's white */
+}
+@media (min-width: 1024px) {
+  /* Icon above the text once four cards share the row — there is height
+     to spend and no width to waste on a side-by-side icon. */
+  .founder-cred { flex-direction: column; padding: var(--laara-space-6); }
+  /* Two of the four terms wrap at this column width. Reserving two lines
+     on all four keeps every description on the same baseline instead of
+     stepping across the row. */
+  .founder-cred-term { min-height: calc(2em * var(--laara-lh-tight)); }
+}
+
+.founder-cta { margin-top: var(--laara-space-10); }
+/* Matches the .final-cta-actions treatment at the same width. */
+@media (max-width: 480px) {
+  .founder-cta .laara-btn { width: 100%; }
 }
 
 /* ---------- What we believe: alternating manifesto list ---------- */
@@ -3764,45 +4000,37 @@ img { max-width: 100%; display: block; }
   .about-compare-arrow { display: block; color: var(--laara-green); font-size: var(--laara-fs-h3); }
 }
 
-/* ---------- Who we work with: scroll-snap sector strip on mobile/tablet,
-   static wrapped row on desktop (no drag affordance needed for 6 links) ---------- */
-.about-sectors {
-  display: flex;
-  gap: var(--laara-space-5);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: var(--laara-page-x);
-  padding-inline: var(--laara-page-x);
-  padding-block: var(--laara-space-2) var(--laara-space-4);
-  scrollbar-width: none;
-}
-.about-sectors::-webkit-scrollbar { display: none; }
-.about-sector-tile {
-  scroll-snap-align: start;
-  flex: 0 0 74%;
-  background: var(--laara-white);
-  border: 1.5px solid var(--laara-border);
-  border-radius: var(--laara-radius-card);
-  padding: var(--laara-space-6);
-  text-decoration: none;
-  color: inherit;
-  transition: transform var(--laara-dur-micro) var(--laara-ease-out),
-              box-shadow var(--laara-dur-micro) var(--laara-ease-out),
-              border-color var(--laara-dur-micro) var(--laara-ease-in-out);
-}
-.about-sector-tile:hover, .about-sector-tile:focus-visible {
-  border-color: var(--laara-ink);
+/* ============================================================
+   Sticky mobile CTA — persistent call/WhatsApp bar
+   Mobile-only, mirrors the header's own hamburger breakpoint
+   (900px) rather than a separate cutoff. Opt out per page with
+   body[data-no-sticky-cta] — used on Contact, where the form is
+   already the page's CTA, and Thank-you, which is post-conversion.
+   ============================================================ */
+.sticky-mobile-cta {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 55;
+  gap: var(--laara-space-3);
+  padding: var(--laara-space-3) var(--laara-space-4);
+  padding-bottom: calc(var(--laara-space-3) + env(safe-area-inset-bottom));
+  background: var(--laara-bg-alt);
+  border-top: 1.5px solid var(--laara-border);
   box-shadow: var(--laara-shadow-lg);
-  transform: translateY(-4px);
 }
-.about-sector-tile:focus-visible { outline: 2px solid var(--laara-ink); outline-offset: 2px; }
-.about-sector-tile-name { display: block; font-weight: var(--laara-fw-black); font-size: var(--laara-fs-h3); margin-bottom: var(--laara-space-2); }
-.about-sector-tile-pitch { display: block; color: var(--laara-text-secondary); font-size: var(--laara-fs-body); }
-@media (min-width: 640px) { .about-sector-tile { flex-basis: 46%; } }
-@media (min-width: 1024px) {
-  .about-sectors { scroll-snap-type: none; overflow-x: visible; flex-wrap: wrap; }
-  .about-sector-tile { flex-basis: calc(33.333% - var(--laara-space-5) * 2 / 3); }
+.sticky-mobile-cta-btn { flex: 1; gap: var(--laara-space-2); }
+.sticky-mobile-cta-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+@media (max-width: 899px) {
+  .sticky-mobile-cta { display: flex; }
+  body[data-no-sticky-cta] .sticky-mobile-cta { display: none; }
+  /* Reserve room at the foot of the page so the fixed bar never ends up
+     sitting over the last line of the footer once someone scrolls down. */
+  body:not([data-no-sticky-cta]) .site-footer {
+    padding-bottom: calc(var(--laara-space-16) + env(safe-area-inset-bottom));
+  }
 }
-@media (prefers-reduced-motion: reduce) {
-  .about-sectors { scroll-behavior: auto; }
-}
+

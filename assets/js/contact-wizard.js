@@ -688,16 +688,6 @@
     }
   }
 
-  function showSuccess(container, name) {
-    const form = container.querySelector('form');
-    const success = container.querySelector('.wizard-success');
-    if (form) form.hidden = true;
-    if (success) {
-      success.querySelector('[data-success-name]').textContent = name || 'there';
-      success.hidden = false;
-    }
-  }
-
   function bindQuoteSubmit() {
     if (!quoteForm) return;
     quoteForm.addEventListener('submit', async (e) => {
@@ -710,7 +700,7 @@
       const ok = await submitToWeb3Forms(buildQuotePayload(), quoteForm);
       if (ok) {
         sessionStorage.removeItem(STORAGE_KEY);
-        showSuccess(document.querySelector('.quote-wizard'), state.firstName);
+        window.location.href = '/thank-you.html?type=quote&name=' + encodeURIComponent(state.firstName || '');
       }
     });
   }
@@ -736,7 +726,10 @@
         Object.fromEntries(new FormData(form))
       );
       const ok = await submitToWeb3Forms(payload, form);
-      if (ok) showSuccess(form.closest('.enquiry-form-card'), nameEl.value.trim().split(' ')[0]);
+      if (ok) {
+        const firstName = nameEl.value.trim().split(' ')[0];
+        window.location.href = '/thank-you.html?type=enquiry&name=' + encodeURIComponent(firstName || '');
+      }
     });
   }
 

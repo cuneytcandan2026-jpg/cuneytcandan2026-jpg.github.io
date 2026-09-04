@@ -78,11 +78,29 @@
     "givenName": "Cuneyt",
     "familyName": "Candan",
     "jobTitle": "Founder",
-    "description": "Founder of Laara Digital, with 11+ years in CRM and customer marketing before starting the studio.",
+    "description": "Founder of Laara Digital. 11+ years leading CRM and customer marketing for B2C businesses before starting the studio, now applied to every website Laara Digital builds.",
     "url": "https://laaradigital.co.uk/about.html",
     "image": "https://laaradigital.co.uk/assets/img/founder-cuneyt-candan.jpg",
     "worksFor": {
       "@id": "https://laaradigital.co.uk/#organization"
+    },
+    "knowsAbout": [
+      "CRM",
+      "Customer marketing",
+      "Customer journeys",
+      "Segmentation",
+      "Marketing automation",
+      "Conversion",
+      "Analytics"
+    ],
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "University of Greenwich"
+    },
+    "hasCredential": {
+      "@type": "EducationalOccupationalCredential",
+      "name": "IDM Professional Diploma in Digital Marketing",
+      "credentialCategory": "Professional Diploma"
     },
     "homeLocation": {
       "@type": "Place",
@@ -190,28 +208,115 @@
       </div>
     </section>
 
-    <!-- FOUNDER -->
-    <section class="laara-section">
-      <div class="laara-container founder-story-grid">
-        <div class="founder-story-media">
-          <div class="founder-story-frame reveal-zoom">
-            <picture>
-              <source type="image/webp" srcset="/assets/img/founder-cuneyt-candan.webp" />
-              <img src="/assets/img/founder-cuneyt-candan.jpg" alt="Cuneyt Candan, founder of Laara Digital" width="640" height="800" loading="lazy" decoding="async" />
-            </picture>
+    <!-- MEET THE FOUNDER -->
+    <section class="laara-section founder" aria-labelledby="founder-heading">
+      <div class="laara-container">
+        <div class="founder-grid">
+
+          <!-- Left: portrait + identity -->
+          <div class="founder-media">
+            <!-- Two nodes on purpose, the same split .why-laara-visual/-frame
+                 uses on index.html: the OUTER .founder-portrait is the
+                 positioning context for the badge and carries no transform,
+                 the INNER -frame carries the box and the .reveal-zoom
+                 entrance scale. Keeping the badge out of the scaling element
+                 stops its text shearing while the photo settles. -->
+            <div class="founder-portrait">
+              <div class="founder-portrait-frame reveal-zoom">
+                <picture>
+                  <source type="image/webp" srcset="/assets/img/founder-cuneyt-candan.webp" />
+                  <!-- The frame's aspect-ratio is 4/5, exactly the source's
+                       640x800, so object-fit: cover crops nothing. The pair
+                       also reserves the box before the file lands — no shift. -->
+                  <img src="/assets/img/founder-cuneyt-candan.jpg" alt="Cuneyt Candan, founder of Laara Digital, at his desk" width="640" height="800" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+              <p class="founder-portrait-badge reveal"><span class="founder-portrait-badge-num">11+</span> years&rsquo; experience</p>
+            </div>
+
+            <div class="founder-identity reveal">
+              <p class="founder-identity-name">Cuneyt Candan<span class="laara-dot" aria-hidden="true"></span></p>
+              <p class="founder-identity-role">Founder, Laara Digital</p>
+              <p class="founder-identity-place">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                London
+              </p>
+            </div>
           </div>
-          <div class="founder-story-tags">
-            <span class="tag-pill">Cuneyt Candan</span>
-            <span class="tag-pill">Founder, Laara Digital</span>
-            <span class="tag-pill">London</span>
+
+          <!-- Right: the story -->
+          <div class="founder-body">
+            <p class="laara-label section-eyebrow reveal">Meet the founder</p>
+            <h2 id="founder-heading" class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">11+ years turning customer insight into business growth.</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
+            <p class="founder-lede reveal-support">Now I bring that commercial thinking to every website Laara Digital creates.</p>
+            <p class="founder-copy reveal">Hi, I&rsquo;m Cuneyt. Before founding Laara Digital, I led CRM and customer marketing for B2C businesses, using data, customer journeys, segmentation and automation to improve engagement, conversion and retention.</p>
+            <p class="founder-copy reveal">That experience shapes how I approach websites today. I look beyond colour and layout to understand what your customers need to see, trust and do next. From our first conversation through launch and ongoing support, you work directly with me.</p>
+            <blockquote class="founder-quote reveal">
+              <p>A good website should not only look professional. It should make the next step obvious and help the business grow.</p>
+            </blockquote>
           </div>
         </div>
-        <div class="founder-story-body">
-          <p class="laara-label section-eyebrow reveal">Meet the founder</p>
-          <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">11+ years in CRM and customer marketing, before founding Laara Digital.</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-          <p class="reveal">Cuneyt spent that time helping businesses understand and grow their customer base. That means he doesn&rsquo;t just design websites, he thinks about how they turn visitors into customers.</p>
-          <p class="reveal">Laara Digital is built the way he wished agencies worked for the businesses he used to help: fast, honest, fixed pricing, and someone who explains every step in plain English, and sticks around afterwards.</p>
-          <p class="founder-story-callout reveal">No brief goes through anyone else. If you email Laara Digital, you&rsquo;re emailing Cuneyt.</p>
+
+        <!-- Full-width band: credentials, then the section's single CTA.
+             Its own hairline is the separation between the biography above
+             and the trust signals below. -->
+        <div class="founder-creds-band">
+          <h3 class="laara-label founder-creds-title" id="founder-creds-title">Background and qualifications</h3>
+          <ul class="founder-creds" aria-labelledby="founder-creds-title">
+            <li class="laara-card glow-card founder-cred reveal">
+              <span class="laara-dot" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path class="icon-clock-hand" d="M12 6v6l4 2"/>
+                </svg>
+              </span>
+              <span class="founder-cred-text">
+                <span class="founder-cred-term">11+ years</span>
+                <span class="founder-cred-desc">CRM &amp; customer marketing</span>
+              </span>
+            </li>
+            <li class="laara-card glow-card founder-cred reveal">
+              <span class="laara-dot" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                  <path d="M22 20v-1.5a3.5 3.5 0 0 0-2.6-3.4"/>
+                </svg>
+              </span>
+              <span class="founder-cred-text">
+                <span class="founder-cred-term">Senior leadership</span>
+                <span class="founder-cred-desc">Former Head of CRM &amp; Customer Marketing</span>
+              </span>
+            </li>
+            <li class="laara-card glow-card founder-cred reveal">
+              <span class="laara-dot" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 8.5 12 4l10 4.5-10 4.5L2 8.5z"/>
+                  <path d="M6 10.5V16c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5v-5.5"/>
+                  <path d="M21 9v5"/>
+                </svg>
+              </span>
+              <span class="founder-cred-text">
+                <span class="founder-cred-term">University of Greenwich</span>
+                <span class="founder-cred-desc">Business Information Systems</span>
+              </span>
+            </li>
+            <li class="laara-card glow-card founder-cred reveal">
+              <span class="laara-dot" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="9" r="6"/>
+                  <path d="M8.5 14.2 7 22l5-2.6L17 22l-1.5-7.8"/>
+                </svg>
+              </span>
+              <span class="founder-cred-text">
+                <span class="founder-cred-term">IDM qualified</span>
+                <span class="founder-cred-desc">Professional Diploma in Digital Marketing</span>
+              </span>
+            </li>
+          </ul>
+          <div class="founder-cta reveal">
+            <a class="laara-btn laara-btn--primary" href="/contact.html">Start a project</a>
+          </div>
         </div>
       </div>
     </section>
@@ -284,39 +389,90 @@
     </section>
 
     <!-- WHO WE WORK WITH -->
-    <section class="laara-section">
+    <section class="laara-section" aria-labelledby="sectors-heading">
       <div class="laara-container">
         <div class="section-head">
           <p class="laara-label section-eyebrow reveal">Who we work with</p>
-          <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Six sectors, one focus</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
+          <h2 id="sectors-heading" class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Six sectors, one focus</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
+          <p class="reveal-support">Different trades, same job: be easy to find, and easy to book.</p>
         </div>
-      </div>
 
-      <div class="about-sectors reveal" role="region" aria-label="Sectors we work with">
-        <a class="about-sector-tile" href="/sectors/trades.html">
-          <span class="about-sector-tile-name">Trades</span>
-          <span class="about-sector-tile-pitch">Get found on Google. Bring in more enquiries.</span>
-        </a>
-        <a class="about-sector-tile" href="/sectors/hair-beauty.html">
-          <span class="about-sector-tile-name">Hair &amp; beauty</span>
-          <span class="about-sector-tile-pitch">Professional online booking. Attract new clients.</span>
-        </a>
-        <a class="about-sector-tile" href="/sectors/food.html">
-          <span class="about-sector-tile-name">Food</span>
-          <span class="about-sector-tile-pitch">Online menu, easy reservations. Fill tables faster.</span>
-        </a>
-        <a class="about-sector-tile" href="/sectors/cleaning-removals.html">
-          <span class="about-sector-tile-name">Cleaning &amp; removals</span>
-          <span class="about-sector-tile-pitch">A website that works, backed by support that doesn&rsquo;t disappear after launch.</span>
-        </a>
-        <a class="about-sector-tile" href="/sectors/fitness.html">
-          <span class="about-sector-tile-name">Fitness</span>
-          <span class="about-sector-tile-pitch">A site that converts. Sign up more members.</span>
-        </a>
-        <a class="about-sector-tile" href="/sectors/garages-mot.html">
-          <span class="about-sector-tile-name">Garages &amp; MOT</span>
-          <span class="about-sector-tile-pitch">A website that works, backed by support that doesn&rsquo;t disappear after launch.</span>
-        </a>
+        <div class="card-grid card-grid--3">
+          <a class="laara-card sector-card glow-card reveal" href="/sectors/trades.html">
+            <span class="laara-dot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+              </svg>
+            </span>
+            <h3>Trades</h3>
+            <p>Get found on Google. Bring in more enquiries.</p>
+            <p class="sector-card-who">Plumbers, electricians, builders, roofers</p>
+            <span class="card-link">Learn more →</span>
+          </a>
+          <a class="laara-card sector-card glow-card reveal" href="/sectors/hair-beauty.html">
+            <span class="laara-dot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="6" cy="6" r="3"/>
+                <circle cx="6" cy="18" r="3"/>
+                <path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/>
+              </svg>
+            </span>
+            <h3>Hair &amp; beauty</h3>
+            <p>Professional online booking. Attract new clients.</p>
+            <p class="sector-card-who">Barbers, hairdressers, salons, nail technicians</p>
+            <span class="card-link">Learn more →</span>
+          </a>
+          <a class="laara-card sector-card glow-card reveal" href="/sectors/food.html">
+            <span class="laara-dot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                <line x1="6" y1="1" x2="6" y2="4"/>
+                <line x1="10" y1="1" x2="10" y2="4"/>
+                <line x1="14" y1="1" x2="14" y2="4"/>
+              </svg>
+            </span>
+            <h3>Food</h3>
+            <p>Online menu, easy reservations. Fill tables faster.</p>
+            <p class="sector-card-who">Restaurants, caf&eacute;s, takeaways</p>
+            <span class="card-link">Learn more →</span>
+          </a>
+          <a class="laara-card sector-card glow-card reveal" href="/sectors/cleaning-removals.html">
+            <span class="laara-dot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3l18 18M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M21 15v4a2 2 0 0 1-2 2h-4M9 21H5a2 2 0 0 1-2-2v-4"/>
+              </svg>
+            </span>
+            <h3>Cleaning &amp; removals</h3>
+            <p>Get found locally. Make requesting a quote easy.</p>
+            <p class="sector-card-who">Cleaning companies, removal firms</p>
+            <span class="card-link">Learn more →</span>
+          </a>
+          <a class="laara-card sector-card glow-card reveal" href="/sectors/fitness.html">
+            <span class="laara-dot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6.5 6.5v11M17.5 6.5v11M2 9.5v5M22 9.5v5M6.5 12h11"/>
+              </svg>
+            </span>
+            <h3>Fitness</h3>
+            <p>A site that converts. Sign up more members.</p>
+            <p class="sector-card-who">Gyms, personal trainers, studios</p>
+            <span class="card-link">Learn more →</span>
+          </a>
+          <a class="laara-card sector-card glow-card reveal" href="/sectors/garages-mot.html">
+            <span class="laara-dot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 17h14M5 17a2 2 0 0 1-2-2v-2l2-5h10l2 5v2a2 2 0 0 1-2 2M5 17v2M19 17v2"/>
+                <circle cx="7.5" cy="14.5" r="1"/>
+                <circle cx="16.5" cy="14.5" r="1"/>
+              </svg>
+            </span>
+            <h3>Garages &amp; MOT</h3>
+            <p>Show up for MOT searches nearby. Take bookings online.</p>
+            <p class="sector-card-who">Garages, MOT testing centres</p>
+            <span class="card-link">Learn more →</span>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -379,6 +535,17 @@
       </div>
     </div>
   </footer>
+
+  <div class="sticky-mobile-cta" aria-label="Quick contact">
+    <a class="laara-btn laara-btn--secondary sticky-mobile-cta-btn" href="tel:+447896352996">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Call
+    </a>
+    <a class="laara-btn laara-btn--primary sticky-mobile-cta-btn" href="https://wa.me/447896352996" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      WhatsApp
+    </a>
+  </div>
 
   <script src="/assets/js/fluid-hero.js" defer></script>
   <script src="/assets/js/main.js" defer></script>

@@ -36,6 +36,8 @@ _qa_sweep.mjs
 _verify_heroes.mjs
 _verify_nav_dropdown.mjs
 _verify_work_scrub.mjs
+_founder_shots.mjs
+_sector_shots.mjs
 generate-image.mjs
 
 # Node manifests — nothing on a static Pages deploy consumes these,
