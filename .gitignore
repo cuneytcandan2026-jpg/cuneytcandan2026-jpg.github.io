@@ -31,7 +31,11 @@ docs/
 Insparation/
 brand/laara-brand-tokens.json
 
-# Dev-only scripts. generate-image.mjs reads the OpenAI key from .env.
+# Dev-only scripts, moved into scripts/ to declutter the root (2026-09-05).
+# Bare filenames below still match at any depth, so this covers scripts/*.
+# generate-image.mjs reads the OpenAI key from .env — still found via
+# dotenv's default process.cwd() lookup regardless of the script's own path,
+# as long as it's invoked from the repo root (see package.json).
 _qa_sweep.mjs
 _verify_heroes.mjs
 _verify_nav_dropdown.mjs
@@ -39,6 +43,9 @@ _verify_work_scrub.mjs
 _founder_shots.mjs
 _sector_shots.mjs
 generate-image.mjs
+
+# Cuneyt's own motion/interaction reference recordings, moved into
+# reference-videos/ (2026-09-05). *.mp4 above already matches at any depth.
 
 # Node manifests — nothing on a static Pages deploy consumes these,
 # and they advertise the toolchain and its versions.
