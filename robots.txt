@@ -1,55 +1,22 @@
-# ==========================================================
-# PRE-LAUNCH STAGING — the whole site is blocked from crawling.
-#
-# laaradigital.co.uk is not connected yet, so the site is served
-# from cuneytcandan2026-jpg.github.io while every canonical, og:url
-# and sitemap <loc> already points at the future production domain.
-# Letting crawlers in would mean indexing the github.io copy against
-# a canonical that doesn't resolve. So: block everything for now.
-#
-# Every page also carries <meta name="robots" content="noindex,nofollow">.
-# That meta is what actually keeps pages out of the index — a Disallow
-# only stops the crawl, and a URL blocked here can still be indexed
-# from an external link. The two work together; keep both until go-live.
-#
-# The Sitemap: line is deliberately removed while Disallow: / is in
-# force — advertising a sitemap you've told crawlers not to fetch is
-# a contradictory signal.
-#
-# GO-LIVE CHECKLIST — do all of this in one pass, and only once the
-# custom domain resolves and "Enforce HTTPS" is green:
-#   1. delete the Disallow: / rule below
-#   2. restore the production rules preserved in the block underneath
-#   3. restore  Sitemap: https://laaradigital.co.uk/sitemap.xml
-#   4. remove the noindex meta from all 16 pages + 404.html
-# ==========================================================
+# Live on laaradigital.co.uk since 2026-09-05 (custom domain resolved,
+# HTTPS enforced). Pre-launch staging block removed — see git history
+# for the noindex/Disallow-all version this replaced.
 
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /docs/
+Disallow: /Insparation/
+Disallow: /scripts/
+Disallow: /reference-videos/
+Disallow: /screenshot.mjs
+Disallow: /serve.mjs
+Disallow: /package.json
+Disallow: /package-lock.json
 
+Sitemap: https://laaradigital.co.uk/sitemap.xml
 
-# ----------------------------------------------------------
-# PRODUCTION RULES — preserved verbatim for go-live. Restore
-# these in place of the Disallow: / above. Do not delete.
-# ----------------------------------------------------------
-# User-agent: *
-# Allow: /
-# Disallow: /docs/
-# Disallow: /Insparation/
-# Disallow: /_qa_sweep.mjs
-# Disallow: /_verify_heroes.mjs
-# Disallow: /_verify_nav_dropdown.mjs
-# Disallow: /_verify_work_scrub.mjs
-# Disallow: /generate-image.mjs
-# Disallow: /screenshot.mjs
-# Disallow: /serve.mjs
-# Disallow: /package.json
-# Disallow: /package-lock.json
-#
-# Sitemap: https://laaradigital.co.uk/sitemap.xml
-#
-# NOTE: most of the paths above are no longer on the deploy branch at
-# all (docs/, Insparation/, CLAUDE.md, package*.json and the dev .mjs
-# scripts were removed from git tracking in the same commit that added
-# this file's staging block — they live on disk only). Keep the rules
-# anyway as defence in depth in case anything is ever re-tracked.
+# NOTE: docs/, Insparation/, scripts/, reference-videos/, package.json and
+# package-lock.json are not on the deploy branch at all (untracked, kept
+# on disk only). Keep the rules anyway as defence in depth in case
+# anything is ever re-tracked. screenshot.mjs and serve.mjs ARE deployed
+# (deliberately tracked — see CLAUDE.md) so their entries are load-bearing.
