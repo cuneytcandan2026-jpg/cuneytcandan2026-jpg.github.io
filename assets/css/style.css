@@ -2710,23 +2710,104 @@ img { max-width: 100%; display: block; }
 .site-footer {
   background: var(--laara-bg-inverse);
   color: var(--laara-text-inverse);
-  padding-block: var(--laara-space-16) var(--laara-space-8);
+  padding-block: var(--laara-space-12) var(--laara-space-8);
 }
+
+/* The footer sets `background` directly rather than carrying `.laara-inverse`,
+   so the on-dark safety overrides at the top of this file (`.laara-inverse a`,
+   `.laara-inverse :focus-visible`) never reach it. Re-point focus here the same
+   way `.consent-banner` does — otherwise the outline is ink-on-ink and invisible. */
+.site-footer :focus-visible { outline-color: var(--laara-focus-ring-dark); }
+
+/* ---- CTA strip: deliberately smaller and quieter than the page's .final-cta,
+   which already sits directly above the footer on most routes. No display type,
+   no reveal sweep, footer-tight spacing — a closing nudge, not a second hero. */
+.footer-cta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--laara-space-4);
+  padding-bottom: var(--laara-space-10);
+  margin-bottom: var(--laara-space-10);
+  border-bottom: 1px solid rgb(var(--laara-paper-rgb) / 0.15);
+}
+.footer-cta h2 { font-size: var(--laara-fs-h3); margin: 0; }
+.footer-cta p {
+  color: var(--laara-on-dark-muted);
+  font-size: var(--laara-fs-body);
+  margin: var(--laara-space-2) 0 0;
+  max-width: 40ch;
+}
+.footer-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--laara-space-3) var(--laara-space-5);
+}
+.footer-cta-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--laara-touch-min);
+  color: var(--laara-text-inverse);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.footer-cta-link:hover,
+.footer-cta-link:focus-visible { color: var(--laara-link-on-dark); }
+/* On a narrow phone the primary button takes its own row so "Call us" and
+   "WhatsApp us" sit together on the next line rather than one wrapping alone. */
+@media (max-width: 479px) {
+  .footer-cta-actions .laara-btn--primary { flex-basis: 100%; }
+}
+@media (min-width: 780px) {
+  .footer-cta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--laara-space-8);
+  }
+  .footer-cta p { margin-top: var(--laara-space-1); }
+}
+
+/* ---- grid ---- */
 .footer-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--laara-space-8);
-  margin-bottom: var(--laara-space-12);
+  margin-bottom: var(--laara-space-10);
+}
+/* .footer-nav is a semantic <nav> landmark only; display:contents lets its three
+   columns sit directly on .footer-grid's tracks. */
+.footer-nav { display: contents; }
+@media (min-width: 480px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-brand { grid-column: 1 / -1; }
 }
 @media (min-width: 780px) {
   .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; }
+  .footer-brand { grid-column: auto; }
 }
-.footer-brand p { color: var(--laara-on-dark-muted); margin: var(--laara-space-4) 0 0; max-width: 28rem; }
+
+/* ---- brand column ---- */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--laara-space-4);
+  align-items: flex-start;
+}
+.footer-brand-logo {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--laara-touch-min);
+  color: var(--laara-text-inverse);  /* the logo link holds no text, but keep the
+                                        on-light green off every footer element */
+}
+.footer-brand p { color: var(--laara-on-dark-muted); margin: 0; max-width: 28rem; }
+
 .footer-status {
   display: inline-flex;
   align-items: center;
   gap: var(--laara-space-2);
-  margin-top: var(--laara-space-5);
+  margin-top: var(--laara-space-1);
   padding: var(--laara-space-2) var(--laara-space-4);
   border-radius: 999px;
   border: 1.5px solid rgb(var(--laara-paper-rgb) / 0.16);
@@ -2736,10 +2817,12 @@ img { max-width: 100%; display: block; }
 }
 /* The availability dot's pulse runs infinitely in the footer of every page.
    It used to animate box-shadow, which is a paint-and-composite property:
-   the browser repainted the dot every frame, forever, on all 17 routes.
+   the browser repainted the dot every frame, forever, on every route.
    Now the ring is a pseudo-element and only transform + opacity animate,
    both of which run on the compositor and cost no repaint. Visually the
-   same expanding ring; the difference is only in what it costs to draw. */
+   same expanding ring; the difference is only in what it costs to draw.
+   The literal 2.4s / ease-in-out are a deliberate Phase 7 decision — a
+   matching duration token would not name this timing truthfully. */
 .footer-status-dot {
   position: relative;
   width: 8px;
@@ -2763,25 +2846,110 @@ img { max-width: 100%; display: block; }
   0%, 100% { transform: scale(1); opacity: 1; }
   50% { transform: scale(2); opacity: 0; }
 }
+
+/* ---- social row: the markup ships commented out in every page until real
+   profile URLs are confirmed, so these rules are inert until then. ---- */
+.footer-social {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--laara-space-2);
+  padding: 0;
+  margin: 0;
+}
+.footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--laara-touch-min);
+  height: var(--laara-touch-min);
+  border-radius: var(--laara-radius);
+  color: var(--laara-on-dark-muted);
+  transition: color var(--laara-dur-micro) var(--laara-ease-out),
+              background var(--laara-dur-micro) var(--laara-ease-out);
+}
+.footer-social a:hover,
+.footer-social a:focus-visible {
+  color: var(--laara-link-on-dark);
+  background: rgb(var(--laara-paper-rgb) / 0.06);
+}
+/* Literal px matches the .sticky-mobile-cta-btn svg precedent — there is no
+   icon-glyph size token. */
+.footer-social svg { width: 20px; height: 20px; }
+
+/* ---- link columns ---- */
 .footer-col h3 {
   font-size: var(--laara-fs-small);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--laara-on-dark-subtle);
-  margin: 0 0 var(--laara-space-4);
+  margin: 0 0 var(--laara-space-3);
 }
 .footer-col ul { list-style: none; padding: 0; margin: 0; }
-.footer-col li { margin-bottom: var(--laara-space-3); }
-.footer-col a { text-decoration: none; color: var(--laara-link-on-dark); }
+.footer-col li { margin-bottom: var(--laara-space-1); }
+/* Nav links rest in paper — a whole column of brand green read as shouty and
+   cheap. Green is the hover/focus accent now, with an underline as the
+   non-colour cue (WCAG 1.4.1). */
+.footer-col a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--laara-touch-min);
+  padding-block: var(--laara-space-1);
+  color: var(--laara-text-inverse);
+  text-decoration: none;
+  transition: color var(--laara-dur-micro) var(--laara-ease-out),
+              transform var(--laara-dur-micro) var(--laara-ease-out);
+}
+.footer-col a:hover,
+.footer-col a:focus-visible {
+  color: var(--laara-link-on-dark);
+  transform: translateX(var(--laara-space-1));
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+@media (prefers-reduced-motion: reduce) {
+  .footer-col a { transition: none; }
+  .footer-col a:hover,
+  .footer-col a:focus-visible { transform: none; }
+}
+
+/* ---- bottom bar ---- */
 .footer-bottom {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--laara-space-4);
-  justify-content: space-between;
+  align-items: center;
+  gap: var(--laara-space-3) var(--laara-space-5);
   border-top: 1px solid rgb(var(--laara-paper-rgb) / 0.15);
   padding-top: var(--laara-space-6);
   font-size: var(--laara-fs-small);
   color: var(--laara-on-dark-subtle);
+}
+.footer-company {
+  flex-basis: 100%;
+  font-style: normal;
+  color: var(--laara-on-dark-subtle);
+}
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--laara-space-3) var(--laara-space-5);
+}
+/* Rest in paper, not the on-light green token (`--laara-link` = #0D7F4A) that
+   used to bleed in here and failed AA on ink at ~3.9:1. */
+.footer-bottom a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--laara-touch-min);
+  color: var(--laara-text-inverse);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.footer-bottom a:hover,
+.footer-bottom a:focus-visible { color: var(--laara-link-on-dark); }
+.footer-backtotop { margin-left: auto; }
+@media (max-width: 479px) {
+  .footer-backtotop { margin-left: 0; }
 }
 
 /* ============================================================
@@ -4027,9 +4195,12 @@ img { max-width: 100%; display: block; }
   .sticky-mobile-cta { display: flex; }
   body[data-no-sticky-cta] .sticky-mobile-cta { display: none; }
   /* Reserve room at the foot of the page so the fixed bar never ends up
-     sitting over the last line of the footer once someone scrolls down. */
+     sitting over the last line of the footer once someone scrolls down.
+     --laara-space-24, not -16: the redesigned footer adds the company line
+     and "Back to top" below the legal row, so the last line sits lower and
+     the old 64px reserve left it touching the sticky bar. */
   body:not([data-no-sticky-cta]) .site-footer {
-    padding-bottom: calc(var(--laara-space-16) + env(safe-area-inset-bottom));
+    padding-bottom: calc(var(--laara-space-24) + env(safe-area-inset-bottom));
   }
 }
 
@@ -4129,17 +4300,27 @@ img { max-width: 100%; display: block; }
 
 /* Footer "Cookie settings" trigger — visually matches the adjacent
    "Privacy policy" link. Hidden with no JS, since it can do nothing then
-   (same reveal-gate pattern as the rest of the site's JS-only affordances). */
+   (same reveal-gate pattern as the rest of the site's JS-only affordances).
+   Colour is the on-dark link, not `--laara-link` (#0D7F4A) — that on-light
+   green fails AA at ~3.9:1 on the ink footer. This rule keeps sole ownership
+   of the button's reset and visibility; the FOOTER section styles the shared
+   `.footer-bottom a` siblings but deliberately does not touch `display` here. */
 .footer-cookie-btn {
   display: none;
   padding: 0;
   border: 0;
   background: none;
   font: inherit;
-  color: var(--laara-link);
+  color: var(--laara-text-inverse);
   text-decoration: underline;
   text-underline-offset: 0.2em;
   cursor: pointer;
 }
-.js .footer-cookie-btn { display: inline; }
+.footer-cookie-btn:hover,
+.footer-cookie-btn:focus-visible { color: var(--laara-link-on-dark); }
+.js .footer-cookie-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--laara-touch-min);
+}
 
