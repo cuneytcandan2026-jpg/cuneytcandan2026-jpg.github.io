@@ -122,7 +122,7 @@
       <div class="laara-container">
         <p class="laara-label reveal">Legal</p>
         <h1 class="laara-display reveal">Privacy policy</h1>
-        <p class="reveal">Last updated: 4 September 2026.</p>
+        <p class="reveal">Last updated: 7 September 2026.</p>
       </div>
     </section>
 
@@ -144,14 +144,20 @@
           <p>We don't collect payment details, and we don't ask for anything beyond what's needed to understand your enquiry and reply to it.</p>
 
           <h2>Cookies and tracking</h2>
-          <p>We don't run analytics, advertising pixels or any tracking cookies on this site. The only thing stored in your browser is the quote form's progress (which step you're on and what you've filled in so far), held in <code>sessionStorage</code> so you don't lose your answers if you accidentally reload the page. It stays on your device, is never sent to us, and clears itself once you close the tab.</p>
+          <p>When you first visit, we ask whether you're happy for us to use Google Analytics. That's a tool that tells us, in aggregate, how people find and use the site &mdash; which pages get visited, roughly where in the world visitors are, what kind of device they're on. We use it to make the site better. It doesn't tell us who you are.</p>
+          <p>Google Analytics only runs if you choose <strong>Accept</strong>. Nothing analytics-related loads before then, and if you choose <strong>Reject</strong> it stays off. If you accept, Google sets two cookies in your browser (named <code>_ga</code> and <code>_ga_&lt;code&gt;</code>) that let it recognise a repeat visit without identifying you. They last up to two years. We don't run any advertising cookies or tracking pixels.</p>
+          <p>You can change your mind at any time using the <strong>Cookie settings</strong> link in the footer of any page. Choosing Reject there stops Analytics loading on your next page view; to clear cookies already set, clear cookies for this site in your browser.</p>
+          <p>Separately from all of that, the quote form saves its own progress (which step you're on and what you've typed so far) in your browser's <code>sessionStorage</code>, so you don't lose your answers if you reload the page. It's needed for the form to work, it never leaves your device, and it clears itself when you close the tab.</p>
 
           <h2>How we use it</h2>
           <p>We use what you submit to respond to your enquiry, put together a quote, and follow up about a project you've asked us about. We don't use it for marketing you haven't asked for, and we don't sell or rent it to anyone.</p>
           <p>Our legal basis for this is that processing is necessary to take steps at your request before entering into a contract with you (UK GDPR Article 6(1)(b)), or, where that doesn't quite fit, our legitimate interest in responding to enquiries sent to us (Article 6(1)(f)).</p>
+          <p>Where you've agreed to Google Analytics, our legal basis for that is your consent (Article 6(1)(a)). You can withdraw it at any time using the Cookie settings link in the footer, and doing so doesn't affect anything we did while consent was in place.</p>
 
           <h2>Who we share it with</h2>
-          <p>Form submissions are delivered to us through Web3Forms, a third-party form-processing service that receives what you submit and emails it to us. We don't share your information with anyone else, and we don't use any other third-party processors on this site at present.</p>
+          <p>Form submissions are delivered to us through Web3Forms, a third-party form-processing service that receives what you submit and emails it to us.</p>
+          <p>If you accept Google Analytics, the usage information it collects is processed on our behalf by Google (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland) and may be transferred to Google servers outside the UK under the safeguards in <a href="https://business.safety.google/adsprocessorterms/" target="_blank" rel="noopener">Google's data-processing terms</a>. Google Analytics 4 does not record your IP address, and our setup doesn't switch on any advertising or cross-site features &mdash; the consent you give is for analytics only. Google's own privacy practices are described in the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google privacy policy</a>. If you don't accept Analytics, none of this happens.</p>
+          <p>We don't share your information with anyone else.</p>
           <p>This site itself is hosted on GitHub Pages. Simply loading a page may generate standard server access logs (such as IP address and browser type) on GitHub's infrastructure as part of normal web hosting — we don't receive or process these logs ourselves.</p>
 
           <h2>How long we keep it</h2>
@@ -165,6 +171,7 @@
             <li>Delete your information, or restrict how we use it</li>
             <li>Provide your information in a portable format</li>
             <li>Stop processing your information where we're relying on legitimate interest</li>
+            <li>Withdraw consent you've given, such as to Google Analytics &mdash; use the Cookie settings link in the footer</li>
           </ul>
           <p>To ask about any of these, email <a href="mailto:hello@laaradigital.co.uk">hello@laaradigital.co.uk</a>. If you're unhappy with how we've handled your information, you also have the right to complain to the UK's data protection regulator, the Information Commissioner's Office (ICO), at <a href="https://ico.org.uk" target="_blank" rel="noopener">ico.org.uk</a> or on 0303 123 1113.</p>
 
@@ -220,12 +227,14 @@
       <div class="footer-bottom">
         <span>© 2026 Laara Digital. All rights reserved.</span>
         <a href="/privacy.html">Privacy policy</a>
+        <button type="button" class="footer-cookie-btn" data-consent-open>Cookie settings</button>
         <span>laaradigital.co.uk</span>
       </div>
     </div>
   </footer>
 
   <script src="/assets/js/main.js" defer></script>
+  <script src="/assets/js/analytics-consent.js" defer></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "6956849201db4c5a971351a4aeb36a4c"}'></script>
 </body>
 </html>

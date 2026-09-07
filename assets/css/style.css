@@ -4057,3 +4057,89 @@ img { max-width: 100%; display: block; }
 }
 .form-privacy-note a { color: inherit; }
 
+/* ============================================================
+   COOKIE CONSENT BANNER
+   Injected by assets/js/analytics-consent.js — only when the
+   visitor has made no choice yet, or when they reopen it from
+   the footer "Cookie settings" button. GA4 (gtag.js) loads
+   only after "Accept"; see that file's header comment.
+   ============================================================ */
+.consent-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60; /* above the sticky mobile CTA (55), below the mobile nav (200) */
+  background: var(--laara-bg-inverse);
+  color: var(--laara-text-inverse);
+  border-top: 1.5px solid rgb(var(--laara-paper-rgb) / 0.15);
+  box-shadow: var(--laara-shadow-lg);
+  padding: var(--laara-space-4);
+  padding-bottom: calc(var(--laara-space-4) + env(safe-area-inset-bottom));
+}
+.consent-banner-inner {
+  max-width: 60rem;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--laara-space-4) var(--laara-space-6);
+}
+.consent-banner-text {
+  flex: 1 1 20rem;
+  margin: 0;
+  font-size: var(--laara-fs-small);
+  line-height: 1.6;
+  color: var(--laara-text-inverse);
+}
+.consent-banner-text a {
+  color: var(--laara-link-on-dark); /* green on ink — 7.20:1 */
+  text-decoration: underline;
+}
+.consent-banner-actions {
+  display: flex;
+  gap: var(--laara-space-3);
+  flex-shrink: 0;
+}
+.consent-banner-actions .laara-btn { flex: 1 1 auto; }
+@media (max-width: 479px) {
+  .consent-banner-actions { width: 100%; }
+}
+
+/* The banner isn't inside a .laara-inverse wrapper, so bring the outline
+   (ink by default, invisible here) and the outline-style secondary button
+   in line with the dark-surface treatment used elsewhere. */
+.consent-banner :focus-visible { outline-color: var(--laara-focus-ring-dark); }
+.consent-banner .laara-btn--secondary {
+  color: var(--laara-text-inverse);
+  border-color: var(--laara-text-inverse);
+}
+.consent-banner .laara-btn--secondary:hover {
+  background: var(--laara-text-inverse);
+  color: var(--laara-ink);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .consent-banner {
+    transform: translateY(100%);
+    transition: transform var(--laara-dur-section) var(--laara-ease-out);
+  }
+  .consent-banner[data-visible] { transform: translateY(0); }
+}
+
+/* Footer "Cookie settings" trigger — visually matches the adjacent
+   "Privacy policy" link. Hidden with no JS, since it can do nothing then
+   (same reveal-gate pattern as the rest of the site's JS-only affordances). */
+.footer-cookie-btn {
+  display: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--laara-link);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+.js .footer-cookie-btn { display: inline; }
+
