@@ -125,12 +125,21 @@
      ink text drops below 4.5:1. Do not darken these further. */
   --laara-green-hover:      #0FA05D;   /* button hover  — ink 5.58:1 AA */
   --laara-green-active:     #0E9455;   /* button pressed — ink 4.84:1 AA */
-  --laara-green-text:       #0D844D;   /* green TEXT on light bg — 4.75:1 AA  */
+  --laara-green-text:       #0D7F4A;   /* green TEXT on light bg — 4.53:1 on
+                                          --laara-surface, AA (was #0D844D,
+                                          4.27:1 on surface — failed. Sign-off
+                                          2026-09-05, see docs/BUILD-PROMPT.md
+                                          Decision 5)                         */
   --laara-green-deep:       #0A633A;   /* green TEXT, AAA — 7.35:1            */
 
   /* ---------- Functional neutrals ---------- */
-  --laara-text-grey:        #6E747D;   /* secondary text — 4.71:1 on white, AA */
-  --laara-muted-grey:       #8A8F98;   /* 3.25:1 — LARGE TEXT / non-text only  */
+  --laara-text-grey:        #6A6F78;   /* secondary text — 4.53:1 on
+                                          --laara-surface, AA (was #6E747D,
+                                          4.24:1 on surface — failed. Sign-off
+                                          2026-09-05, see docs/BUILD-PROMPT.md
+                                          Decision 5)                         */
+  --laara-muted-grey:       #8A8F98;   /* 2.92:1 on surface — LARGE TEXT /
+                                          non-text only, never body/label text */
   --laara-border:           #E4E4E1;
   --laara-surface:          #F3F3F1;
   --laara-ink-raised:       #1b1c20;   /* one step above ink: the fake browser
@@ -149,9 +158,9 @@
   --laara-bg-inverse:       var(--laara-ink);
 
   --laara-text:             var(--laara-ink);        /* 18.08:1 on paper */
-  --laara-text-secondary:   var(--laara-text-grey);  /*  4.71:1 on white */
+  --laara-text-secondary:   var(--laara-text-grey);  /*  4.53:1 on surface */
   --laara-text-inverse:     var(--laara-paper);      /* 18.08:1 on ink   */
-  --laara-link:             var(--laara-green-text); /*  4.75:1 on white */
+  --laara-link:             var(--laara-green-text); /*  4.53:1 on surface */
   --laara-link-on-dark:     var(--laara-green);      /*  7.20:1 on ink   */
 
   --laara-accent:           var(--laara-green);
@@ -443,9 +452,11 @@ a:hover { text-decoration: underline; }
 
 .laara-text-secondary { color: var(--laara-text-secondary); }
 
-/* Muted grey is 3.25:1 — large text only. Never body copy. */
+/* Was --laara-muted-grey (2.92:1 on surface) — fails AA at this size
+   (--laara-fs-small = 14px, not large text). Switched to --laara-text-grey.
+   Sign-off 2026-09-05, see docs/BUILD-PROMPT.md Decision 5. */
 .laara-label {
-  color: var(--laara-muted-grey);
+  color: var(--laara-text-grey);
   font-size: var(--laara-fs-small);
   font-weight: var(--laara-fw-semibold);
   letter-spacing: 0.06em;

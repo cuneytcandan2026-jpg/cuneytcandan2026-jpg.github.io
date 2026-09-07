@@ -3426,7 +3426,10 @@ img { max-width: 100%; display: block; }
 .wizard-review-row dt { color: var(--laara-text-secondary); margin: 0; }
 .wizard-review-row dd { margin: 0; text-align: right; font-weight: var(--laara-fw-semibold); color: var(--laara-text); }
 .wizard-reassurance { color: var(--laara-text-secondary); margin: 0 0 var(--laara-space-2); }
-.wizard-privacy-note { color: var(--laara-muted-grey); font-size: var(--laara-fs-small); margin: 0; }
+/* Was --laara-muted-grey (2.92:1 on surface) — fails AA at this size
+   (--laara-fs-small = 14px, not large text), and this is real legal-notice
+   text. Same fix as .laara-label, see docs/BUILD-PROMPT.md Decision 5. */
+.wizard-privacy-note { color: var(--laara-text-grey); font-size: var(--laara-fs-small); margin: 0; }
 
 /* ---------- Success state ---------- */
 .wizard-success { text-align: center; padding: var(--laara-space-12) var(--laara-space-8); }
@@ -3863,11 +3866,6 @@ img { max-width: 100%; display: block; }
 .founder-identity-place svg { width: 16px; height: 16px; flex-shrink: 0; }
 
 /* ---------- Story column ---------- */
-/* --laara-muted-grey is 3.25:1 and documented large-text-only, but
-   .laara-label renders at 14px. Scoped to this section only — the token
-   itself is a brand value with an open decision against it (see
-   docs/BUILD-PROMPT.md Decision 5), so it is not edited here. */
-.founder .laara-label { color: var(--laara-text-secondary); }
 .founder-body > h2 { margin: 0 0 var(--laara-space-4); }
 .founder-lede {
   margin: 0 0 var(--laara-space-6);
