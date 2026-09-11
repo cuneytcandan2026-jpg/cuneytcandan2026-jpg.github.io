@@ -441,7 +441,10 @@ img { max-width: 100%; display: block; }
 .hero-content {
   position: relative;
   z-index: 1;
-  max-width: 40rem;
+  /* Wide enough that the display-weight H1 wraps to 3 lines rather than 5 at
+     desktop widths — a narrower container here pushed hero content past the
+     viewport height and under the fixed .consent-banner on first visit. */
+  max-width: 52rem;
 }
 
 /* ---------- Fluid hero on inner pages (Services/Work/Pricing/About/Contact) ----------
