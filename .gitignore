@@ -40,6 +40,8 @@ _qa_sweep.mjs
 _verify_heroes.mjs
 _verify_nav_dropdown.mjs
 _verify_work_scrub.mjs
+_verify_process_pin.mjs
+_verify_process_fallbacks.mjs
 _founder_shots.mjs
 _sector_shots.mjs
 generate-image.mjs
@@ -51,3 +53,6 @@ generate-image.mjs
 # and they advertise the toolchain and its versions.
 package.json
 package-lock.json
+
+# Local design prototypes — never ship. Ported into the real page on approval.
+prototypes/
