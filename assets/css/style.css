@@ -2850,8 +2850,9 @@ img { max-width: 100%; display: block; }
   50% { transform: scale(2); opacity: 0; }
 }
 
-/* ---- social row: the markup ships commented out in every page until real
-   profile URLs are confirmed, so these rules are inert until then. ---- */
+/* ---- social row: live in all 19 footers, Instagram only. The LinkedIn and
+   Facebook <li>s sit commented out inside the same <ul> until those profiles
+   exist, so these rules already carry more icons than are currently shown. ---- */
 .footer-social {
   list-style: none;
   display: flex;
@@ -2871,14 +2872,45 @@ img { max-width: 100%; display: block; }
   transition: color var(--laara-dur-micro) var(--laara-ease-out),
               background var(--laara-dur-micro) var(--laara-ease-out);
 }
+/* Labelled variant, in use while Instagram is the only live profile. A single
+   unlabelled 20px glyph read as a stray mark rather than a link, and the 44px
+   box centres it so it also sat visually indented from the flush-left copy
+   above. The pill mirrors .footer-status directly above it (999px literal and
+   the same border — there is no pill-radius token), but rests in
+   --laara-text-inverse like the other footer links, not the badge's muted grey.
+
+   Two-class selector on purpose, per .laara-card--wash: the single-class form
+   ties .footer-social a at (0,1,1) and would win on source order alone.
+
+   This block sits ABOVE the :hover rule deliberately. .footer-social a:hover is
+   also (0,2,1), so it only keeps winning the colour swap by being later. Moving
+   this below it would freeze the link at its resting colour on hover. */
+.footer-social.footer-social--labelled a {
+  width: auto;
+  gap: var(--laara-space-2);
+  padding-inline: var(--laara-space-4);
+  border: 1.5px solid rgb(var(--laara-paper-rgb) / 0.16);
+  border-radius: 999px;
+  color: var(--laara-text-inverse);
+  font-weight: var(--laara-fw-semibold);
+  text-decoration: none;
+}
+
 .footer-social a:hover,
 .footer-social a:focus-visible {
   color: var(--laara-link-on-dark);
   background: rgb(var(--laara-paper-rgb) / 0.06);
 }
+/* (0,3,1), so it outranks the shared :hover rule above and only tints the
+   border — colour and background still come from that rule. */
+.footer-social.footer-social--labelled a:hover,
+.footer-social.footer-social--labelled a:focus-visible {
+  border-color: rgb(var(--laara-green-rgb) / 0.5);
+}
+
 /* Literal px matches the .sticky-mobile-cta-btn svg precedent — there is no
    icon-glyph size token. */
-.footer-social svg { width: 20px; height: 20px; }
+.footer-social svg { width: 20px; height: 20px; flex-shrink: 0; }
 
 /* ---- link columns ---- */
 .footer-col h3 {
@@ -3673,6 +3705,33 @@ img { max-width: 100%; display: block; }
 }
 @media (min-width: 1080px) {
   .contact-methods-strip { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ---------- Instagram follow line, under the methods strip ----------
+   --laara-fs-body (16px), not --laara-fs-small: this is a real sentence of
+   body copy, and 16px is the floor. --laara-link resolves to the AA-safe
+   --laara-green-text, never raw #12B76A. The inline link is exempt from the
+   44px target-size minimum under WCAG 2.2 SC 2.5.8's inline exception, which
+   is the same basis as .form-privacy-note a. */
+.contact-social-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--laara-space-2);
+  margin: var(--laara-space-6) 0 0;
+  font-size: var(--laara-fs-body);
+  color: var(--laara-text-grey);
+  text-align: center;
+}
+.contact-social-line svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--laara-link);
+}
+.contact-social-line a {
+  color: var(--laara-link);
+  font-weight: var(--laara-fw-bold);
 }
 
 /* ============================================================
