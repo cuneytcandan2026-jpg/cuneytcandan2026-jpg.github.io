@@ -30,6 +30,7 @@ CLAUDE.md
 docs/
 Insparation/
 brand/laara-brand-tokens.json
+Laara-Animation-Breakdown-and-Claude-Code-Prompt.md
 
 # Dev-only scripts, moved into scripts/ to declutter the root (2026-09-05).
 # Bare filenames below still match at any depth, so this covers scripts/*.
