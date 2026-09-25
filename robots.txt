@@ -8,6 +8,7 @@ Disallow: /docs/
 Disallow: /Insparation/
 Disallow: /scripts/
 Disallow: /reference-videos/
+Disallow: /booking-backend/
 Disallow: /screenshot.mjs
 Disallow: /serve.mjs
 Disallow: /package.json
@@ -15,7 +16,7 @@ Disallow: /package-lock.json
 
 Sitemap: https://laaradigital.co.uk/sitemap.xml
 
-# NOTE: docs/, Insparation/, scripts/, reference-videos/, package.json and
+# NOTE: docs/, Insparation/, scripts/, reference-videos/, booking-backend/, package.json and
 # package-lock.json are not on the deploy branch at all (untracked, kept
 # on disk only). Keep the rules anyway as defence in depth in case
 # anything is ever re-tracked. screenshot.mjs and serve.mjs ARE deployed

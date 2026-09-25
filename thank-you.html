@@ -239,6 +239,20 @@
     var params = new URLSearchParams(window.location.search);
     var type = (params.get('type') || '').trim();
     var name = (params.get('name') || '').trim();
+    // Book-a-call (booking.js) also passes the slot's start and video/phone.
+    function callWhen() {
+      var d = new Date((params.get('start') || '').trim());
+      if (isNaN(d.getTime())) return '';
+      try {
+        var day = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', weekday: 'long', day: 'numeric', month: 'long' }).format(d);
+        var p = {};
+        new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })
+          .formatToParts(d).forEach(function (x) { p[x.type] = x.value; });
+        var h = Number(p.hour), m = Number(p.minute);
+        return ' on ' + day + ' at ' + (h % 12 || 12) + (m ? ':' + p.minute : '') + (h >= 12 ? 'pm' : 'am') + ' (UK time)';
+      } catch (e) { return ''; }
+    }
+    var byPhone = params.get('via') === 'phone';
     var copy = {
       quote: {
         heading: 'Project received' + (name ? ', thanks ' + name + '.' : '.'),
@@ -247,6 +261,14 @@
       enquiry: {
         heading: 'Message received' + (name ? ', thanks ' + name + '.' : '.'),
         body: "We've got your message and will usually reply within one working day."
+      },
+      call: {
+        heading: "You're booked in" + (name ? ', ' + name + '.' : '.'),
+        body: 'Your free 20-minute call is booked' + callWhen() + '. ' +
+          (byPhone
+            ? "We'll ring you then, and we've emailed you a Google Calendar invite."
+            : "We've emailed you a Google Calendar invite with the video link.") +
+          " Accept it to add the call to your calendar. Can't see it? Check your spam folder."
       }
     };
     var selected = copy[type];

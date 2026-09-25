@@ -3662,7 +3662,9 @@ img { max-width: 100%; display: block; }
 
 /* ---------- Success state ---------- */
 .wizard-success { text-align: center; padding: var(--laara-space-12) var(--laara-space-8); }
-.wizard-success-check { display: inline-flex; margin-bottom: var(--laara-space-6); width: 72px; height: 72px; }
+/* align-self: the card is a flex column (.laara-card), where text-align
+   doesn't move an inline-flex child — without it the tick sat left. */
+.wizard-success-check { display: inline-flex; align-self: center; margin-bottom: var(--laara-space-6); width: 72px; height: 72px; }
 .wizard-success-check svg { width: 100%; height: 100%; }
 .wizard-success-check-circle {
   stroke: var(--laara-green);
@@ -4412,3 +4414,265 @@ img { max-width: 100%; display: block; }
   min-height: var(--laara-touch-min);
 }
 
+
+/* ============================================================
+   BOOK A CALL — book-a-call.html + assets/js/booking.js
+   Two steps: pick a day and time, then your details. Reuses the
+   quote wizard's step, field, error and control classes; only
+   the layout, calendar, time list and aside are new here.
+   ============================================================ */
+.booking-layout { display: grid; gap: var(--laara-space-8); align-items: start; }
+@media (min-width: 1080px) {
+  .booking-layout { grid-template-columns: minmax(0, 1fr) 20rem; gap: var(--laara-space-10); }
+}
+
+.booking-card {
+  padding: var(--laara-space-5);
+  box-shadow: var(--laara-shadow);
+  scroll-margin-top: calc(var(--laara-header-h-desktop) + var(--laara-space-4));
+}
+@media (min-width: 768px) {
+  .booking-card { padding: var(--laara-space-8); }
+}
+
+/* No JS → the direct-contact block; JS → the widget. Same .js gate as
+   the site's reveal primitives, so the page is never left empty. */
+.booking-form { display: none; }
+.js .booking-form { display: block; }
+/* Same guard as .quote-wizard-section: booking.js toggles `hidden` on
+   elements whose own display rule (grid/flex) would otherwise beat it. */
+.booking-section [hidden] { display: none !important; }
+.js .booking-nojs { display: none; }
+.booking-nojs h2 { margin: 0 0 var(--laara-space-3); font-size: var(--laara-fs-h3); }
+.booking-nojs p { color: var(--laara-text-secondary); margin: 0 0 var(--laara-space-6); }
+.booking-botcheck { display: none; }
+
+.booking-form fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.booking-form legend { padding: 0; margin-bottom: var(--laara-space-2); }
+.booking-form .wizard-step h2 { margin: 0 0 var(--laara-space-6); font-size: var(--laara-fs-h3); }
+.booking-form [data-step-heading]:focus:not(:focus-visible) { outline: none; }
+
+.booking-contact-actions { display: flex; flex-wrap: wrap; gap: var(--laara-space-3); }
+.laara-card .booking-contact-actions .laara-btn { margin-top: 0; }
+@media (max-width: 559px) {
+  .laara-card .booking-contact-actions .laara-btn { flex: 1 1 100%; }
+}
+
+.booking-unavailable {
+  padding: var(--laara-space-6);
+  background: var(--laara-surface);
+  border-radius: var(--laara-radius-card);
+}
+.booking-unavailable > p:first-child { margin: 0 0 var(--laara-space-5); font-weight: var(--laara-fw-semibold); }
+.booking-unavailable-alt { margin: var(--laara-space-5) 0 0; color: var(--laara-text-secondary); }
+
+/* ---------- Step 1: calendar beside times on wide cards ---------- */
+.booking-pick { display: grid; gap: var(--laara-space-8); }
+@media (min-width: 900px) {
+  .booking-pick { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: var(--laara-space-10); }
+}
+
+/* A rolling view (this week → last bookable week), not a month grid:
+   the ~3-week window would otherwise hide next month behind an arrow. */
+.booking-cal-month { margin: 0 0 var(--laara-space-4); font-size: var(--laara-fs-body-lg); font-weight: var(--laara-fw-bold); }
+
+/* --booking-cols comes from booking.js: only weekdays that ever open get a
+   column, so Mon–Fri hours give a 5-wide grid and ≥44px days at 360px. */
+.booking-cal-weekdays,
+.booking-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--booking-cols, 5), minmax(0, 1fr));
+  gap: var(--laara-space-2);
+}
+.booking-cal-weekdays span {
+  padding-bottom: var(--laara-space-2);
+  text-align: center;
+  font-size: var(--laara-fs-small);
+  font-weight: var(--laara-fw-bold);
+  color: var(--laara-text-secondary);
+}
+
+.booking-day {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.1;
+  min-height: var(--laara-control-h);
+  padding: 0;
+  border: 1.5px solid transparent;
+  border-radius: var(--laara-radius);
+  /* Free days carry a green tint so they read as bookable at a glance;
+     the number is --laara-green-deep for contrast on the tint. */
+  background: rgb(var(--laara-green-rgb) / 0.12);
+  color: var(--laara-green-deep);
+  font-family: var(--laara-font);
+  font-size: var(--laara-fs-body);
+  font-weight: var(--laara-fw-bold);
+  cursor: pointer;
+  transition: background var(--laara-dur-micro) var(--laara-ease-in-out),
+              color var(--laara-dur-micro) var(--laara-ease-in-out),
+              border-color var(--laara-dur-micro) var(--laara-ease-in-out),
+              transform var(--laara-dur-micro) var(--laara-ease-out);
+}
+.booking-day:hover:not(:disabled) { border-color: var(--laara-ink); }
+.booking-day:active:not(:disabled) { transform: scale(0.95); }
+.booking-day:focus-visible { outline: 3px solid var(--laara-focus-ring); outline-offset: 2px; }
+.booking-day[aria-pressed="true"] { background: var(--laara-ink); border-color: var(--laara-ink); color: var(--laara-paper); }
+.booking-day:disabled {
+  background: transparent;
+  color: var(--laara-muted-grey); /* inactive control: exempt from 1.4.3 */
+  font-weight: var(--laara-fw-regular);
+  cursor: default;
+}
+/* Today: the brand dot under the number. */
+.booking-day.is-today::after {
+  content: "";
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  border-radius: 50%;
+  background: var(--laara-green);
+}
+/* "Oct" above the 1st of a new month. */
+.booking-day-month { font-size: 0.6875rem; font-weight: var(--laara-fw-bold); letter-spacing: 0.04em; text-transform: uppercase; }
+.booking-day--skeleton,
+.booking-time--skeleton { background: var(--laara-surface); cursor: default; }
+.booking-time--skeleton { display: block; width: 100%; min-height: var(--laara-control-h); border-radius: 999px; }
+
+/* ---------- Step 1: times ---------- */
+.booking-times h3 { margin: 0 0 var(--laara-space-1); font-size: var(--laara-fs-body-lg); }
+.booking-tz-note { margin: 0 0 var(--laara-space-4); font-size: var(--laara-fs-small); color: var(--laara-text-secondary); }
+/* 4.75rem still fits "12:30pm" and gives three columns at 360px wide
+   (card inner ≈ 269px there: 3 × 76 + 2 gaps). */
+.booking-time-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(4.75rem, 1fr));
+  gap: var(--laara-space-3);
+}
+.booking-time-list.has-local { grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); }
+.pill-toggle-btn.booking-time {
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  min-height: var(--laara-control-h);
+  padding: var(--laara-space-2);
+  font-size: var(--laara-fs-body);
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--laara-text);
+}
+.pill-toggle-btn.booking-time[aria-checked="true"] { color: var(--laara-paper); }
+.booking-time-local { font-size: var(--laara-fs-small); font-weight: var(--laara-fw-regular); color: var(--laara-text-secondary); }
+.booking-time[aria-checked="true"] .booking-time-local { color: var(--laara-on-dark-muted); }
+
+/* Live region: announces the chosen day/time. Quiet unless it's an error. */
+.booking-cal-status { min-height: 1.7em; }
+.booking-cal-status:not([data-state]) { font-weight: var(--laara-fw-regular); color: var(--laara-text-secondary); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .booking-day--skeleton,
+  .booking-time--skeleton { animation: booking-pulse 1.4s var(--laara-ease-in-out) infinite alternate; }
+}
+@keyframes booking-pulse { from { opacity: 1; } to { opacity: 0.45; } }
+@media (prefers-reduced-motion: reduce) {
+  .booking-day { transition: none; }
+  .booking-day:active:not(:disabled) { transform: none; }
+}
+
+/* ---------- Step 2: details ---------- */
+.booking-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--laara-space-4);
+  margin-bottom: var(--laara-space-8);
+  padding: var(--laara-space-4) var(--laara-space-5);
+  background: var(--laara-surface);
+  border-left: 4px solid var(--laara-green);
+  border-radius: var(--laara-radius-card);
+}
+.booking-summary > div { flex: 1 1 13rem; }
+.booking-summary-label { margin: 0; font-size: var(--laara-fs-small); font-weight: var(--laara-fw-bold); color: var(--laara-text-secondary); }
+.booking-summary-when { margin: 0; font-weight: var(--laara-fw-bold); }
+/* The wizard's Edit link is 32px tall; here it is one of only two ways back
+   to the calendar, so it gets a full touch target. */
+.booking-summary .wizard-review-edit { flex-shrink: 0; min-height: var(--laara-touch-min); padding-inline: var(--laara-space-3); }
+
+.booking-hint { margin: var(--laara-space-2) 0 0; font-size: var(--laara-fs-small); color: var(--laara-text-secondary); }
+.booking-calltype .pill-toggle-btn { font-size: var(--laara-fs-body); color: var(--laara-text); }
+.booking-calltype .pill-toggle-btn[aria-checked="true"] { color: var(--laara-paper); }
+.booking-turnstile { margin-bottom: var(--laara-space-4); }
+.booking-turnstile:empty { display: none; }
+
+/* ---------- Aside: what happens on the call (ink, floating plane) ---------- */
+.booking-aside {
+  padding: var(--laara-space-8);
+  background: var(--laara-bg-inverse);
+  color: var(--laara-text-inverse);
+  border-radius: var(--laara-radius-lg);
+  box-shadow: var(--laara-shadow-lg);
+}
+@media (min-width: 1080px) {
+  .booking-aside { position: sticky; top: calc(var(--laara-header-h-desktop) + var(--laara-space-6)); }
+}
+.booking-aside h2 { margin: 0 0 var(--laara-space-6); font-size: var(--laara-fs-h3); color: inherit; }
+.booking-expect { display: grid; gap: var(--laara-space-5); margin: 0; padding: 0; list-style: none; counter-reset: booking-expect; }
+.booking-expect li {
+  position: relative;
+  padding-left: var(--laara-space-10);
+  color: var(--laara-on-dark-muted);
+  counter-increment: booking-expect;
+}
+.booking-expect li::before {
+  content: counter(booking-expect, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: var(--laara-fw-black);
+  color: var(--laara-link-on-dark); /* green on ink, 7.20:1 */
+}
+.booking-expect strong { display: block; color: var(--laara-text-inverse); }
+.booking-aside-alt {
+  margin: var(--laara-space-8) 0 0;
+  padding-top: var(--laara-space-6);
+  border-top: 1px solid rgb(var(--laara-paper-rgb) / 0.15);
+  color: var(--laara-on-dark-muted);
+}
+.booking-aside a { color: var(--laara-link-on-dark); font-weight: var(--laara-fw-bold); white-space: nowrap; }
+.booking-aside :focus-visible { outline-color: var(--laara-focus-ring-dark); }
+
+/* ---------- Contact page: the prompt that links here ---------- */
+.contact-book-call {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--laara-space-4) var(--laara-space-5);
+  margin-bottom: var(--laara-space-8);
+  padding: var(--laara-space-6);
+  border-left: 4px solid var(--laara-green);
+  box-shadow: var(--laara-shadow-sm);
+}
+.contact-book-call .laara-dot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--laara-radius);
+  background: var(--laara-ink);
+}
+.contact-book-call .laara-dot svg { width: 22px; height: 22px; color: var(--laara-green); }
+.contact-book-call-text { flex: 1 1 16rem; }
+.contact-book-call-text h2 { margin: 0 0 var(--laara-space-1); font-size: var(--laara-fs-body-lg); }
+.contact-book-call-text p { margin: 0; color: var(--laara-text-secondary); }
+.laara-card.contact-book-call .laara-btn { margin-top: 0; }
+@media (max-width: 559px) {
+  .laara-card.contact-book-call .laara-btn { flex: 1 1 100%; }
+}

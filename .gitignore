@@ -57,3 +57,15 @@ package-lock.json
 
 # Local design prototypes — never ship. Ported into the real page on approval.
 prototypes/
+
+# Book-a-call backend: Google Apps Script source, pasted into the Apps Script
+# editor by hand (see booking-backend/SETUP.md). It never runs from this repo,
+# and it is the resale "booking kit", so it stays off the public deploy.
+# Not version-controlled here: back it up, or move it to a private repo.
+booking-backend/
+_booking_gs.mjs
+_booking_slots_test.mjs
+_booking_mock.mjs
+_booking_shots.mjs
+_booking_checks.mjs
+_booking_admin_preview.mjs
