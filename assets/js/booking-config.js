@@ -5,11 +5,11 @@
 window.LaaraBookingConfig = {
   // The "Laara Booking API" Apps Script web-app URL (ends in /exec).
   // Empty = the page shows the call/WhatsApp/email fallback instead of a calendar.
-  apiUrl: '',
+  apiUrl: 'https://script.google.com/macros/s/AKfycbxL8WyZPPef2r4_AuY7m3u7WR-GJP4Ys8u5fMGBikdWVVv10SN0zu43tvR-UOMPbgQg/exec',
 
   // Cloudflare Turnstile SITE key (public — the secret lives in Apps Script).
   // On localhost booking.js swaps in Cloudflare's always-pass test key.
-  turnstileSiteKey: '',
+  turnstileSiteKey: '0x4AAAAAAFGwAeLn-J6usgWD',
 
   timeZone: 'Europe/London',
   timeZoneLabel: 'UK time',
