@@ -4605,8 +4605,10 @@ img { max-width: 100%; display: block; }
 .booking-summary .wizard-review-edit { flex-shrink: 0; min-height: var(--laara-touch-min); padding-inline: var(--laara-space-3); }
 
 .booking-hint { margin: var(--laara-space-2) 0 0; font-size: var(--laara-fs-small); color: var(--laara-text-secondary); }
-.booking-calltype .pill-toggle-btn { font-size: var(--laara-fs-body); color: var(--laara-text); }
-.booking-calltype .pill-toggle-btn[aria-checked="true"] { color: var(--laara-paper); }
+.booking-calltype .pill-toggle-btn,
+.booking-source .pill-toggle-btn { font-size: var(--laara-fs-body); color: var(--laara-text); }
+.booking-calltype .pill-toggle-btn[aria-checked="true"],
+.booking-source .pill-toggle-btn[aria-checked="true"] { color: var(--laara-paper); }
 .booking-turnstile { margin-bottom: var(--laara-space-4); }
 .booking-turnstile:empty { display: none; }
 

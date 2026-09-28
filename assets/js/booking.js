@@ -49,6 +49,7 @@
     date: null,
     slot: null,
     callType: 'video',
+    source: '',
     turnstileId: null,
     token: ''
   };
@@ -353,6 +354,19 @@
     });
   }
 
+  /* Optional "how did you hear about us?" pills. Unlike call type, this one
+     starts with nothing selected and tapping the checked pill again clears
+     it — it's a nice-to-have for the visitor, not a required choice. */
+  function bindSource() {
+    root.querySelectorAll('[data-source]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const already = btn.getAttribute('aria-checked') === 'true';
+        state.source = already ? '' : btn.dataset.source;
+        root.querySelectorAll('[data-source]').forEach((b) => b.setAttribute('aria-checked', String(!already && b === btn)));
+      });
+    });
+  }
+
   /* ============================================================
      TURNSTILE — loaded only when step 2 opens, only on this page
      ============================================================ */
@@ -462,6 +476,7 @@
         website: $('#bk-website').value.trim(),
         notes: $('#bk-notes').value.trim(),
         callType: state.callType,
+        source: state.source,
         turnstileToken: state.token,
         botcheck: form.querySelector('[name="botcheck"]').checked ? 'on' : ''
       };
@@ -523,6 +538,7 @@
     bindTimes();
     bindSteps();
     bindCallType();
+    bindSource();
     bindForm();
     loadSlots();
   }
