@@ -293,7 +293,7 @@
 
   function slotSentence(slot) {
     const key = zonedParts(slot.start, TZ).key;
-    return `${formatKey(key, { weekday: 'long', day: 'numeric', month: 'long' })} at ${ukClock(slot.start)}`;
+    return `${formatKey(key, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })} at ${ukClock(slot.start)}`;
   }
 
   /* ============================================================
