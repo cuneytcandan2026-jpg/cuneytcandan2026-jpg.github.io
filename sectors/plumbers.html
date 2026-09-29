@@ -8,20 +8,20 @@
        fully visible instead of blank. Must stay ABOVE the <link rel=stylesheet>
        tags: an inline script placed after them blocks on the CSSOM. -->
   <script>document.documentElement.classList.add('js');</script>
-  <title>Restaurant &amp; café website design UK — Laara Digital</title>
-  <meta name="description" content="Restaurant and café website design across the UK, including takeaways. Online menus, easy reservations, live in 7–10 days, from £797." />
-  <link rel="canonical" href="https://laaradigital.co.uk/sectors/food.html" />
-  <meta property="og:title" content="Restaurant &amp; café website design — Laara Digital" />
-  <meta property="og:description" content="Online menu, easy reservations. Fill tables faster." />
+  <title>Website design for plumbers — Laara Digital</title>
+  <meta name="description" content="Website design for plumbers across the UK. Get found when customers search for a plumber nearby. Live in 7–10 days, fixed pricing from £797." />
+  <link rel="canonical" href="https://laaradigital.co.uk/sectors/plumbers.html" />
+  <meta property="og:title" content="Website design for plumbers — Laara Digital" />
+  <meta property="og:description" content="A website that makes your phone ring. Fixed pricing from £797." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://laaradigital.co.uk/sectors/food.html" />
+  <meta property="og:url" content="https://laaradigital.co.uk/sectors/plumbers.html" />
   <meta property="og:image" content="https://laaradigital.co.uk/brand_assets/00_Upload_Ready/06_Web_Assets/og-image.png" />
   <meta property="og:locale" content="en_GB" />
   <meta property="og:site_name" content="Laara Digital" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Restaurant &amp; café website design — Laara Digital" />
-  <meta name="twitter:description" content="Online menu, easy reservations. Fill tables faster." />
+  <meta name="twitter:title" content="Website design for plumbers — Laara Digital" />
+  <meta name="twitter:description" content="A website that makes your phone ring. Fixed pricing from £797." />
   <meta name="twitter:image" content="https://laaradigital.co.uk/brand_assets/00_Upload_Ready/06_Web_Assets/og-image.png" />
 
   <link rel="icon" href="/brand_assets/00_Upload_Ready/04_Favicons/favicon.ico" sizes="any" />
@@ -49,8 +49,8 @@
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "Restaurant & café website design",
-        "item": "https://laaradigital.co.uk/sectors/food.html"
+        "name": "Website design for plumbers",
+        "item": "https://laaradigital.co.uk/sectors/plumbers.html"
       }
     ]
   }
@@ -58,11 +58,10 @@
   <!-- Sector Service. name/description mirror the visible h1 and meta
        description — if either changes, change this too.
 
-       Deliberately NOT a LocalBusiness. The business is declared once, on the
-       homepage, as a ProfessionalService with @id #organization; every sector
-       page points at that same @id via provider. Declaring a LocalBusiness per
-       sector page would assert six separate businesses at six addresses, which
-       is false and is the kind of thing that earns a manual action.
+       Deliberately NOT a LocalBusiness block. The business is declared once,
+       on the homepage, with @id #organization; this page points at that same
+       @id via provider. A LocalBusiness per sector page would assert several
+       businesses at several addresses, which is false.
 
        The £797 entry price traces to docs/pricing.md. No aggregateRating or
        review — none exist. -->
@@ -70,11 +69,11 @@
   {
     "@context": "https://schema.org",
     "@type": "Service",
-    "@id": "https://laaradigital.co.uk/sectors/food.html#service",
-    "name": "Restaurant & café website design",
-    "serviceType": "Website design for restaurants, cafés and takeaways",
-    "url": "https://laaradigital.co.uk/sectors/food.html",
-    "description": "Restaurant and café website design across the UK, including takeaways. Online menus, easy reservations, live in 7-10 days, from £797.",
+    "@id": "https://laaradigital.co.uk/sectors/plumbers.html#service",
+    "name": "Website design for plumbers",
+    "serviceType": "Website design for plumbers",
+    "url": "https://laaradigital.co.uk/sectors/plumbers.html",
+    "description": "Website design for plumbers across the UK. Get found when customers search for a plumber nearby. Live in 7–10 days, fixed pricing from £797.",
     "provider": {
       "@id": "https://laaradigital.co.uk/#organization"
     },
@@ -84,7 +83,7 @@
     },
     "audience": {
       "@type": "BusinessAudience",
-      "audienceType": "Restaurants, cafés and takeaways"
+      "audienceType": "Plumbers and heating engineers"
     },
     "offers": {
       "@type": "Offer",
@@ -104,31 +103,23 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Can I put my menu on the website?",
+        "name": "Can my website show that I do emergency call-outs?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. We add your menu as clear, readable text rather than a hard-to-read PDF, and we can keep it up to date through a care plan."
+          "text": "Yes. We put your phone number and a WhatsApp button on every page, and say plainly when you’re available, including out of hours if you offer it. On a phone, customers can call you with one tap."
         }
       },
       {
         "@type": "Question",
-        "name": "Can customers book a table online?",
+        "name": "Can I list the areas I cover?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Professional and Growth sites include a booking or enquiry system, so people can get in touch or book at any hour. See booking & enquiry systems."
+          "text": "Yes. We add a clear list of the areas you work in, which also helps people nearby find you. See our local SEO service for how that works."
         }
       },
       {
         "@type": "Question",
-        "name": "Do you build websites for takeaways?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. See our page on takeaway website design. Our sites show your menu and make it easy to call or message you, but we don’t build online ordering or card-payment systems as part of our packages."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How much does a website for a restaurant or café cost?",
+        "name": "How much does a website for a plumber cost?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Packages start from £797 for Essential, £1,497 for Professional and £2,497 for Growth. We agree the price before we build, so there are no surprises. See the full pricing."
@@ -140,6 +131,14 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "An Essential site can be live in 7–10 days. A Professional site takes 10–14 days, and a full Growth site takes 2–3 weeks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can customers book a job online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Professional and Growth sites include a booking or enquiry system, so customers can ask for a job at any hour. See booking & enquiry systems."
         }
       }
     ]
@@ -208,11 +207,10 @@
   </header>
 
   <main id="main">
-
     <section class="page-hero">
       <div class="laara-container">
-        <h1 class="laara-display reveal">Restaurant &amp; café website design</h1>
-        <p class="reveal">Online menu, easy reservations. Fill tables faster.</p>
+        <h1 class="laara-display reveal">Website design for plumbers</h1>
+        <p class="reveal">Get found when someone nearby needs a plumber. More calls, less chasing.</p>
         <div class="hero-actions reveal">
           <a class="laara-btn laara-btn--primary" href="/contact.html">Get your free quote</a>
         </div>
@@ -225,20 +223,21 @@
         <div class="case-study reveal">
           <div class="case-study-media">
             <picture>
-              <source type="image/webp" srcset="/assets/img/sector-food.webp" />
-              <img src="/assets/img/sector-food.jpg" alt="A chef plating food at the kitchen pass of a small independent UK café, with diners seated nearby" width="1536" height="1024" loading="lazy" decoding="async" />
+              <source type="image/webp" srcset="/assets/img/sector-trades.webp" />
+              <img src="/assets/img/sector-trades.jpg" alt="A UK tradesperson repairing a boiler in a residential kitchen, tools laid out on a cloth" width="1536" height="1024" loading="lazy" decoding="async" />
             </picture>
           </div>
           <div class="case-study-body">
-            <p class="laara-label section-eyebrow reveal">Built for food</p>
-            <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Restaurants, cafés and takeaways</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-            <p>Most diners check the menu online before they call or walk in. A site that shows your menu clearly and makes booking a table simple wins the booking before your competitor's phone even rings. We can add a <a href="/services/booking-systems.html">booking system</a> so tables get reserved without a phone call.</p>
+            <p class="laara-label section-eyebrow reveal">Built for plumbers</p>
+            <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Your phone rings when you&rsquo;re easy to find</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
+            <p>Most plumbers get work from people searching on their phone, often in a hurry. If your business doesn&rsquo;t show up, or your site is slow and hard to read on a small screen, the call goes to the next name on the list. We build sites that load quickly, show your number on every screen and say clearly what you do and where. Every site includes our <a href="/services/local-seo.html">local SEO setup</a>, so you show up for the searches that matter.</p>
             <ul class="laara-list">
-              <li>An out-of-date menu, or no menu online at all</li>
-              <li>No easy way to book a table outside opening hours</li>
-              <li>Low visibility when someone searches nearby</li>
-              <li>No support once the site is live</li>
+              <li>No website, or one that looks out of date</li>
+              <li>Nothing to show for emergency and out-of-hours call-outs</li>
+              <li>Customers can&rsquo;t tell which areas you cover</li>
+              <li>Big agency quotes that don&rsquo;t suit a one-van business</li>
             </ul>
+            <p>Working in another trade? See <a href="/sectors/trades.html">website design for tradesmen</a> or <a href="/sectors/electricians.html">website design for electricians</a>.</p>
           </div>
         </div>
       </div>
@@ -249,24 +248,24 @@
       <div class="laara-container">
         <div class="section-head">
           <p class="laara-label section-eyebrow reveal">See it in action</p>
-          <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">A real client site</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
+          <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">What a plumbing site can look like</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
         </div>
 
         <div class="work-grid">
-          <a class="work-card reveal" href="/work.html#ooh-la-la">
+          <a class="work-card reveal" href="/work.html#harris-plumbing">
             <div class="work-media">
               <picture>
-                <source type="image/webp" srcset="/assets/img/work-ooh-la-la.webp" />
-                <img src="/assets/img/work-ooh-la-la.jpg" alt="Homepage of Ooh La La Brasserie, a café and brasserie website built by Laara Digital" width="1280" height="900" loading="lazy" decoding="async" />
+                <source type="image/webp" srcset="/assets/img/work-harris-plumbing.webp" />
+                <img src="/assets/img/work-harris-plumbing.jpg" alt="Homepage of Harris Plumbing & Heating, a concept demo website for a trades business" width="1280" height="900" loading="lazy" decoding="async" />
               </picture>
               <div class="work-overlay">
                 <div class="work-tags">
-                  <span class="work-pill">Food</span>
-                  <span class="work-pill work-pill--ghost">Real client</span>
+                  <span class="work-pill">Trades</span>
+                  <span class="work-pill work-pill--ghost">Concept demo</span>
                 </div>
                 <div class="work-caption">
-                  <h3>Ooh La La Brasserie</h3>
-                  <p>Enfield, North London. A menu-led site built for walk-ins and bookings.</p>
+                  <h3>Harris Plumbing &amp; Heating</h3>
+                  <p>A fictional plumbing business showing what a trades site can look like.</p>
                   <span class="work-cta">Read case study →</span>
                 </div>
               </div>
@@ -281,8 +280,8 @@
       <div class="laara-container">
         <div class="section-head">
           <p class="laara-label section-eyebrow reveal">Pricing</p>
-          <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Clear, fixed pricing for food businesses</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-          <p class="reveal-support">Every project starts with <a href="/services/website-design.html">website design &amp; build</a>, scoped up front for restaurants and cafés like yours.</p>
+          <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Clear, fixed pricing for plumbers</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
+          <p class="reveal-support">Every project starts with <a href="/services/website-design.html">website design &amp; build</a>, scoped up front for plumbing businesses like yours.</p>
         </div>
 
         <div class="pricing-grid">
@@ -324,8 +323,26 @@
       </div>
     </section>
 
-    <!-- PROCESS -->
+
+    <!-- CARE PLANS -->
     <section class="laara-section section-alt">
+      <div class="laara-container">
+        <div class="section-head">
+          <p class="laara-label section-eyebrow reveal">Care plans</p>
+          <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Keep your site working after launch</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
+          <p class="reveal-support">Every site can launch onto a <a href="/services/care-plans.html">care plan</a>, so you&rsquo;re never left on your own. Need to change your opening hours or the areas you cover? Minor copy changes are included from Maintain up.</p>
+        </div>
+        <ul class="laara-list reveal">
+          <li><strong>Maintain, £97 a month:</strong> hosting, security, updates and minor copy changes</li>
+          <li><strong>Grow, £297 a month:</strong> everything in Maintain, plus monthly SEO, Google Business Profile management and basic reporting</li>
+          <li><strong>Market, £497 a month:</strong> everything in Grow, plus Google and Meta Ads management and a monthly content post</li>
+        </ul>
+        <p class="reveal"><a class="laara-btn laara-btn--secondary" href="/services/care-plans.html">See care plans</a></p>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="laara-section">
       <div class="laara-container">
         <div class="section-head">
           <p class="laara-label section-eyebrow reveal">How it works</p>
@@ -336,7 +353,7 @@
           <li class="process-step reveal">
             <span class="process-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
             <h3>1. Call</h3>
-            <p>A short 20-minute conversation about your restaurant or café and what's not working now.</p>
+            <p>A short 20-minute conversation about your plumbing business and what&rsquo;s not working now.</p>
           </li>
           <li class="process-step reveal">
             <span class="process-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
@@ -352,23 +369,6 @@
       </div>
     </section>
 
-    <!-- SPECIALIST PAGES -->
-    <section class="laara-section">
-      <div class="laara-container">
-        <div class="section-head">
-          <p class="laara-label section-eyebrow reveal">Specialist pages</p>
-          <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Looking for something more specific?</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-        </div>
-
-        <div class="sector-chip-grid reveal">
-          <a class="sector-chip" href="/sectors/takeaways.html">
-            <span class="sector-chip-name">Takeaways</span>
-            <span class="sector-chip-note">Menu, hours and a one-tap call button</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
     <!-- FAQ -->
     <section class="laara-section section-alt" id="faq">
       <div class="laara-container">
@@ -378,26 +378,26 @@
           <p class="reveal-support">If you&rsquo;re wondering something else, just <a href="/contact.html">ask us directly</a>.</p>
         </div>
         <div class="faq-list">
-          <details class="faq-item reveal">
-            <summary>Can I put my menu on the website?</summary>
-            <p>Yes. We add your menu as clear, readable text rather than a hard-to-read PDF, and we can keep it up to date through a <a href="/services/care-plans.html">care plan</a>.</p>
-          </details>
-          <details class="faq-item reveal">
-            <summary>Can customers book a table online?</summary>
-            <p>Professional and Growth sites include a booking or enquiry system, so people can get in touch or book at any hour. See <a href="/services/booking-systems.html">booking &amp; enquiry systems</a>.</p>
-          </details>
-          <details class="faq-item reveal">
-            <summary>Do you build websites for takeaways?</summary>
-            <p>Yes. See our page on <a href="/sectors/takeaways.html">takeaway website design</a>. Our sites show your menu and make it easy to call or message you, but we don&rsquo;t build online ordering or card-payment systems as part of our packages.</p>
-          </details>
-          <details class="faq-item reveal">
-            <summary>How much does a website for a restaurant or caf&eacute; cost?</summary>
-            <p>Packages start from £797 for Essential, £1,497 for Professional and £2,497 for Growth. We agree the price before we build, so there are no surprises. See the <a href="/pricing.html">full pricing</a>.</p>
-          </details>
-          <details class="faq-item reveal">
-            <summary>How long will it take?</summary>
-            <p>An Essential site can be live in 7&ndash;10 days. A Professional site takes 10&ndash;14 days, and a full Growth site takes 2&ndash;3 weeks.</p>
-          </details>
+        <details class="faq-item reveal">
+          <summary>Can my website show that I do emergency call-outs?</summary>
+          <p>Yes. We put your phone number and a WhatsApp button on every page, and say plainly when you&rsquo;re available, including out of hours if you offer it. On a phone, customers can call you with one tap.</p>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Can I list the areas I cover?</summary>
+          <p>Yes. We add a clear list of the areas you work in, which also helps people nearby find you. See our <a href="/services/local-seo.html">local SEO service</a> for how that works.</p>
+        </details>
+        <details class="faq-item reveal">
+          <summary>How much does a website for a plumber cost?</summary>
+          <p>Packages start from £797 for Essential, £1,497 for Professional and £2,497 for Growth. We agree the price before we build, so there are no surprises. See the <a href="/pricing.html">full pricing</a>.</p>
+        </details>
+        <details class="faq-item reveal">
+          <summary>How long will it take?</summary>
+          <p>An Essential site can be live in 7&ndash;10 days. A Professional site takes 10&ndash;14 days, and a full Growth site takes 2&ndash;3 weeks.</p>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Can customers book a job online?</summary>
+          <p>Professional and Growth sites include a booking or enquiry system, so customers can ask for a job at any hour. See <a href="/services/booking-systems.html">booking &amp; enquiry systems</a>.</p>
+        </details>
         </div>
       </div>
     </section>
@@ -406,7 +406,7 @@
     <section class="laara-section laara-inverse final-cta">
       <div class="laara-container">
         <h2 class="reveal-heading"><span class="reveal-heading__inner"><span class="reveal-heading__text">Ready to get more enquiries?</span><span class="reveal-heading__sweep" aria-hidden="true"></span></span></h2>
-        <p class="reveal-support">Tell us about your restaurant or café and we'll recommend the right package. No pressure, no jargon.</p>
+        <p class="reveal-support">Tell us about your plumbing business and we&rsquo;ll recommend the right package. No pressure, no jargon.</p>
         <div class="final-cta-actions reveal">
           <a class="laara-btn laara-btn--primary" href="/contact.html">Get your free quote</a>
           <a class="laara-btn laara-btn--secondary" href="tel:+447896352996">Call us</a>

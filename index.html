@@ -8,11 +8,11 @@
        fully visible instead of blank. Must stay ABOVE the <link rel=stylesheet>
        tags: an inline script placed after them blocks on the CSSOM. -->
   <script>document.documentElement.classList.add('js');</script>
-  <title>Website design for UK trades &amp; small businesses — Laara Digital</title>
-  <meta name="description" content="Fast, mobile-ready websites for UK trades, salons, restaurants and local service businesses. Live in as little as 7&ndash;10 days, fixed pricing from £797." />
+  <title>Web design for UK trades &amp; small businesses — Laara Digital</title>
+  <meta name="description" content="Small business website design for UK trades, salons, restaurants and more. Fast, mobile-ready, live in 7&ndash;10 days, fixed pricing from £797." />
   <link rel="canonical" href="https://laaradigital.co.uk/" />
   <meta property="og:title" content="Laara Digital — Websites that get you found" />
-  <meta property="og:description" content="Fast, mobile-ready websites for UK trades, salons, restaurants and local service businesses. Live in as little as 7&ndash;10 days, fixed pricing from £797." />
+  <meta property="og:description" content="Small business website design for UK trades, salons, restaurants and more. Fast, mobile-ready, live in 7&ndash;10 days, fixed pricing from £797." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://laaradigital.co.uk/" />
   <meta property="og:image" content="https://laaradigital.co.uk/brand_assets/00_Upload_Ready/06_Web_Assets/og-image.png" />
@@ -21,7 +21,7 @@
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Laara Digital — Websites that get you found" />
-  <meta name="twitter:description" content="Fast, mobile-ready websites for UK trades, salons, restaurants and local service businesses. Live in as little as 7&ndash;10 days, fixed pricing from £797." />
+  <meta name="twitter:description" content="Small business website design for UK trades, salons, restaurants and more. Fast, mobile-ready, live in 7&ndash;10 days, fixed pricing from £797." />
   <meta name="twitter:image" content="https://laaradigital.co.uk/brand_assets/00_Upload_Ready/06_Web_Assets/og-image.png" />
 
   <link rel="icon" href="/brand_assets/00_Upload_Ready/04_Favicons/favicon.ico" sizes="any" />
@@ -42,11 +42,18 @@
        Laara Digital - it is how Google ties the brand to its off-site profiles,
        so an unowned or invented URL is worse than no URL. Add a platform here
        only when its profile is live, and keep it in step with the footer
-       social row (docs/pending-items.md). -->
+       social row (docs/pending-items.md).
+
+       Typed as both ProfessionalService and LocalBusiness. schema.org already
+       makes ProfessionalService a subtype of LocalBusiness, so the second type
+       is belt-and-braces for any checker that looks for the literal string. It
+       stays a SINGLE entity: sector and service pages reach it through
+       provider @id, so LocalBusiness is never redeclared per page (that would
+       assert several businesses at several addresses). -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
+    "@type": ["ProfessionalService", "LocalBusiness"],
     "@id": "https://laaradigital.co.uk/#organization",
     "name": "Laara Digital",
     "url": "https://laaradigital.co.uk/",
